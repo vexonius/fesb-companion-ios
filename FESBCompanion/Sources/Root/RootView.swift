@@ -15,31 +15,31 @@ struct RootView: View {
             TabView(selection: $selection) {
                 HomeView(store: homeStore, name: .xcard)
                     .tabItem {
-                        Label(String.xcard, systemImage: "creditcard")
+                        Label(String.xcard, image: .studentCard)
                     }
                     .tag(1)
 
                 HomeView(store: homeStore, name: .attendance)
                     .tabItem {
-                        Label(String.attendance, systemImage: "chart.pie")
+                        Label(String.attendance, image: .pieChart)
                     }
                     .tag(2)
 
                 HomeView(store: homeStore, name: .home)
                     .tabItem {
-                        Label(String.home, systemImage: "house")
+                        Label(String.home, image: "home")
                     }
                     .tag(3)
 
                 HomeView(store: homeStore, name: .timetable)
                     .tabItem {
-                        Label(String.timetable, systemImage: "calendar")
+                        Label(String.timetable, image: .calendar)
                     }
                     .tag(4)
 
                 HomeView(store: homeStore, name: String.studomat)
                     .tabItem {
-                        Label(String.studomat, systemImage: "books.vertical")
+                        Label(String.studomat, image: .hexagon)
                     }
                     .tag(5)
             }
