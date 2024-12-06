@@ -7,6 +7,7 @@ struct RootView: View {
     @Bindable var store: StoreOf<RootReducer>
 
     @Bindable var homeStore = Store(initialState: HomeReducer.State(), reducer: HomeReducer.init)
+    @Bindable var attendanceStore = Store(initialState: AttendanceReducer.State(), reducer: AttendanceReducer.init)
 
     @State private var selection: Int = 1
 
@@ -17,7 +18,7 @@ struct RootView: View {
                     Label(String.xcard, image: .card)
                 }
                 .tag(1)
-            HomeView(store: homeStore, name: .attendance)
+            AttendanceView(store: attendanceStore)
                 .tabItem {
                     Label(String.attendance, image: .pieChart)
                 }
