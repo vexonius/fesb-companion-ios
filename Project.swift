@@ -18,6 +18,13 @@ let project = Project(
                         "UIColorName": "",
                         "UIImageName": "",
                     ],
+                    "UIAppFonts": [
+                        "Inter-Regular.otf",
+                        "Inter-SemiBold.otf",
+                        "Inter-Bold.otf",
+                        "Inter-Medium.otf",
+                        "Inter-Black.otf"
+                    ]
                 ]
             ),
             sources: ["FESBCompanion/Sources/**"],
