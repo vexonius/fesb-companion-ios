@@ -2,7 +2,7 @@ import SwiftUI
 
 extension Font {
 
-    static let fontHeading1 = Font.custom("Inter-Regular", size: 32)
+    static let fontHeading1 = Font.custom("Inter-Black", size: 32)
     static let fontHeading2 = Font.custom("Inter-SemiBold", size: 24)
     static let fontHeading3 = Font.custom("Inter-SemiBold", size: 20)
     static let fontHeading4 = Font.custom("Inter-SemiBold", size: 16)
