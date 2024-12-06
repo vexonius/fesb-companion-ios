@@ -41,9 +41,6 @@ struct RootView: View {
                 }
                 .tag(5)
         }
-        .sheet(item: $store.scope(state: \.presentedItem, action: \.presentedItem)) { store in
-            WelcomeView(store: store)
-        }
     }
 
 }

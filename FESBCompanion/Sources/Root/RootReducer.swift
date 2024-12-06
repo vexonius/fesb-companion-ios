@@ -6,7 +6,6 @@ struct RootReducer {
     @ObservableState
     struct State: Equatable {
         var router = StackState<AppRouter.State>()
-        @Presents var presentedItem: WelcomeReducer.State? = WelcomeReducer.State()
 
     }
 
@@ -14,7 +13,6 @@ struct RootReducer {
 
         case view(View)
         case router(StackAction<AppRouter.State, AppRouter.Action>)
-        case presentedItem(PresentationAction<WelcomeReducer.Action>)
 
         enum View: Equatable {}
 
@@ -26,9 +24,6 @@ struct RootReducer {
             default:
                 return .none
             }
-        }
-        .ifLet(\.$presentedItem, action: \.presentedItem) {
-            WelcomeReducer()
         }
     }
 }
