@@ -86,6 +86,23 @@
         }
       }
     },
+    "summerSemester" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Summer Semester"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ljetni semestar"
+          }
+        }
+      }
+    },
     "timetable" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -99,6 +116,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Raspored"
+          }
+        }
+      }
+    },
+    "winterSemester" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Winter Semester"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zimski semestar"
           }
         }
       }
