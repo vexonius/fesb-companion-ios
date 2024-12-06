@@ -5,8 +5,8 @@ public struct Chip: View {
     private let text: String
     private let isSelected: Bool
 
-    private let topPadding: CGFloat = 7
-    private let bottomPadding: CGFloat = 6
+    private let topPadding: CGFloat = 10
+    private let bottomPadding: CGFloat = 9
     private let horizontalPadding: CGFloat = 12
     private let strokeWidth: CGFloat = 2
     private let strokeInset: CGFloat = 1
@@ -25,7 +25,7 @@ public struct Chip: View {
             .padding(.horizontal, horizontalPadding)
             .background(isSelected ? Color.accentBlue : Color.container)
             .clipShape(Capsule())
-            .animation(.easeIn, value: isSelected)
+            .animation(.easeIn(duration: 0.2), value: isSelected)
     }
 
 }
