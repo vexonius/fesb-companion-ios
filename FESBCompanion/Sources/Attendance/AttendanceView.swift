@@ -6,6 +6,10 @@ struct AttendanceView: View {
 
     @Bindable var store: StoreOf<AttendanceReducer>
 
+    private let adaptiveColumn = [
+        GridItem(.adaptive(minimum: 20, maximum: 20))
+    ]
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -29,7 +33,8 @@ struct AttendanceView: View {
             }
             .refreshable {
                 send(.refresh)
-                try? await Task.sleep(nanoseconds: 10 * 1_000_000_000)
+                // TODO: Remove this after implementation
+                try? await Task.sleep(nanoseconds: 5 * 1_000_000_000)
             }
             .maxSize()
             .background(Color.surface.ignoresSafeArea())
@@ -62,19 +67,22 @@ struct AttendanceView: View {
                 .foregroundStyle(Color.text)
                 .padding(.bottom, .base)
 
-            HStack(spacing: 6) {
-                progressDot(color: .green)
-                progressDot(color: .green)
-                progressDot(color: .green)
-                progressDot(color: .green)
-                progressDot(color: .green)
-                progressDot(color: .surface)
-                progressDot(color: .surface)
-                progressDot(color: .surface)
-                progressDot(color: .red)
+            LazyVGrid(columns: adaptiveColumn, spacing: 6) {
+                ForEach(0..<model.attended, id: \.self) { item in
+                    progressDot(color: .accentGreen)
+                }
+
+                let emptySpots = model.total - model.absent - model.attended
+                ForEach(0..<emptySpots, id: \.self) { item in
+                    progressDot(color: .surface)
+                }
+
+                ForEach(0..<model.absent, id: \.self) { item in
+                    progressDot(color: .accentRed)
+                }
             }
 
-            Text(String(format: .attendanceProgressFormat, model.attended, model.required))
+            Text(String(format: .attendanceProgressFormat, model.attended, model.required, model.required))
                 .font(Font.body)
                 .foregroundStyle(Color.text)
                 .padding(.bottom, .base)
