@@ -6,15 +6,69 @@ struct AttendanceReducer {
     @ObservableState
     struct State: Equatable {
 
+        var viewState: Loadable<[AttendanceModel]> = .initial
+
+        var attendanceItems: [AttendanceModel] = []
         var selectedSemester: Semester?
 
-        var attendanceItems: [AttendanceModel] {
-            guard let semester = selectedSemester else { return attendance }
+    }
 
-            return attendance.filter { $0.semester == semester }
+    enum Action: Equatable, ViewAction {
+
+        case fetched
+        case filterItems(bySemester: Semester)
+        case view(View)
+
+        enum View: Equatable {
+
+            case fetch
+            case refresh
+            case select(semester: Semester)
+
         }
 
-        private var attendance: [AttendanceModel] = [
+    }
+
+    var body: some Reducer<State, Action> {
+        Reduce { state, action in
+            switch action {
+            case .view(.fetch):
+                state.viewState = .loading
+
+                return .run { send in
+                    try? await Task.sleep(for: .seconds(5))
+                    await send(.fetched)
+                }
+            case .view(.select(let semester)):
+                state.selectedSemester = semester == state.selectedSemester ? nil : semester
+
+                guard let semester = state.selectedSemester else {
+                    state.viewState = .loaded(state.attendanceItems)
+                    return .none
+                }
+
+                return .send(.filterItems(bySemester: semester))
+            case .fetched:
+                state.attendanceItems = State.dummyItems
+                state.viewState = .loaded(State.dummyItems)
+
+                return .none
+            case .filterItems(let semester):
+                let filteredItems = state.attendanceItems.filter { $0.semester == semester }
+                state.viewState = .loaded(filteredItems)
+
+                return .none
+            default:
+                return .none
+            }
+        }
+    }
+}
+
+private extension AttendanceReducer.State {
+
+    static var dummyItems: [AttendanceModel] {
+        [
             AttendanceModel(
                 class: "Math",
                 semester: .winter,
@@ -34,33 +88,6 @@ struct AttendanceReducer {
                 ]
             )
         ]
-
     }
 
-    enum Action: Equatable, ViewAction {
-
-        case view(View)
-
-        enum View: Equatable {
-
-            case fetch
-            case refresh
-            case select(semester: Semester)
-
-        }
-
-    }
-
-    var body: some Reducer<State, Action> {
-        Reduce { state, action in
-            switch action {
-            case .view(.select(let semester)):
-                state.selectedSemester = semester == state.selectedSemester ? nil : semester
-
-                return .none
-            default:
-                return .none
-            }
-        }
-    }
 }

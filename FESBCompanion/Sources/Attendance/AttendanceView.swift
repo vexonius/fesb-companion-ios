@@ -12,29 +12,15 @@ struct AttendanceView: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                HStack(spacing: Padding.base.rawValue) {
-                    ForEach(Semester.allCases) { semester in
-                        Chip(text: semester.title, isSelected: semester == store.selectedSemester)
-                            .onTapGesture { send(.select(semester: semester)) }
-                    }
+            ZStack {
+                switch store.viewState {
+                case .loading, .initial:
+                    AttendanceSkeleton()
+                case .loaded(let items), .fetchingMore(let items), .refreshing(let items):
+                    render(items: items)
+                case .empty:
+                    EmptyView()
                 }
-                .padding(.top, .base)
-                .padding(.bottom, .medium)
-                .padding(.horizontal, .medium)
-                .maxWidth(alignment: .leading)
-
-                LazyVStack(spacing: Padding.medium.value) {
-                    ForEach(store.attendanceItems) { model in
-                        attendanceCard(model: model)
-                    }
-                }
-                .padding(.horizontal, .medium)
-            }
-            .refreshable {
-                send(.refresh)
-                // TODO: Remove this after implementation
-                try? await Task.sleep(nanoseconds: 5 * 1_000_000_000)
             }
             .maxSize()
             .background(Color.surface.ignoresSafeArea())
@@ -43,8 +29,33 @@ struct AttendanceView: View {
         }
     }
 
+    private func render(items: [AttendanceModel]) -> some View {
+        ScrollView {
+            HStack(spacing: .base) {
+                ForEach(Semester.allCases) { semester in
+                    Chip(text: semester.title, isSelected: semester == store.selectedSemester)
+                        .onTapGesture { send(.select(semester: semester)) }
+                }
+            }
+            .padding(.top, .base)
+            .padding(.bottom, .medium)
+            .padding(.horizontal, .medium)
+            .maxWidth(alignment: .leading)
+
+            LazyVStack(spacing: .medium) {
+                ForEach(store.attendanceItems) { model in
+                    attendanceCard(model: model)
+                }
+            }
+            .padding(.horizontal, .medium)
+        }
+        .refreshable {
+            send(.refresh)
+        }
+    }
+
     private func attendanceCard(model: AttendanceModel) -> some View {
-        VStack(alignment: .leading, spacing: Padding.small.value) {
+        VStack(alignment: .leading, spacing: .small) {
             Text(model.class)
                 .font(Font.headline)
                 .foregroundStyle(Color.text)
@@ -63,7 +74,7 @@ struct AttendanceView: View {
     public func attendanceItem(model: AttendanceItem) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(model.type)
-                .font(Font.body)
+                .font(.body)
                 .foregroundStyle(Color.text)
                 .padding(.bottom, .base)
 
