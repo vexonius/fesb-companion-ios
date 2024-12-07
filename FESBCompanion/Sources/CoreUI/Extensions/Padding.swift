@@ -40,7 +40,7 @@ public extension View {
 
 extension VStack {
 
-    init (spacing: Padding, alignment: HorizontalAlignment = .center, content: () -> Content) {
+    init (alignment: HorizontalAlignment = .center, spacing: Padding, @ViewBuilder content: () -> Content) {
         self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
     }
 
@@ -48,7 +48,7 @@ extension VStack {
 
 extension LazyVStack {
 
-    init (spacing: Padding, alignment: HorizontalAlignment = .center, content: () -> Content) {
+    init (alignment: HorizontalAlignment = .center, spacing: Padding, @ViewBuilder content: () -> Content) {
         self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
     }
 
@@ -56,7 +56,7 @@ extension LazyVStack {
 
 extension HStack {
 
-    init (spacing: Padding, alignment: VerticalAlignment = .center, content: () -> Content) {
+    init (alignment: VerticalAlignment = .center, spacing: Padding,  @ViewBuilder content: () -> Content) {
         self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
     }
 
@@ -64,7 +64,7 @@ extension HStack {
 
 extension LazyHStack {
 
-    init (spacing: Padding, alignment: VerticalAlignment = .center, content: () -> Content) {
+    init (alignment: VerticalAlignment = .center, spacing: Padding, @ViewBuilder content: () -> Content) {
         self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
     }
 
