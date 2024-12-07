@@ -2,20 +2,21 @@ import SwiftUI
 
 struct AttendanceSkeleton: View {
 
-    @State private var isInitialState = true
+    @State private var isInitialState = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: .medium) {
             HStack(spacing: .base) {
                 Capsule()
                     .foregroundColor(Color.container)
-                    .frame(width: 80, height: 30)
+                    .frame(width: 120, height: 30)
 
                 Capsule()
                     .foregroundColor(Color.container)
-                    .frame(width: 80, height: 30)
+                    .frame(width: 120, height: 30)
             }
             .maxWidth(alignment: .leading)
+            .padding(.top, .base)
 
             RoundedRectangle(cornerRadius: 30)
                 .maxWidth()
@@ -28,17 +29,18 @@ struct AttendanceSkeleton: View {
                 .foregroundColor(Color.container)
         }
         .maxWidth()
+        .pushedTop()
         .padding(.horizontal, .medium)
         .mask {
             LinearGradient(
-                gradient: .init(colors: [.white, .black, .white]),
-                startPoint: (isInitialState ? .init(x: -0.3, y: -0.3) : .init(x: 1, y: 1)),
-                endPoint: (isInitialState ? .init(x: 0, y: 0) : .init(x: 1.3, y: 1.3))
+                gradient: .init(colors: [.black.opacity(0.4), .black, .black.opacity(0.4)]),
+                startPoint: (isInitialState ? .init(x: 2, y: 2) : .init(x: 0, y: 0)),
+                endPoint: (isInitialState ? .init(x: 1, y: 1) : .init(x: -2, y: -2))
             )
         }
         .animation(.linear(duration: 1.5).delay(0.25).repeatForever(autoreverses: false), value: isInitialState)
         .onAppear {
-            isInitialState = false
+            isInitialState = true
         }
     }
 
