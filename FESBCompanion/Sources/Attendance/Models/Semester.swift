@@ -5,8 +5,8 @@ enum Semester: Int, CaseIterable {
 
     var title: String {
         switch self {
-        case .winter: .summerSemester
-        case .summer: .winterSemester
+        case .winter: .winterSemester
+        case .summer: .summerSemester
         }
     }
 

@@ -25,8 +25,8 @@ struct AttendanceView: View {
             .maxSize()
             .background(Color.surface.ignoresSafeArea())
             .navigationTitle(String.attendance)
-            .onAppear { send(.fetch) }
         }
+        .onAppear { send(.fetch) }
     }
 
     private func render(items: [AttendanceModel]) -> some View {
@@ -37,13 +37,12 @@ struct AttendanceView: View {
                         .onTapGesture { send(.select(semester: semester)) }
                 }
             }
-            .padding(.top, .base)
-            .padding(.bottom, .medium)
+            .padding(.vertical, .base)
             .padding(.horizontal, .medium)
             .maxWidth(alignment: .leading)
 
             LazyVStack(spacing: .medium) {
-                ForEach(store.attendanceItems) { model in
+                ForEach(items) { model in
                     attendanceCard(model: model)
                 }
             }
@@ -57,7 +56,7 @@ struct AttendanceView: View {
     private func attendanceCard(model: AttendanceModel) -> some View {
         VStack(alignment: .leading, spacing: .small) {
             Text(model.class)
-                .font(Font.headline)
+                .font(Font.fontHeading3)
                 .foregroundStyle(Color.text)
                 .padding(.bottom, .base)
 
@@ -72,11 +71,10 @@ struct AttendanceView: View {
     }
 
     public func attendanceItem(model: AttendanceItem) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: .base) {
             Text(model.type)
-                .font(.body)
+                .font(.fontLabelMedium)
                 .foregroundStyle(Color.text)
-                .padding(.bottom, .base)
 
             LazyVGrid(columns: adaptiveColumn, spacing: 6) {
                 ForEach(0..<model.attended, id: \.self) { item in
@@ -94,9 +92,8 @@ struct AttendanceView: View {
             }
 
             Text(String(format: .attendanceProgressFormat, model.attended, model.required, model.required))
-                .font(Font.body)
+                .font(.fontBodyMedium)
                 .foregroundStyle(Color.text)
-                .padding(.bottom, .base)
             }
         }
 

@@ -18,7 +18,7 @@ public struct Chip: View {
 
     public var body: some View {
         Text(text)
-            .font(.system(size: 14, weight: .medium))
+            .font(.fontButtonSmall)
             .foregroundColor(.text)
             .padding(.top, topPadding)
             .padding(.bottom, bottomPadding)

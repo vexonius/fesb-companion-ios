@@ -6,37 +6,34 @@ struct RootView: View {
 
     @Bindable var store: StoreOf<RootReducer>
 
-    @Bindable var homeStore = Store(initialState: HomeReducer.State(), reducer: HomeReducer.init)
-    @Bindable var attendanceStore = Store(initialState: AttendanceReducer.State(), reducer: AttendanceReducer.init)
-
-    @State private var selection: Int = 1
+    @State private var selection: Int = 2
 
     var body: some View {
         TabView(selection: $selection) {
-            HomeView(store: homeStore, name: .xcard)
+            HomeView(store: store.scope(state: \.home, action: \.home), name: .xcard)
                 .tabItem {
                     Label(String.xcard, image: .card)
                 }
                 .tag(1)
-            AttendanceView(store: attendanceStore)
+            AttendanceView(store: store.scope(state: \.attendance, action: \.attendance))
                 .tabItem {
                     Label(String.attendance, image: .pieChart)
                 }
                 .tag(2)
 
-            HomeView(store: homeStore, name: .home)
+            HomeView(store: store.scope(state: \.home, action: \.home),  name: .home)
                 .tabItem {
                     Label(String.home, image: "home")
                 }
                 .tag(3)
 
-            HomeView(store: homeStore, name: .timetable)
+            HomeView(store: store.scope(state: \.home, action: \.home),  name: .timetable)
                 .tabItem {
                     Label(String.timetable, image: .calendar)
                 }
                 .tag(4)
 
-            HomeView(store: homeStore, name: String.studomat)
+            HomeView(store: store.scope(state: \.home, action: \.home),  name: String.studomat)
                 .tabItem {
                     Label(String.studomat, image: .hexagon)
                 }

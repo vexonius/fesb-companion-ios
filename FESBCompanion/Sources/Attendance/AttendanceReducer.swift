@@ -7,9 +7,9 @@ struct AttendanceReducer {
     struct State: Equatable {
 
         var viewState: Loadable<[AttendanceModel]> = .initial
-
-        var attendanceItems: [AttendanceModel] = []
         var selectedSemester: Semester?
+
+        fileprivate var attendanceItems: [AttendanceModel] = []
 
     }
 
@@ -58,7 +58,9 @@ struct AttendanceReducer {
                 state.viewState = .loaded(filteredItems)
 
                 return .none
-            default:
+            case .view(.refresh):
+                // TODO: Implement refresh logic
+
                 return .none
             }
         }
@@ -75,15 +77,12 @@ private extension AttendanceReducer.State {
                 items: [
                     AttendanceItem(type: "Class", attended: 8, absent: 2, required: 8, semester: 1, total: 10),
                     AttendanceItem(type: "Exam", attended: 4, absent: 2, required: 8, semester: 1, total: 10),
-                    AttendanceItem(type: "Auditory class", attended: 3, absent: 2, required: 8, semester: 1, total: 10)
                 ]
             ),
             AttendanceModel(
                 class: "Physics",
                 semester: .summer,
                 items: [
-                    AttendanceItem(type: "Class", attended: 5, absent: 2, required: 8, semester: 1, total: 10),
-                    AttendanceItem(type: "Exam", attended: 6, absent: 2, required: 8, semester: 1, total: 10),
                     AttendanceItem(type: "Auditory class", attended: 8, absent: 2, required: 8, semester: 1, total: 10)
                 ]
             )
