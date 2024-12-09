@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "19.35 €" : {
+
+    },
     "appName" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -69,6 +72,12 @@
         }
       }
     },
+    "Jučer u 16:32" : {
+
+    },
+    "Kampus Menza" : {
+
+    },
     "settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -133,6 +142,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Raspored"
+          }
+        }
+      }
+    },
+    "transactions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transactions"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transakcije"
           }
         }
       }
