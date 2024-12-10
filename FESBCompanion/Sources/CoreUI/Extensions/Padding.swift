@@ -37,3 +37,35 @@ public extension View {
     }
 
 }
+
+extension VStack {
+
+    init (alignment: HorizontalAlignment = .center, spacing: Padding, @ViewBuilder content: () -> Content) {
+        self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
+    }
+
+}
+
+extension LazyVStack {
+
+    init (alignment: HorizontalAlignment = .center, spacing: Padding, @ViewBuilder content: () -> Content) {
+        self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
+    }
+
+}
+
+extension HStack {
+
+    init (alignment: VerticalAlignment = .center, spacing: Padding,  @ViewBuilder content: () -> Content) {
+        self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
+    }
+
+}
+
+extension LazyHStack {
+
+    init (alignment: VerticalAlignment = .center, spacing: Padding, @ViewBuilder content: () -> Content) {
+        self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
+    }
+
+}
