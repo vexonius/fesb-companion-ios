@@ -12,9 +12,9 @@ extension Font {
     static let fontBodyMedium = Font.custom("Inter-Regular", size: 14)
     static let fontBodySmall = Font.custom("Inter-Regular", size: 14)
 
-    static let fontButtonLarge = Font.custom("Inter-Medium", size: 24)
-    static let fontButtonMedium = Font.custom("Inter-Medium", size: 24)
-    static let fontButtonSmall = Font.custom("Inter-Medium", size: 24)
+    static let fontButtonLarge = Font.custom("Inter-Medium", size: 18)
+    static let fontButtonMedium = Font.custom("Inter-Medium", size: 16)
+    static let fontButtonSmall = Font.custom("Inter-Medium", size: 14)
 
     static let fontLabelLarge = Font.custom("Inter-SemiBold", size: 16)
     static let fontLabelMedium = Font.custom("Inter-SemiBold", size: 14)
