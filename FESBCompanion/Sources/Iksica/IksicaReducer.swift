@@ -6,6 +6,7 @@ struct IksicaReducer {
     @ObservableState
     struct State: Equatable {
 
+        var viewState: Loadable<IksicaViewModel> = .loading
         @Presents var receiptDetails: DummyReducer.State?
     }
 

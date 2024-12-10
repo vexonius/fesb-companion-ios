@@ -9,15 +9,38 @@ struct IksicaView: View {
 
     var body: some View {
         NavigationView {
+            ZStack {
+                switch store.viewState {
+                case .loading, .initial:
+                    ProgressView()
+                case .loaded(let model), .fetchingMore(let model), .refreshing(let model):
+                    content(model: model)
+                case .empty:
+                    EmptyView()
+                }
+            }
+            .maxSize()
+            .background(Color.surface)
+            .navigationTitle(String.xcard)
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
+                EmptyView()
+            }
+        }
+
+    }
+
+    private func content(model: IksicaViewModel) -> some View {
+        NavigationView {
             ZStack(alignment: .top) {
                 RoundedRectangle(cornerRadius: 30)
-                    .fill(Color.orange)
+                    .fill(LinearGradient(colors: [.red, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
                     .aspectRatio(1.5, contentMode: .fit)
                     .maxWidth()
                     .padding(.horizontal, 40 + min(30, abs(offset)))
                     .frame(height: 300)
-                    .shadow(color: Color.orange.opacity(0.8), radius: 10 - min(10, abs(offset)), x: 0, y: 0)
-                    .shadow(color: Color.orange.opacity(0.5), radius: 80 - min(80, abs(offset)), x: 0, y: 0)
+                    .shadow(color: Color.red.opacity(0.8), radius: 10 - min(10, abs(offset)), x: 0, y: 0)
+                    .shadow(color: Color.red.opacity(0.5), radius: 80 - min(80, abs(offset)), x: 0, y: 0)
 
                 ScrollView {
                     Rectangle()
@@ -31,9 +54,9 @@ struct IksicaView: View {
                             .maxWidth(alignment: .leading)
                             .padding(.medium)
 
-                        ForEach(0..<100, id: \.self) { item in
-                            ReceiptCard()
-                                .zIndex(100)
+                        ForEach(model.receipts) { model in
+                            ReceiptCard(model: model)
+                                .zIndex(2)
                                 .onTapGesture {
                                     send(.details)
                                 }
@@ -54,34 +77,29 @@ struct IksicaView: View {
                 )
                 .refreshable {}
             }
-            .background(Color.surface)
-            .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
-                EmptyView()
-            }
         }
     }
 
-    private func ReceiptCard() -> some View {
-        VStack(spacing: .base) {
+    private func ReceiptCard(model: ReceiptModel) -> some View {
+        VStack(spacing: .small) {
             HStack {
-                Text("Kampus Menza")
+                Text(model.restaurant)
                     .font(.fontHeading5)
                     .foregroundStyle(Color.white)
                     .maxWidth(alignment: .leading)
 
 
-                Text("19.35 €")
+                Text(model.receiptAmount.currencyFormat())
                     .font(.fontLabelMedium)
                     .foregroundStyle(Color.white)
             }
 
-            Text("Jučer u 16:32")
+            Text(model.date.description)
                 .font(.fontBodyMedium)
                 .foregroundStyle(Color.white)
                 .maxWidth(alignment: .leading)
         }
         .padding(.base)
-//        .background(Color.container)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.horizontal, .medium)
     }
