@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "19.35 €" : {
-
-    },
     "appName" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -71,12 +68,6 @@
           }
         }
       }
-    },
-    "Jučer u 16:32" : {
-
-    },
-    "Kampus Menza" : {
-
     },
     "settings" : {
       "extractionState" : "manual",
