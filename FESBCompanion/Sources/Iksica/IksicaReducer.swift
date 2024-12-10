@@ -81,6 +81,126 @@ private extension IksicaReducer.State {
                         subsidizedAmount: 0.55
                     )
                 ]
+            ),
+            ReceiptModel(
+                id: "2",
+                restaurant: "Kampus Menza",
+                date: .now,
+                receiptAmount: 2.99,
+                subsidizedAmount: 1.99,
+                paidAmount: 1.00,
+                authorised: "Authorized",
+                url: "",
+                receiptDetails: [
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        amount: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    )
+                ]
+            ),
+            ReceiptModel(
+                id: "3",
+                restaurant: "Kampus Menza",
+                date: .now,
+                receiptAmount: 2.99,
+                subsidizedAmount: 1.99,
+                paidAmount: 1.00,
+                authorised: "Authorized",
+                url: "",
+                receiptDetails: [
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        amount: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    )
+                ]
+            ),
+            ReceiptModel(
+                id: "4",
+                restaurant: "Kampus Menza",
+                date: .now,
+                receiptAmount: 2.99,
+                subsidizedAmount: 1.99,
+                paidAmount: 1.00,
+                authorised: "Authorized",
+                url: "",
+                receiptDetails: [
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        amount: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    )
+                ]
+            ),
+            ReceiptModel(
+                id: "5",
+                restaurant: "Kampus Menza",
+                date: .now,
+                receiptAmount: 2.99,
+                subsidizedAmount: 1.99,
+                paidAmount: 1.00,
+                authorised: "Authorized",
+                url: "",
+                receiptDetails: [
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        amount: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    )
+                ]
+            ),
+            ReceiptModel(
+                id: "5",
+                restaurant: "Kampus Menza",
+                date: .now,
+                receiptAmount: 2.99,
+                subsidizedAmount: 1.99,
+                paidAmount: 1.00,
+                authorised: "Authorized",
+                url: "",
+                receiptDetails: [
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        amount: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    )
+                ]
+            ),
+            ReceiptModel(
+                id: "7",
+                restaurant: "Kampus Menza",
+                date: .now,
+                receiptAmount: 2.99,
+                subsidizedAmount: 1.99,
+                paidAmount: 1.00,
+                authorised: "Authorized",
+                url: "",
+                receiptDetails: [
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        amount: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    )
+                ]
             )
         ]
     )
