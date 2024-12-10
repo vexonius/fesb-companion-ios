@@ -8,26 +8,16 @@ struct IksicaView: View {
     @State private var offset: CGFloat = 0
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                switch store.viewState {
-                case .loading, .initial:
-                    ProgressView()
-                case .loaded(let model), .fetchingMore(let model), .refreshing(let model):
-                    content(model: model)
-                case .empty:
-                    EmptyView()
-                }
-            }
-            .maxSize()
-            .background(Color.surface)
-            .navigationTitle(String.xcard)
-            .navigationBarTitleDisplayMode(.inline)
-            .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
+        ZStack {
+            switch store.viewState {
+            case .loading, .initial:
+                IksicaSkeleton()
+            case .loaded(let model), .fetchingMore(let model), .refreshing(let model):
+                content(model: model)
+            case .empty:
                 EmptyView()
             }
         }
-
     }
 
     private func content(model: IksicaViewModel) -> some View {
@@ -77,6 +67,13 @@ struct IksicaView: View {
                 )
                 .refreshable {}
             }
+        }
+        .maxSize()
+        .background(Color.surface)
+        .navigationTitle(String.xcard)
+        .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
+            EmptyView()
         }
     }
 
