@@ -119,7 +119,7 @@ struct IksicaView: View {
                     .foregroundStyle(Color.white)
             }
 
-            Text(model.date.description)
+            Text(model.dateString)
                 .font(.fontBodyMedium)
                 .foregroundStyle(Color.white)
                 .maxWidth(alignment: .leading)
