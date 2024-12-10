@@ -39,6 +39,7 @@ struct RootView: View {
                 }
                 .tag(5)
         }
+        .background(Color.surface)
     }
 
 }

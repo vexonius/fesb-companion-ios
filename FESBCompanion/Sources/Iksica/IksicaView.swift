@@ -18,39 +18,33 @@ struct IksicaView: View {
                 EmptyView()
             }
         }
+        .onAppear { send(.fetch) }
     }
 
     private func content(model: IksicaViewModel) -> some View {
         NavigationView {
             ZStack(alignment: .top) {
-                RoundedRectangle(cornerRadius: 30)
-                    .fill(LinearGradient(colors: [.red, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .aspectRatio(1.5, contentMode: .fit)
-                    .maxWidth()
-                    .padding(.horizontal, 40 + min(30, abs(offset)))
-                    .frame(height: 300)
-                    .shadow(color: Color.red.opacity(0.8), radius: 10 - min(10, abs(offset)), x: 0, y: 0)
-                    .shadow(color: Color.red.opacity(0.5), radius: 80 - min(80, abs(offset)), x: 0, y: 0)
-
+                userCard(model: model.cardModel)
+                
                 ScrollView {
                     Rectangle()
                         .fill(Color.clear)
                         .frame(height: 300)
-
+                    
                     VStack(spacing: .small) {
                         Text(.transactions)
                             .font(.fontHeading3)
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .leading)
                             .padding(.medium)
-
+                        
                         ForEach(model.receipts) { model in
                             ReceiptCard(model: model)
                                 .zIndex(2)
                                 .onTapGesture {
                                     send(.details)
                                 }
-
+                            
                             Divider()
                         }
                     }
@@ -67,14 +61,49 @@ struct IksicaView: View {
                 )
                 .refreshable {}
             }
+            .background(Color.surface.ignoresSafeArea())
+            .maxSize()
+            .navigationTitle(String.xcard)
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
+                EmptyView()
+            }
         }
-        .maxSize()
-        .background(Color.surface)
-        .navigationTitle(String.xcard)
-        .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
-            EmptyView()
+    }
+
+    private func userCard(model: CardModel) -> some View {
+        VStack {
+            Text(model.balance.currencyFormat())
+                .font(.fontHeading4)
+                .foregroundStyle(Color.white)
+                .maxWidth(alignment: .trailing)
+                .padding(.medium)
+
+            Spacer()
+
+            Text(model.fullName)
+                .font(.fontBodyLarge)
+                .lineLimit(0)
+                .foregroundStyle(Color.white)
+                .maxWidth(alignment: .leading)
+                .padding(.horizontal, .medium)
+
+            Text(model.cardNumberString)
+                .font(.fontBodyMedium)
+                .lineLimit(0)
+                .foregroundStyle(Color.white)
+                .maxWidth(alignment: .leading)
+                .padding([.bottom, .horizontal], .medium)
+
         }
+        .background(LinearGradient(colors: [.red, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
+        .aspectRatio(1.5, contentMode: .fit)
+        .maxWidth()
+        .clipShape(RoundedRectangle(cornerRadius: 30))
+        .padding(.horizontal, 40 + min(30, abs(offset)))
+        .frame(height: 300)
+        .shadow(color: Color.red.opacity(0.8), radius: 10 - min(10, abs(offset)), x: 0, y: 0)
+        .shadow(color: Color.pink.opacity(0.5), radius: 80 - min(80, abs(offset)), x: 0, y: 0)
     }
 
     private func ReceiptCard(model: ReceiptModel) -> some View {
@@ -84,7 +113,6 @@ struct IksicaView: View {
                     .font(.fontHeading5)
                     .foregroundStyle(Color.white)
                     .maxWidth(alignment: .leading)
-
 
                 Text(model.receiptAmount.currencyFormat())
                     .font(.fontLabelMedium)
@@ -99,6 +127,7 @@ struct IksicaView: View {
         .padding(.base)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.horizontal, .medium)
+        .contentShape(Rectangle())
     }
 
 }
