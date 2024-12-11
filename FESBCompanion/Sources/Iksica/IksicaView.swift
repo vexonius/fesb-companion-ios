@@ -42,7 +42,7 @@ struct IksicaView: View {
                             ReceiptCard(model: model)
                                 .zIndex(2)
                                 .onTapGesture {
-                                    send(.details)
+                                    send(.details(model))
                                 }
                             
                             Divider()
@@ -66,7 +66,7 @@ struct IksicaView: View {
             .navigationTitle(String.xcard)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
-                EmptyView()
+                ReceiptDetailsView(store: store)
             }
         }
     }

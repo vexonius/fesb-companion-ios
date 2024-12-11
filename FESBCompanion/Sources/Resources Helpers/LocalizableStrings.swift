@@ -23,5 +23,11 @@ extension String {
 
     // MARK: Iksica
     static let transactions = String(localized: "transactions")
+    static let receiptDetails = String(localized: "receiptDetails")
+    static let items = String(localized: "items")
+    static let receiptItemQuantityFormat = String(localized: "receiptItemQuantityFormat")
+    static let receiptTotalFormat = String(localized: "receiptTotalFormat")
+    static let receiptPaidFormat = String(localized: "receiptPaidFormat")
+    static let receiptSubsidizedFormat = String(localized: "receiptSubsidizedFormat")
 
 }
