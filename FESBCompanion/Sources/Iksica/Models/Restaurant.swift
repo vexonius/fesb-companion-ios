@@ -1,6 +1,6 @@
 import CoreLocation
 
-enum Menza: String {
+enum Restaurant: String {
 
     case kampus
     case fesb
@@ -10,7 +10,22 @@ enum Menza: String {
 
 }
 
-extension Menza {
+extension Restaurant {
+
+    var name: String {
+        switch self {
+        case .kampus:
+            "Kampus Menza"
+        case .fesb:
+            "FESB Menza"
+        case .efst:
+            "EFST fakultet"
+        case .hostel:
+            "Hostel Menza"
+        case .fgag:
+            "FGAG Menza"
+        }
+    }
 
     var coordinate: CLLocationCoordinate2D {
         return switch self {

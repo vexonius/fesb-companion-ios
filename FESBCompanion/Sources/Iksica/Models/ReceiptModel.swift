@@ -3,7 +3,7 @@ import Foundation
 struct ReceiptModel: Equatable, Identifiable {
 
     let id: String
-    let restaurant: String
+    let restaurant: Restaurant
     let date: Date
     let receiptAmount: Double
     let subsidizedAmount: Double

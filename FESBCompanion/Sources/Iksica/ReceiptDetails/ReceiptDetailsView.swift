@@ -19,7 +19,7 @@ struct ReceiptDetailsView: View {
             VStack {
                 ScrollView {
                     VStack(spacing: .small) {
-                        Text(store.model.restaurant)
+                        Text(store.model.restaurant.name)
                             .font(.fontHeading5)
                             .lineLimit(0)
                             .foregroundStyle(Color.white)
@@ -70,21 +70,21 @@ struct ReceiptDetailsView: View {
                             .lineLimit(0)
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .trailing)
-                        
+
+                        Text(store.model.subsidizedFormatted)
+                            .font(.fontHeading4)
+                            .lineLimit(0)
+                            .foregroundStyle(Color.white)
+                            .maxWidth(alignment: .trailing)
+
                         Text(store.model.paidFormatted)
                             .font(.fontHeading4)
                             .lineLimit(0)
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .trailing)
                         
-                        Text(store.model.subsidizedFormatted)
-                            .font(.fontHeading4)
-                            .lineLimit(0)
-                            .foregroundStyle(Color.white)
-                            .maxWidth(alignment: .trailing)
-                        
                         Map {
-                            Marker("Kampus Menza", coordinate: kampusMenza)
+                            Marker(store.model.restaurant.name, coordinate: store.model.restaurant.coordinate)
                         }
                         .frame(height: 240)
                         .clipShape(RoundedRectangle(cornerRadius: 30))
@@ -105,7 +105,7 @@ struct ReceiptDetailsView: View {
     ReceiptDetailsView(
         store: Store(initialState: .init(model: ReceiptModel(
             id: "1",
-            restaurant: "Kampus Menza",
+            restaurant: .kampus,
             date: .now,
             receiptAmount: 2.99,
             subsidizedAmount: 1.99,

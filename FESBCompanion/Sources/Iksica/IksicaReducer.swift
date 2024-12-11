@@ -64,7 +64,7 @@ private extension IksicaReducer.State {
         receipts: [
             ReceiptModel(
                 id: "1",
-                restaurant: "Kampus Menza",
+                restaurant: .fesb,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -84,7 +84,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "2",
-                restaurant: "Kampus Menza",
+                restaurant: .kampus,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -104,7 +104,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "3",
-                restaurant: "Kampus Menza",
+                restaurant: .efst,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -124,7 +124,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "4",
-                restaurant: "Kampus Menza",
+                restaurant: .kampus,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -144,7 +144,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "5",
-                restaurant: "Kampus Menza",
+                restaurant: .fesb,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -164,7 +164,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "5",
-                restaurant: "Kampus Menza",
+                restaurant: .fgag,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -184,7 +184,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "7",
-                restaurant: "Kampus Menza",
+                restaurant: .kampus,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -204,7 +204,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "8",
-                restaurant: "Kampus Menza",
+                restaurant: .fgag,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -224,7 +224,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "9",
-                restaurant: "Kampus Menza",
+                restaurant: .efst,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -244,7 +244,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "10",
-                restaurant: "Kampus Menza",
+                restaurant: .fgag,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -264,7 +264,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "11",
-                restaurant: "Kampus Menza",
+                restaurant: .kampus,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -284,7 +284,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "12",
-                restaurant: "Kampus Menza",
+                restaurant: .efst,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -304,7 +304,7 @@ private extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "12",
-                restaurant: "Kampus Menza",
+                restaurant: .hostel,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,

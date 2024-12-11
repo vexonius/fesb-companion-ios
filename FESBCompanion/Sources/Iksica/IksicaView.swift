@@ -109,7 +109,7 @@ struct IksicaView: View {
     private func ReceiptCard(model: ReceiptModel) -> some View {
         VStack(spacing: .small) {
             HStack {
-                Text(model.restaurant)
+                Text(model.restaurant.name)
                     .font(.fontHeading5)
                     .foregroundStyle(Color.white)
                     .maxWidth(alignment: .leading)
