@@ -30,16 +30,14 @@ struct ReceiptDetailsView: View {
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .leading)
                         
-                        Grid {
+                        VStack(spacing: .small) {
                             ForEach(store.model.receiptDetails) { item in
-                                GridRow {
+                                HStack(spacing: .small) {
                                     Text(item.quantityFormatted)
                                         .font(.fontBodyMedium)
                                         .lineLimit(0)
                                         .foregroundStyle(Color.white)
-                                        .gridColumnAlignment(.leading)
-                                        .gridCellAnchor(.leading)
-                                    
+
                                     Text(item.articleName)
                                         .font(.fontBodyMedium)
                                         .lineLimit(0)
@@ -50,8 +48,6 @@ struct ReceiptDetailsView: View {
                                         .font(.fontBodyMedium)
                                         .lineLimit(0)
                                         .foregroundStyle(Color.white)
-                                        .gridColumnAlignment(.trailing)
-                                        .gridCellAnchor(.trailing)
                                 }
                             }
                         }
@@ -81,13 +77,16 @@ struct ReceiptDetailsView: View {
                         .frame(height: 240)
                         .clipShape(RoundedRectangle(cornerRadius: 30))
                         .padding(.top, .medium)
+                        .allowsHitTesting(false)
                     }
                     .maxSize()
                     .padding(.horizontal, .medium)
                 }
             }
-            .background(Color.surface)
+            .background(Color.surface.ignoresSafeArea())
             .navigationTitle(String.receiptDetails)
+            .toolbarBackground(Color.surface, for: .navigationBar)
+            .padding(.top, .small)
         }
     }
 
@@ -141,14 +140,4 @@ struct ReceiptDetailsView: View {
         )),
         reducer: ReceiptDetailsReducer.init)
     )
-}
-
-struct MapLocation: Identifiable {
-    let id = UUID()
-    let name: String
-    let latitude: Double
-    let longitude: Double
-    var coordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    }
 }

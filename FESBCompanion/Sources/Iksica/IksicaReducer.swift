@@ -56,9 +56,9 @@ private extension IksicaReducer.State {
 
     static let dummyData = IksicaViewModel(
         cardModel: CardModel(
-            name: "Stipe",
-            surname: "Jurković",
-            cardNumber: "0000000000000000",
+            name: "",
+            surname: "",
+            cardNumber: "",
             balance: 39.24
         ),
         receipts: [
@@ -72,6 +72,46 @@ private extension IksicaReducer.State {
                 authorised: "Authorized",
                 url: "",
                 receiptDetails: [
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 1,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",

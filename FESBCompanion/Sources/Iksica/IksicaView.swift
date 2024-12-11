@@ -55,7 +55,6 @@ struct IksicaView: View {
                     for: CGFloat.self,
                     of: { $0.contentOffset.y + $0.contentInsets.top},
                     action: { new, old in
-                        debugPrint(new)
                         offset = new
                     }
                 )
