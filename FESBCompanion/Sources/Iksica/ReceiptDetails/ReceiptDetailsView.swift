@@ -6,14 +6,6 @@ struct ReceiptDetailsView: View {
 
     @Bindable var store: StoreOf<ReceiptDetailsReducer>
 
-    @State var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 43.51093534, longitude: 16.467434523),
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-
-    private let kampusMenza = CLLocationCoordinate2D(
-        latitude: 43.51183977571285,
-        longitude: 16.46630941804453)
-
     var body: some View {
         NavigationView {
             VStack {
