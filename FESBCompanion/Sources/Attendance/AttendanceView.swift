@@ -49,7 +49,7 @@ struct AttendanceView: View {
             .padding(.horizontal, .medium)
         }
         .refreshable {
-            send(.refresh)
+            await send(.refresh)
         }
     }
 
