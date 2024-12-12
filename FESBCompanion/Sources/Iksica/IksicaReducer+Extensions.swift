@@ -29,7 +29,7 @@ extension IksicaReducer.State {
                         subsidizedAmount: 0.55
                     ),
                     ReceiptItem(
-                        id: 1,
+                        id: 2,
                         articleName: "Pizza",
                         quantity: 1,
                         price: 0.99,
@@ -37,7 +37,7 @@ extension IksicaReducer.State {
                         subsidizedAmount: 0.55
                     ),
                     ReceiptItem(
-                        id: 1,
+                        id: 3,
                         articleName: "Pizza",
                         quantity: 1,
                         price: 0.99,
@@ -45,7 +45,7 @@ extension IksicaReducer.State {
                         subsidizedAmount: 0.55
                     ),
                     ReceiptItem(
-                        id: 1,
+                        id: 4,
                         articleName: "Pizza",
                         quantity: 1,
                         price: 0.99,
@@ -53,7 +53,7 @@ extension IksicaReducer.State {
                         subsidizedAmount: 0.55
                     ),
                     ReceiptItem(
-                        id: 1,
+                        id: 5,
                         articleName: "Pizza",
                         quantity: 1,
                         price: 0.99,
@@ -61,7 +61,7 @@ extension IksicaReducer.State {
                         subsidizedAmount: 0.55
                     ),
                     ReceiptItem(
-                        id: 1,
+                        id: 6,
                         articleName: "Pizza",
                         quantity: 1,
                         price: 0.99,
