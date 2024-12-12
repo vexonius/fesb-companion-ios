@@ -151,7 +151,7 @@ extension IksicaReducer.State {
                 ]
             ),
             ReceiptModel(
-                id: "5",
+                id: "6",
                 restaurant: .fgag,
                 date: .now,
                 receiptAmount: 2.99,
@@ -291,7 +291,7 @@ extension IksicaReducer.State {
                 ]
             ),
             ReceiptModel(
-                id: "12",
+                id: "13",
                 restaurant: .hostel,
                 date: .now,
                 receiptAmount: 2.99,
