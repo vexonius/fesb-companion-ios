@@ -4,15 +4,15 @@ extension IksicaReducer.State {
 
     static let dummyData = IksicaViewModel(
         cardModel: CardModel(
-            name: "Stipe",
-            surname: "Jurković",
-            cardNumber: "0000000000000000",
+            name: "",
+            surname: "",
+            cardNumber: "",
             balance: 39.24
         ),
         receipts: [
             ReceiptModel(
                 id: "1",
-                restaurant: "Kampus Menza",
+                restaurant: .fesb,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -23,7 +23,47 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 2,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 3,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 4,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 5,
+                        articleName: "Pizza",
+                        quantity: 1,
+                        price: 0.99,
+                        total: 0.99,
+                        subsidizedAmount: 0.55
+                    ),
+                    ReceiptItem(
+                        id: 6,
+                        articleName: "Pizza",
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -32,7 +72,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "2",
-                restaurant: "Kampus Menza",
+                restaurant: .kampus,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -43,7 +83,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -52,7 +92,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "3",
-                restaurant: "Kampus Menza",
+                restaurant: .efst,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -63,7 +103,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -72,7 +112,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "4",
-                restaurant: "Kampus Menza",
+                restaurant: .kampus,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -83,7 +123,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -92,7 +132,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "5",
-                restaurant: "Kampus Menza",
+                restaurant: .fesb,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -103,7 +143,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -111,8 +151,8 @@ extension IksicaReducer.State {
                 ]
             ),
             ReceiptModel(
-                id: "5",
-                restaurant: "Kampus Menza",
+                id: "6",
+                restaurant: .fgag,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -123,7 +163,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -132,7 +172,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "7",
-                restaurant: "Kampus Menza",
+                restaurant: .kampus,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -143,7 +183,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -152,7 +192,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "8",
-                restaurant: "Kampus Menza",
+                restaurant: .fgag,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -163,7 +203,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -172,7 +212,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "9",
-                restaurant: "Kampus Menza",
+                restaurant: .efst,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -183,7 +223,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -192,7 +232,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "10",
-                restaurant: "Kampus Menza",
+                restaurant: .fgag,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -203,7 +243,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -212,7 +252,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "11",
-                restaurant: "Kampus Menza",
+                restaurant: .kampus,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -223,7 +263,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -232,7 +272,7 @@ extension IksicaReducer.State {
             ),
             ReceiptModel(
                 id: "12",
-                restaurant: "Kampus Menza",
+                restaurant: .efst,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -243,7 +283,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55
@@ -251,8 +291,8 @@ extension IksicaReducer.State {
                 ]
             ),
             ReceiptModel(
-                id: "12",
-                restaurant: "Kampus Menza",
+                id: "13",
+                restaurant: .hostel,
                 date: .now,
                 receiptAmount: 2.99,
                 subsidizedAmount: 1.99,
@@ -263,7 +303,7 @@ extension IksicaReducer.State {
                     ReceiptItem(
                         id: 1,
                         articleName: "Pizza",
-                        amount: 1,
+                        quantity: 1,
                         price: 0.99,
                         total: 0.99,
                         subsidizedAmount: 0.55

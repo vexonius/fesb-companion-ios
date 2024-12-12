@@ -42,7 +42,7 @@ struct IksicaView: View {
                             ReceiptCard(model: model)
                                 .zIndex(2)
                                 .onTapGesture {
-                                    send(.details)
+                                    send(.details(model))
                                 }
                             
                             Divider()
@@ -55,7 +55,6 @@ struct IksicaView: View {
                     for: CGFloat.self,
                     of: { $0.contentOffset.y + $0.contentInsets.top},
                     action: { new, old in
-                        debugPrint(new)
                         offset = new
                     }
                 )
@@ -66,7 +65,7 @@ struct IksicaView: View {
             .navigationTitle(String.xcard)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
-                EmptyView()
+                ReceiptDetailsView(store: store)
             }
         }
     }
@@ -109,7 +108,7 @@ struct IksicaView: View {
     private func ReceiptCard(model: ReceiptModel) -> some View {
         VStack(spacing: .small) {
             HStack {
-                Text(model.restaurant)
+                Text(model.restaurant.name)
                     .font(.fontHeading5)
                     .foregroundStyle(Color.white)
                     .maxWidth(alignment: .leading)
