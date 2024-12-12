@@ -64,6 +64,15 @@ struct IksicaView: View {
             .maxSize()
             .navigationTitle(String.xcard)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Image.camera
+                        .renderingMode(.template)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 10, height: 10)
+                        .padding(.trailing, .base)
+                }
+            }
             .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
                 ReceiptDetailsView(store: store)
             }
