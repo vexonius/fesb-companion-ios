@@ -12,6 +12,10 @@ struct ReceiptModel: Equatable, Identifiable {
     let url: String
     let receiptDetails: [ReceiptItem]
 
+    var dateString: String {
+        date.formatted(date: .abbreviated, time: .shortened)
+    }
+
 }
 
 struct ReceiptItem: Equatable, Identifiable {

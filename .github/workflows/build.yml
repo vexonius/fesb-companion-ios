@@ -1,0 +1,26 @@
+name: iOS workflow
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    name: Build and Test default scheme using any available iPhone simulator
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Enable macros
+        run: |
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+      - name: Install tuist
+        run: |
+          brew install tuist
+          tuist generate --no-open
+      - name: Build
+        run: |
+          tuist build FESBCompanion
