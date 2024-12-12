@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Enable macros
+        run: |
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
       - name: Install tuist
         run: |
           brew install tuist
@@ -29,4 +32,4 @@ jobs:
           scheme: ${{ 'default' }}
           platform: ${{ 'iOS Simulator' }}
         run: |
-          xcodebuild build-for-testing -scheme "FESBCompanion" -destination "platform=iOS Simulator,name=iPhone 15 Pro" -skipMacroValidation
+          xcodebuild build-for-testing -scheme "FESBCompanion" -destination "platform=iOS Simulator,name=iPhone 15 Pro"
