@@ -39,7 +39,7 @@ struct IksicaView: View {
                             .padding(.medium)
                         
                         ForEach(model.receipts) { model in
-                            ReceiptCard(model: model)
+                            receiptCard(model: model)
                                 .zIndex(2)
                                 .onTapGesture {
                                     send(.details(model))
@@ -105,7 +105,7 @@ struct IksicaView: View {
         .shadow(color: Color.pink.opacity(0.5), radius: 80 - min(80, abs(offset)), x: 0, y: 0)
     }
 
-    private func ReceiptCard(model: ReceiptModel) -> some View {
+    private func receiptCard(model: ReceiptModel) -> some View {
         VStack(spacing: .small) {
             HStack {
                 Text(model.restaurant.name)
