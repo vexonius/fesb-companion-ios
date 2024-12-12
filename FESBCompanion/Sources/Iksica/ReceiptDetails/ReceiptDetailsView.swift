@@ -8,7 +8,7 @@ struct ReceiptDetailsView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 0) {
                 ScrollView {
                     VStack(spacing: .small) {
                         Text(store.model.restaurant.name)
@@ -29,8 +29,8 @@ struct ReceiptDetailsView: View {
                             .lineLimit(0)
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .leading)
-                        
-                        VStack(spacing: .small) {
+
+                        LazyVStack(spacing: .small) {
                             ForEach(store.model.receiptDetails) { item in
                                 HStack(spacing: .small) {
                                     Text(item.quantityFormatted)
@@ -81,12 +81,12 @@ struct ReceiptDetailsView: View {
                     }
                     .maxSize()
                     .padding(.horizontal, .medium)
+                    .padding(.top, .small)
                 }
             }
-            .background(Color.surface.ignoresSafeArea())
             .navigationTitle(String.receiptDetails)
             .toolbarBackground(Color.surface, for: .navigationBar)
-            .padding(.top, .small)
+            .background(Color.surface.ignoresSafeArea())
         }
     }
 
