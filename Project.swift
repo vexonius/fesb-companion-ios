@@ -4,7 +4,8 @@ let project = Project(
     name: "FESBCompanion",
     packages: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.15.2"),
-        .package(url: "https://github.com/pointfreeco/swift-navigation", from: "2.2.2")
+        .package(url: "https://github.com/pointfreeco/swift-navigation", from: "2.2.2"),
+        .package(url: "https://github.com/apple/swift-algorithms", from: "1.2.0")
     ],
     targets: [
         .target(
@@ -30,7 +31,8 @@ let project = Project(
             sources: ["FESBCompanion/Sources/**"],
             resources: ["FESBCompanion/Resources/**"],
             dependencies: [
-                .package(product: "ComposableArchitecture")
+                .package(product: "ComposableArchitecture"),
+                .package(product: "Algorithms")
             ]
         ),
         .target(

@@ -137,6 +137,23 @@
         }
       }
     },
+    "transactions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transactions"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transakcije"
+          }
+        }
+      }
+    },
     "winterSemester" : {
       "extractionState" : "manual",
       "localizations" : {

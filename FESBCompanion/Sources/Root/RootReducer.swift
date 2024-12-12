@@ -9,6 +9,7 @@ struct RootReducer {
 
         var home = HomeReducer.State()
         var attendance = AttendanceReducer.State()
+        var iksica = IksicaReducer.State()
 
     }
 
@@ -18,6 +19,7 @@ struct RootReducer {
         case router(StackAction<AppRouter.State, AppRouter.Action>)
         case home(HomeReducer.Action)
         case attendance(AttendanceReducer.Action)
+        case iksica(IksicaReducer.Action)
 
         enum View: Equatable {}
 
@@ -29,6 +31,9 @@ struct RootReducer {
         }
         Scope(state: \.home, action: \.home) {
             HomeReducer()
+        }
+        Scope(state: \.iksica, action: \.iksica) {
+            IksicaReducer()
         }
         Reduce { state, action in
             switch action {
