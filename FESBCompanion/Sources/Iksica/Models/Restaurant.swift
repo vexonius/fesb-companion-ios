@@ -32,7 +32,7 @@ extension Restaurant {
     }
 
     var description: String {
-        "Jako pristojno i povoljno mjesto za obrok jednog studenta"
+        String.restaurantPlaceholderText
     }
 
     var coordinate: CLLocationCoordinate2D {

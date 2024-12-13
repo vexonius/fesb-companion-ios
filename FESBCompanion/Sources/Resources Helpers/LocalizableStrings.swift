@@ -32,5 +32,6 @@ extension String {
 
     // MARK: Iksica
     static let menzas = String(localized: "menzas")
+    static let restaurantPlaceholderText = String(localized: "restaurantPlaceholderText")
 
 }
