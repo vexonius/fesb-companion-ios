@@ -71,10 +71,16 @@ struct IksicaView: View {
                         .foregroundStyle(Color.white)
                         .frame(width: 10, height: 10)
                         .padding(.trailing, .base)
+                        .onTapGesture {
+                            send(.cameras)
+                        }
                 }
             }
             .sheet(item: $store.scope(state: \.receiptDetails, action: \.receiptDetails)) { store in
                 ReceiptDetailsView(store: store)
+            }
+            .sheet(item: $store.scope(state: \.cameras, action: \.cameras)) { store in
+                CamerasView(store: store)
             }
         }
     }

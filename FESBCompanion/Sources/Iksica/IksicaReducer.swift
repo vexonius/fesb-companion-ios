@@ -8,18 +8,21 @@ struct IksicaReducer {
 
         var viewState: Loadable<IksicaViewModel> = .loading
         @Presents var receiptDetails: ReceiptDetailsReducer.State?
+        @Presents var cameras: CamerasReducer.State?
     }
 
     enum Action: Equatable, ViewAction {
 
         case updateState(IksicaViewModel)
         case receiptDetails(PresentationAction<ReceiptDetailsReducer.Action>)
+        case cameras(PresentationAction<CamerasReducer.Action>)
         case view(View)
 
         enum View: Equatable {
 
             case fetch
             case details(ReceiptModel)
+            case cameras
 
         }
 
@@ -30,6 +33,10 @@ struct IksicaReducer {
             switch action {
             case .view(.details(let model)):
                 state.receiptDetails = ReceiptDetailsReducer.State(model: model)
+
+                return .none
+            case .view(.cameras):
+                state.cameras = CamerasReducer.State()
 
                 return .none
             case .view(.fetch):
@@ -48,6 +55,9 @@ struct IksicaReducer {
         }
         .ifLet(\.$receiptDetails, action: \.receiptDetails) {
             ReceiptDetailsReducer()
+        }
+        .ifLet(\.$cameras, action: \.cameras) {
+            CamerasReducer()
         }
     }
 }
