@@ -1,12 +1,16 @@
 import CoreLocation
 
-enum Restaurant: String {
+enum Restaurant: String, CaseIterable, Identifiable {
 
     case kampus
     case fesb
     case efst
     case hostel
     case fgag
+
+    var id: String {
+        name
+    }
 
 }
 
@@ -25,6 +29,10 @@ extension Restaurant {
         case .fgag:
             "FGAG Menza"
         }
+    }
+
+    var description: String {
+        "Jako pristojno i povoljno mjesto za obrok jednog studenta"
     }
 
     var coordinate: CLLocationCoordinate2D {

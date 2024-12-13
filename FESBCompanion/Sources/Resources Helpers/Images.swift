@@ -2,6 +2,9 @@ import SwiftUI
 
 extension Image {
 
+    // MARK: Common
+    static let close = Image("close")
+
     // MARK: Tabbar
     static let card = Image("card")
     static let pieChart = Image("pie-chart")

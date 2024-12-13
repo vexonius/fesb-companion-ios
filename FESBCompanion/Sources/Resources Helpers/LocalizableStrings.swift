@@ -30,4 +30,7 @@ extension String {
     static let receiptPaidFormat = String(localized: "receiptPaidFormat")
     static let receiptSubsidizedFormat = String(localized: "receiptSubsidizedFormat")
 
+    // MARK: Iksica
+    static let menzas = String(localized: "menzas")
+
 }
