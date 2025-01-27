@@ -22,8 +22,15 @@ struct LoginView: View {
                 .maxWidth(alignment: .leading)
                 .padding(.bottom, 24)
 
-            PrimaryTextField(text: $store.username, palceholder: String.username)
-            PrimaryTextField(text: $store.password, palceholder: String.password)
+            PrimaryTextField(text: $store.username, placeholder: String.username)
+            PrimaryTextField(text: $store.password, placeholder: String.password)
+                .padding(.bottom, .medium)
+
+            Button(String.login) {
+                send(.login)
+            }
+            .buttonStyle(RoundedButtonStyle())
+            .maxWidth(alignment: .trailing)
 
             Spacer()
             Spacer()

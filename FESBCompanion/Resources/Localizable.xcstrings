@@ -109,12 +109,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your data is safe and it isn’t shared with third partys."
+            "value" : "Your data is safe and it isn’t shared with third parties."
           }
         },
         "hr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tvoji podaci su sigurni i ne dijele se s trećim stranama."
           }
         }

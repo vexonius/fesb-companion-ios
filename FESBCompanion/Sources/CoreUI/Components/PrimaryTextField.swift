@@ -4,17 +4,17 @@ struct PrimaryTextField: View {
 
     @FocusState private var isFocused: Bool
     @Binding var text: String
-    var palceholder: String
+    var placeholder: String
     var isDisabled: Bool = false
 
-    init(text: Binding<String>, palceholder: String, isDisabled: Bool = false) {
+    init(text: Binding<String>, placeholder: String, isDisabled: Bool = false) {
         self._text = text
-        self.palceholder = palceholder
+        self.placeholder = placeholder
         self.isDisabled = isDisabled
     }
 
     var body: some View {
-        TextField(palceholder, text: $text)
+        TextField(placeholder, text: $text)
             .font(.fontBodyMedium)
             .autocorrectionDisabled()
             .tint(.surfaceTextPrimary)
@@ -23,10 +23,10 @@ struct PrimaryTextField: View {
             .padding(.bottom, 17)
             .maxWidth(alignment: .leading)
             .frame(height: 50)
-            .background(!isDisabled ? Color.surface : .black.opacity(0.1))
+            .background(!isDisabled ? Color.inputBackground : .black.opacity(0.1))
             .border(
                 cornerRadius: 10,
-                color: isFocused ? .accentBlue : .surfaceTextPrimary,
+                color: isFocused ? .accentBlue : .divider,
                 lineWidth: isFocused ? 2 : 1.5)
             .disabled(isDisabled)
             .focused($isFocused)
@@ -37,5 +37,5 @@ struct PrimaryTextField: View {
 #Preview {
     @Previewable @State var text: String = ""
 
-    PrimaryTextField(text: $text, palceholder: "Username")
+    PrimaryTextField(text: $text, placeholder: "Username")
 }

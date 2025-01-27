@@ -16,7 +16,11 @@ struct LoginReducer {
         case view(View)
         case binding(BindingAction<State>)
 
-        enum View: Equatable {}
+        enum View: Equatable {
+
+            case login
+
+        }
 
     }
 

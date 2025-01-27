@@ -9,5 +9,7 @@ public extension Color {
     static let accentGreen = Color("GreenAccentColor")
     static let accentRed = Color("RedAccentColor")
     static let surfaceTextPrimary = Color("SurfaceTextPrimary")
+    static let divider = Color("DividerColor")
+    static let inputBackground = Color("InputBackgroundColor")
 
 }
