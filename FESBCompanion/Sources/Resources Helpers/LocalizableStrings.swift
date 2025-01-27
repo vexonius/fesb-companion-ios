@@ -30,4 +30,10 @@ extension String {
     static let receiptPaidFormat = String(localized: "receiptPaidFormat")
     static let receiptSubsidizedFormat = String(localized: "receiptSubsidizedFormat")
 
+    // MARK: Login
+    static let login = String(localized: "login")
+    static let loginSubtitle = String(localized: "loginSubtitle")
+    static let username = String(localized: "username")
+    static let password = String(localized: "password")
+
 }
