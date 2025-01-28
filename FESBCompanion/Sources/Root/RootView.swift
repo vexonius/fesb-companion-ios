@@ -27,7 +27,7 @@ struct RootView: View {
                 }
                 .tag(3)
 
-            HomeView(store: store.scope(state: \.home, action: \.home),  name: .timetable)
+            TimetableView(store: store.scope(state: \.timetable, action: \.timetable), model: TimetableModel.createDummyModel())
                 .tabItem {
                     Label(String.timetable, image: .calendar)
                 }
