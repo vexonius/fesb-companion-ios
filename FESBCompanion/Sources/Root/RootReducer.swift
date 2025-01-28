@@ -10,6 +10,7 @@ struct RootReducer {
         var home = HomeReducer.State()
         var attendance = AttendanceReducer.State()
         var iksica = IksicaReducer.State()
+        @Presents var login: LoginReducer.State? = LoginReducer.State()
 
     }
 
@@ -20,6 +21,7 @@ struct RootReducer {
         case home(HomeReducer.Action)
         case attendance(AttendanceReducer.Action)
         case iksica(IksicaReducer.Action)
+        case login(PresentationAction<LoginReducer.Action>)
 
         enum View: Equatable {}
 
@@ -40,6 +42,9 @@ struct RootReducer {
             default:
                 return .none
             }
+        }
+        .ifLet(\.$login, action: \.login) {
+            LoginReducer()
         }
     }
 }

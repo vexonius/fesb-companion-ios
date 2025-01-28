@@ -40,6 +40,11 @@ struct RootView: View {
                 .tag(5)
         }
         .background(Color.surface)
+        .sheet(
+          item: $store.scope(state: \.login, action: \.login)
+        ) { store in
+            LoginView(store: store)
+        }
     }
 
 }

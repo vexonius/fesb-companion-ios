@@ -3,6 +3,8 @@ import ComposableArchitecture
 @Reducer
 struct LoginReducer {
 
+    @Dependency(\.dismiss) private var dismiss
+
     @ObservableState
     struct State: Equatable {
 
@@ -19,6 +21,7 @@ struct LoginReducer {
         enum View: Equatable {
 
             case login
+            case dismiss
 
         }
 
@@ -28,6 +31,10 @@ struct LoginReducer {
         BindingReducer()
         Reduce { state, action in
             switch action {
+            case .view(.dismiss):
+                return .run { _ in
+                   await dismiss()
+                }
             default:
                 return .none
             }

@@ -39,6 +39,7 @@ struct LoginView: View {
         .maxWidth()
         .padding(.horizontal, 40)
         .background(Color.surface)
+        .interactiveDismissDisabled()
     }
 
 }
