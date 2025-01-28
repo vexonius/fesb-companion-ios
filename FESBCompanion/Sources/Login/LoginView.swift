@@ -23,11 +23,11 @@ struct LoginView: View {
                 .padding(.bottom, 24)
 
             PrimaryTextField(text: $store.username, placeholder: String.username)
-            PrimaryTextField(text: $store.password, placeholder: String.password)
+            PrimaryTextField(text: $store.password, placeholder: String.password, isSecureText: true)
                 .padding(.bottom, .medium)
 
             Button(String.login) {
-                send(.login)
+                send(.dismiss)
             }
             .buttonStyle(RoundedButtonStyle())
             .maxWidth(alignment: .trailing)
