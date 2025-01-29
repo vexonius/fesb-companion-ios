@@ -33,7 +33,6 @@ struct XCardReducer {
 
                 return .none
             case .view(.fetch):
-
                 return .run { send in
                     try await Task.sleep(for: .seconds(2))
                     await send(.updateState(State.dummyData))
