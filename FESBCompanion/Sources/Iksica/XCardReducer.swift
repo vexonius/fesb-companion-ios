@@ -1,7 +1,7 @@
 import ComposableArchitecture
 
 @Reducer
-struct IksicaReducer {
+struct XCardReducer {
 
     @ObservableState
     struct State: Equatable {

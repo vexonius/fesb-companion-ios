@@ -10,7 +10,7 @@ struct RootView: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            IksicaView(store: store.scope(state: \.iksica, action: \.iksica))
+            XCardView(store: store.scope(state: \.xCard, action: \.xCard))
                 .tabItem {
                     Label(String.xcard, image: .card)
                 }

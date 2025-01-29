@@ -1,10 +1,10 @@
 import SwiftUI
 import ComposableArchitecture
 
-@ViewAction(for: IksicaReducer.self)
-struct IksicaView: View {
+@ViewAction(for: XCardReducer.self)
+struct XCardView: View {
 
-    @Bindable var store: StoreOf<IksicaReducer>
+    @Bindable var store: StoreOf<XCardReducer>
     @State private var offset: CGFloat = 0
 
     var body: some View {
@@ -131,14 +131,14 @@ struct IksicaView: View {
 
 }
 
-struct IksicaView_Previews: PreviewProvider {
+struct XCardView_Previews: PreviewProvider {
 
     @State private static var store = Store(
-        initialState: IksicaReducer.State(),
-        reducer: IksicaReducer.init)
+        initialState: XCardReducer.State(),
+        reducer: XCardReducer.init)
 
     static var previews: some View {
-        IksicaView(store: store)
+        XCardView(store: store)
     }
 
 }
