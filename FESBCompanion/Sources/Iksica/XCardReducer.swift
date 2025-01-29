@@ -6,13 +6,13 @@ struct XCardReducer {
     @ObservableState
     struct State: Equatable {
 
-        var viewState: Loadable<IksicaViewModel> = .loading
+        var viewState: Loadable<XCardViewModel> = .loading
         @Presents var receiptDetails: ReceiptDetailsReducer.State?
     }
 
     enum Action: Equatable, ViewAction {
 
-        case updateState(IksicaViewModel)
+        case updateState(XCardViewModel)
         case receiptDetails(PresentationAction<ReceiptDetailsReducer.Action>)
         case view(View)
 

@@ -11,7 +11,7 @@ struct XCardView: View {
         ZStack {
             switch store.viewState {
             case .loading, .initial:
-                IksicaSkeleton()
+                XCardSkeleton()
             case .loaded(let model), .fetchingMore(let model), .refreshing(let model):
                 content(model: model)
             case .empty:
@@ -21,7 +21,7 @@ struct XCardView: View {
         .onAppear { send(.fetch) }
     }
 
-    private func content(model: IksicaViewModel) -> some View {
+    private func content(model: XCardViewModel) -> some View {
         NavigationView {
             ZStack(alignment: .top) {
                 userCard(model: model.cardModel)

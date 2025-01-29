@@ -21,7 +21,7 @@ extension String {
     static let summerSemester = String(localized: "summerSemester")
     static let attendanceProgressFormat = String(localized: "attendanceProgressFormat")
 
-    // MARK: Iksica
+    // MARK: XCard
     static let transactions = String(localized: "transactions")
     static let receiptDetails = String(localized: "receiptDetails")
     static let items = String(localized: "items")

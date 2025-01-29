@@ -114,7 +114,7 @@
         },
         "hr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Tvoji podaci su sigurni i ne dijele se s trećim stranama."
           }
         }
@@ -347,7 +347,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Iksica"
+            "value" : "XCard"
           }
         },
         "hr" : {
