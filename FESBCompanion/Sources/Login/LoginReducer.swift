@@ -17,11 +17,11 @@ struct LoginReducer {
 
         case view(View)
         case binding(BindingAction<State>)
+        case dismiss
 
         enum View: Equatable {
 
             case login
-            case dismiss
 
         }
 
@@ -31,7 +31,9 @@ struct LoginReducer {
         BindingReducer()
         Reduce { state, action in
             switch action {
-            case .view(.dismiss):
+            case .view(.login):
+                return .send(.dismiss)
+            case .dismiss:
                 return .run { _ in
                    await dismiss()
                 }

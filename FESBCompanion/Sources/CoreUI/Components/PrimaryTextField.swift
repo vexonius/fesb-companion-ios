@@ -7,15 +7,23 @@ struct PrimaryTextField: View {
     var placeholder: String
     var isDisabled: Bool = false
     var isSecureText: Bool = false
+    var onSubmit: () -> Void = {}
 
     @FocusState private var isFocused: Bool
     @State private var isTextRedacted: Bool = false
 
-    init(text: Binding<String>, placeholder: String, isDisabled: Bool = false, isSecureText: Bool = false) {
+    init(
+        text: Binding<String>,
+        placeholder: String,
+        isDisabled: Bool = false,
+        isSecureText: Bool = false,
+        onSubmit: @escaping () -> Void = {}
+    ) {
         self._text = text
         self.placeholder = placeholder
         self.isDisabled = isDisabled
         self.isSecureText = isSecureText
+        self.onSubmit = onSubmit
     }
 
     var body: some View {
@@ -24,10 +32,8 @@ struct PrimaryTextField: View {
                 if isSecureText && !isTextRedacted {
                     // TODO: change font for secure field without changing font for hint text
                     SecureField(placeholder, text: $text)
-                        .focused($isFocused)
                 } else {
                     TextField(placeholder, text: $text)
-                        .focused($isFocused)
                 }
 
                 let image = isTextRedacted ? Image.visible : Image.invisible
@@ -38,14 +44,7 @@ struct PrimaryTextField: View {
                         .renderingMode(.template)
                         .foregroundStyle(Color.surfaceTextPrimary)
                         .frame(width: 20, height: 20)
-                        .onTapGesture {
-                            isTextRedacted.toggle()
-
-                            // To switch focus from textfield to securefield
-                            DispatchQueue.main.async {
-                                isFocused = true
-                            }
-                        }
+                        .onTapGesture { isTextRedacted.toggle() }
                 }
             }
         }
@@ -62,6 +61,8 @@ struct PrimaryTextField: View {
         .background(!isDisabled ? Color.inputBackground : .black.opacity(0.1))
         .border(cornerRadius: 10, color: isFocused ? .accentBlue : .divider, lineWidth: 2)
         .disabled(isDisabled)
+        .focused($isFocused)
+        .onSubmit { onSubmit() }
     }
 
 }
