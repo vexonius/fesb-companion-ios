@@ -28,7 +28,7 @@ extension Restaurant {
     }
 
     var coordinate: CLLocationCoordinate2D {
-        return switch self {
+        switch self {
         case .kampus:
             CLLocationCoordinate2D(latitude: 43.51183427752868, longitude: 16.466311284536662)
         case .fesb:

@@ -56,7 +56,7 @@ extension LazyVStack {
 
 extension HStack {
 
-    init (alignment: VerticalAlignment = .center, spacing: Padding,  @ViewBuilder content: () -> Content) {
+    init (alignment: VerticalAlignment = .center, spacing: Padding, @ViewBuilder content: () -> Content) {
         self.init(alignment: alignment, spacing: spacing.rawValue, content: content)
     }
 

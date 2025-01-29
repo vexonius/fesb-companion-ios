@@ -5,6 +5,7 @@ struct RootReducer {
 
     @ObservableState
     struct State: Equatable {
+
         var router = StackState<AppRouter.State>()
 
         var home = HomeReducer.State()
@@ -35,11 +36,12 @@ struct RootReducer {
         Scope(state: \.iksica, action: \.iksica) {
             IksicaReducer()
         }
-        Reduce { state, action in
+        Reduce { _, action in
             switch action {
             default:
                 return .none
             }
         }
     }
+
 }

@@ -18,5 +18,4 @@ extension Double {
         return "\(prefix)\(value) €"
     }
 
-
 }

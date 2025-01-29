@@ -17,6 +17,6 @@ struct AttendanceItem: Equatable, Identifiable {
     let absent: Int
     let required: Int
     let semester: Int
-    let total : Int
-    
+    let total: Int
+
 }

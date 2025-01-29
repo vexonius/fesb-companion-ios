@@ -8,6 +8,7 @@ struct IksicaReducer {
 
         var viewState: Loadable<IksicaViewModel> = .loading
         @Presents var receiptDetails: ReceiptDetailsReducer.State?
+
     }
 
     enum Action: Equatable, ViewAction {
@@ -50,4 +51,5 @@ struct IksicaReducer {
             ReceiptDetailsReducer()
         }
     }
+
 }

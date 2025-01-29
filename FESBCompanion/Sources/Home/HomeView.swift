@@ -24,7 +24,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
 
     @State private static var store = Store(
-        initialState: HomeReducer.State(), 
+        initialState: HomeReducer.State(),
         reducer: HomeReducer.init)
 
     static var previews: some View {
