@@ -23,6 +23,7 @@ jobs:
           tuist generate --no-open
       - name: Lint
         run: |
+          brew install swiftlint
           swiftlint lint --reporter github-actions-logging --strict
       - name: Build
         run: |
