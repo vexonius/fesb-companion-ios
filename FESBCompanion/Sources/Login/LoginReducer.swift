@@ -29,7 +29,7 @@ struct LoginReducer {
 
     var body: some Reducer<State, Action> {
         BindingReducer()
-        Reduce { state, action in
+        Reduce { _, action in
             switch action {
             case .view(.login):
                 return .send(.dismiss)
@@ -42,4 +42,5 @@ struct LoginReducer {
             }
         }
     }
+
 }
