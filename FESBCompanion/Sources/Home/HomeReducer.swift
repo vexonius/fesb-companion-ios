@@ -5,7 +5,9 @@ struct HomeReducer {
 
     @ObservableState
     struct State: Equatable {
+
         var router = StackState<AppRouter.State>()
+
     }
 
     enum Action: Equatable, ViewAction {
@@ -18,11 +20,12 @@ struct HomeReducer {
     }
 
     var body: some Reducer<State, Action> {
-        Reduce { state, action in
+        Reduce { _, action in
             switch action {
             default:
                 return .none
             }
         }
     }
+
 }

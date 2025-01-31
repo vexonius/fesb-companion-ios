@@ -8,6 +8,7 @@ struct XCardReducer {
 
         var viewState: Loadable<XCardViewModel> = .loading
         @Presents var receiptDetails: ReceiptDetailsReducer.State?
+
     }
 
     enum Action: Equatable, ViewAction {
@@ -49,4 +50,5 @@ struct XCardReducer {
             ReceiptDetailsReducer()
         }
     }
+
 }

@@ -77,16 +77,16 @@ struct AttendanceView: View {
                 .foregroundStyle(Color.text)
 
             LazyVGrid(columns: adaptiveColumn, spacing: 6) {
-                ForEach(0..<model.attended, id: \.self) { item in
+                ForEach(0..<model.attended, id: \.self) { _ in
                     progressDot(color: .accentGreen)
                 }
 
                 let emptySpots = model.total - model.absent - model.attended
-                ForEach(0..<emptySpots, id: \.self) { item in
+                ForEach(0..<emptySpots, id: \.self) { _ in
                     progressDot(color: .surface)
                 }
 
-                ForEach(0..<model.absent, id: \.self) { item in
+                ForEach(0..<model.absent, id: \.self) { _ in
                     progressDot(color: .accentRed)
                 }
             }
@@ -108,7 +108,7 @@ struct AttendanceView: View {
 struct AttendanceView_Previews: PreviewProvider {
 
     @State private static var store = Store(
-        initialState: AttendanceReducer.State(), 
+        initialState: AttendanceReducer.State(),
         reducer: AttendanceReducer.init)
 
     static var previews: some View {

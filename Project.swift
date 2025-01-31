@@ -30,6 +30,9 @@ let project = Project(
             ),
             sources: ["FESBCompanion/Sources/**"],
             resources: ["FESBCompanion/Resources/**"],
+            scripts: [
+                .post(path: .path("./FESBCompanion/Scripts/swiftlint.sh"), arguments: "", name: "Swiftlint")
+            ],
             dependencies: [
                 .package(product: "ComposableArchitecture"),
                 .package(product: "Algorithms")

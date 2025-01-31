@@ -309,7 +309,8 @@ extension XCardReducer.State {
                         subsidizedAmount: 0.55
                     )
                 ]
-            ),
+            )
         ]
     )
+
 }
