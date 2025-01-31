@@ -309,7 +309,8 @@ extension IksicaReducer.State {
                         subsidizedAmount: 0.55
                     )
                 ]
-            ),
+            )
         ]
     )
+
 }

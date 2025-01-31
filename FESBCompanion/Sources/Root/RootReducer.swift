@@ -5,6 +5,7 @@ struct RootReducer {
 
     @ObservableState
     struct State: Equatable {
+
         var router = StackState<AppRouter.State>()
 
         var home = HomeReducer.State()
@@ -47,4 +48,5 @@ struct RootReducer {
             }
         }
     }
+
 }

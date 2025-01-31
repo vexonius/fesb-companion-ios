@@ -9,16 +9,12 @@ struct ReceiptDetailsReducer {
 
         let model: ReceiptModel
 
-        init(model: ReceiptModel) {
-            self.model = model
-        }
-
     }
 
     enum Action: Equatable {}
 
     var body: some ReducerOf<Self> {
-        Reduce { state, action in
+        Reduce { _, _ in
             return .none
         }
     }

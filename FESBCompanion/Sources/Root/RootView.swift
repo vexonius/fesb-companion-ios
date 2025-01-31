@@ -21,7 +21,7 @@ struct RootView: View {
                 }
                 .tag(2)
 
-            HomeView(store: store.scope(state: \.home, action: \.home),  name: .home)
+            HomeView(store: store.scope(state: \.home, action: \.home), name: .home)
                 .tabItem {
                     Label(String.home, image: "home")
                 }
@@ -33,7 +33,7 @@ struct RootView: View {
                 }
                 .tag(4)
 
-            HomeView(store: store.scope(state: \.home, action: \.home),  name: String.studomat)
+            HomeView(store: store.scope(state: \.home, action: \.home), name: String.studomat)
                 .tabItem {
                     Label(String.studomat, image: .hexagon)
                 }

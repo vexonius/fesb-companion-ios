@@ -25,26 +25,26 @@ struct IksicaView: View {
         NavigationView {
             ZStack(alignment: .top) {
                 userCard(model: model.cardModel)
-                
+
                 ScrollView {
                     Rectangle()
                         .fill(Color.clear)
                         .frame(height: 300)
-                    
+
                     VStack(spacing: .small) {
                         Text(.transactions)
                             .font(.fontHeading3)
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .leading)
                             .padding(.medium)
-                        
+
                         ForEach(model.receipts) { model in
-                            ReceiptCard(model: model)
+                            receiptCard(model: model)
                                 .zIndex(2)
                                 .onTapGesture {
                                     send(.details(model))
                                 }
-                            
+
                             Divider()
                         }
                     }
@@ -54,7 +54,7 @@ struct IksicaView: View {
                 .onScrollGeometryChange(
                     for: CGFloat.self,
                     of: { $0.contentOffset.y + $0.contentInsets.top},
-                    action: { new, old in
+                    action: { new, _ in
                         offset = new
                     }
                 )
@@ -105,7 +105,7 @@ struct IksicaView: View {
         .shadow(color: Color.pink.opacity(0.5), radius: 80 - min(80, abs(offset)), x: 0, y: 0)
     }
 
-    private func ReceiptCard(model: ReceiptModel) -> some View {
+    private func receiptCard(model: ReceiptModel) -> some View {
         VStack(spacing: .small) {
             HStack {
                 Text(model.restaurant.name)
