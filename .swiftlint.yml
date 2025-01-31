@@ -1,0 +1,11 @@
+disabled_rules:
+- nesting
+- todo
+
+excluded:
+- FESBCompanion/Resources
+- FESBCompanion/Scripts
+- FESBCompanion/Tests
+- ./Tuist
+- Derived
+- Project.swift

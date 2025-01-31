@@ -9,7 +9,7 @@ extension AttendanceReducer.State {
                 semester: .winter,
                 items: [
                     AttendanceItem(type: "Class", attended: 8, absent: 2, required: 8, semester: 1, total: 10),
-                    AttendanceItem(type: "Exam", attended: 4, absent: 2, required: 8, semester: 1, total: 10),
+                    AttendanceItem(type: "Exam", attended: 4, absent: 2, required: 8, semester: 1, total: 10)
                 ]
             ),
             AttendanceModel(

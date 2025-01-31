@@ -16,14 +16,14 @@ struct ReceiptDetailsView: View {
                             .lineLimit(0)
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .leading)
-                        
+
                         Text(store.model.dateString)
                             .font(.fontBodySmall)
                             .lineLimit(0)
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .leading)
                             .padding(.bottom, .medium)
-                        
+
                         Text(.items)
                             .font(.fontHeading5)
                             .lineLimit(0)
@@ -43,7 +43,7 @@ struct ReceiptDetailsView: View {
                                         .lineLimit(0)
                                         .foregroundStyle(Color.white)
                                         .maxWidth(alignment: .leading)
-                                    
+
                                     Text(item.total.currencyFormat())
                                         .font(.fontBodyMedium)
                                         .lineLimit(0)
@@ -52,7 +52,7 @@ struct ReceiptDetailsView: View {
                             }
                         }
                         .maxWidth()
-                        
+
                         Text(store.model.totalFormatted)
                             .font(.fontHeading4)
                             .lineLimit(0)
@@ -70,7 +70,7 @@ struct ReceiptDetailsView: View {
                             .lineLimit(0)
                             .foregroundStyle(Color.white)
                             .maxWidth(alignment: .trailing)
-                        
+
                         Map {
                             Marker(store.model.restaurant.name, coordinate: store.model.restaurant.coordinate)
                         }
