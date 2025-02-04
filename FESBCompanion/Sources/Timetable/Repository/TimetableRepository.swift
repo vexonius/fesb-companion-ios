@@ -7,17 +7,19 @@ class TimetableRepository: TimeTableRepositoryProtocol, DependencyKey {
 
     @Dependency(\.timetableClient) private var client: TimetableClient
 
+    private let dataType: String = "User"
+
     func getTimetableEvents(for date: Date) async throws -> [TimetableEventModel] {
         let startDate = date.next(.monday, direction: .backward)
         let endDate = startDate.next(.saturday, direction: .forward)
 
-        let data = try await client.getTimetableEvents(
-            params: [
-                "DataType": "User",
-                "DataId": "sjurko00",
-                "MinDate": startDate.toString(),
-                "MaxDate": endDate.toString()])
+        let params = TimetableParameters(
+            dataType: dataType,
+            minDate: startDate.toString(),
+            maxDate: endDate.toString(),
+            dataId: ProcessInfo.processInfo.environment["userId"] ?? "")
 
+        let data = try await client.getTimetableEvents(params: params.toQueryItemsString)
         let parser = TimetableParser()
         let response = parser.parse(data: data)
 
