@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EventView: View {
 
-    var event: Event
+    var event: TimetableEventModel
     var xSpacing: CGFloat
     var ySpacing: CGFloat
     var zoomFactor: CGFloat
@@ -44,7 +44,9 @@ struct EventView: View {
         )
         .position(
             x: event.getPosition(xSpacing: xSpacing).x - xSpacing / 2,
-            y: zoomFactor * CGFloat(event.startMinute) + CGFloat(event.minutesDelta) * zoomFactor / 2 - startOffset * zoomFactor)
+            y: zoomFactor * CGFloat(event.startMinute)
+               + CGFloat(event.minutesDelta) * zoomFactor / 2 - startOffset * zoomFactor
+        )
     }
 
 }
@@ -52,10 +54,9 @@ struct EventView: View {
 #Preview {
     VStack {
         EventView(
-            event: Event(
-                id: 32,
+            event: TimetableEventModel(
+                id: "32",
                 name: "Umjetna inteligencija",
-                color: .accentBlue,
                 professor: "Drago Dragic",
                 eventType: .class,
                 groups: "",

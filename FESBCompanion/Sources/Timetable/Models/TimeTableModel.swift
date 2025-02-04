@@ -5,7 +5,7 @@ struct TimetableModel: Equatable {
     let date: Date
     let customStartHour: Int?
     let customEndHour: Int?
-    let events: [Event]
+    let events: [TimetableEventModel]
     let isSaturdayShown: Bool
 
     let defaultStartHour = 7
@@ -33,7 +33,7 @@ struct TimetableModel: Equatable {
 
     init(
         date: Date,
-        events: [Event],
+        events: [TimetableEventModel],
         customStartHour: Int? = nil,
         customEndHour: Int? = nil,
         isSaturdayShown: Bool = false
@@ -50,7 +50,7 @@ struct TimetableModel: Equatable {
 extension TimetableModel {
 
     static func createDummyModel() -> TimetableModel {
-        var events: [Event] = []
+        var events: [TimetableEventModel] = []
 
         for item in 0...20 {
             let dateComponents = DateComponents(
@@ -58,16 +58,15 @@ extension TimetableModel {
                 month: 1,
                 day: [19, 20, 21, 22, 23, 24].randomElement()!,
                 hour: Int.random(in: 8...17),
-                minute: [0, 15 ,30, 45].randomElement()!
+                minute: [0, 15, 30, 45].randomElement()!
             )
             let date = Calendar.current.date(from: dateComponents)!
             debugPrint(date.debugDescription)
 
             events.append(
-                Event(
-                    id: item,
+                TimetableEventModel(
+                    id: String(item),
                     name: "Dummy text dummy text dummy text",
-                    color: .accentBlue,
                     professor: "Drago Dragic",
                     eventType: .class,
                     groups: "",
@@ -92,7 +91,7 @@ extension TimetableModel {
             month: 1,
             day: [19, 20, 21, 22, 23, 24].randomElement()!,
             hour: Int.random(in: 8...17),
-            minute: [0, 15 ,30, 45].randomElement()!
+            minute: [0, 15, 30, 45].randomElement()!
         )
 
         return Calendar.current.date(from: dateComponents)!

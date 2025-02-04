@@ -1,14 +1,19 @@
 import Foundation
 import ComposableArchitecture
+import shared
 
 @Reducer
 struct TimetableReducer {
 
+    @Dependency(\.timetableRepository) private var repository: TimeTableRepositoryProtocol
+
     @ObservableState
     struct State: Equatable {
+
         var router = StackState<AppRouter.State>()
 
         let selectedDate = Date.now
+        var model: TimetableModel = .init(date: .now, events: [])
 
         var weekdayNames: [(String, String)] {
             let dateFormatter = DateFormatter()
@@ -37,6 +42,7 @@ struct TimetableReducer {
 
             return formattedDate
         }
+
     }
 
     enum Action: Equatable, ViewAction {
@@ -44,16 +50,36 @@ struct TimetableReducer {
         case view(View)
         case router(StackAction<AppRouter.State, AppRouter.Action>)
 
-        enum View: Equatable {}
+        case updateState(models: [TimetableEventModel], date: Date)
+
+        enum View: Equatable {
+
+            case fetchTimetable
+
+        }
 
     }
 
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
+            case .view(.fetchTimetable):
+                let date = state.selectedDate
+                let formatter = DateFormatter()
+                formatter.string(from: date)
+
+                return .run { send in
+                    let models = try await repository.getTimetableEvents(for: date)
+                    await send(.updateState(models: models, date: date))
+                }
+            case .updateState(let models, let date):
+                state.model = .init(date: date, events: models)
+
+                return .none
             default:
                 return .none
             }
         }
     }
+
 }

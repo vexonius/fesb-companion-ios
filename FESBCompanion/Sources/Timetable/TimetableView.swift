@@ -10,7 +10,6 @@ struct TimetableView: View {
     @GestureState var zoomFactorGesture: CGFloat = 1
     @State var zoomFactor: CGFloat = 1
 
-    var model: TimetableModel
     var verticalSpacing: CGFloat = 60
 
     var xSpacing: CGFloat {
@@ -34,17 +33,22 @@ struct TimetableView: View {
         }
         .gesture(
             MagnifyGesture()
-                .updating($zoomFactorGesture) { value, gestureState, transaction in
+                .updating($zoomFactorGesture) { value, gestureState, _ in
                     gestureState = value.magnification
 
-                    guard gestureState > model.minZoomFactor && gestureState < model.maxZoomFactor else { return }
+                    guard
+                        gestureState > store.model.minZoomFactor
+                        && gestureState < store.model.maxZoomFactor
+                    else { return }
 
                     zoomFactor = gestureState
                 }
         )
         .onGeometryChange(for: CGSize.self, of: \.size) {
-            debugPrint($0)
             containerWidth = $0.width
+        }
+        .onAppear {
+            send(.fetchTimetable)
         }
     }
 
@@ -85,24 +89,24 @@ struct TimetableView: View {
     private var scrollableGridView: some View {
         ScrollView {
             ZStack {
-                ForEach(model.events) { event in
+                ForEach(store.model.events) { event in
                     EventView(
                         event: event,
                         xSpacing: xSpacing,
                         ySpacing: ySpacing,
                         zoomFactor: zoomFactor,
-                        startOffset: model.startHour.inMinutes.asCGFloat)
+                        startOffset: store.model.startHour.inMinutes.asCGFloat)
                 }
             }
-            .frame(width: containerWidth, height: model.rows * ySpacing)
+            .frame(width: containerWidth, height: store.model.rows * ySpacing)
             .background {
                 Path { path in
-                    for index in 1...Int(model.cols - 1) {
+                    for index in 1...Int(store.model.cols - 1) {
                         let vOffset: CGFloat = CGFloat(index) * xSpacing
                         path.move(to: CGPoint(x: vOffset, y: -3000))
                         path.addLine(to: CGPoint(x: vOffset, y: 3000))
                     }
-                    for index in 1...Int(model.rows - 1) {
+                    for index in 1...Int(store.model.rows - 1) {
                         let hOffset: CGFloat = CGFloat(index) * ySpacing
                         path.move(to: CGPoint(x: 0, y: hOffset))
                         path.addLine(to: CGPoint(x: containerWidth, y: hOffset))
@@ -112,7 +116,7 @@ struct TimetableView: View {
             }
             .background {
                 Path { path in
-                    for index in 2...Int(model.rows - 1) {
+                    for index in 2...Int(store.model.rows - 1) {
                         let hOffset: CGFloat = CGFloat(index) * ySpacing - ySpacing / 2
                         path.move(to: CGPoint(x: 0, y: hOffset))
                         path.addLine(to: CGPoint(x: containerWidth, y: hOffset))
@@ -137,9 +141,7 @@ struct TimetableView_Previews: PreviewProvider {
         reducer: TimetableReducer.init)
 
     static var previews: some View {
-        TimetableView(
-            store: store,
-            model: TimetableModel.createDummyModel())
+        TimetableView(store: store)
     }
 
 }

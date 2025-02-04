@@ -41,7 +41,7 @@ struct RootReducer {
         Scope(state: \.timetable, action: \.timetable) {
             TimetableReducer()
         }
-        Reduce { state, action in
+        Reduce { _, action in
             switch action {
             default:
                 return .none

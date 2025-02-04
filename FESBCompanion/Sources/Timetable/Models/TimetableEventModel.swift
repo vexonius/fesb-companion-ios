@@ -1,10 +1,9 @@
 import SwiftUI
 
-struct Event: Equatable, Identifiable {
+struct TimetableEventModel: Equatable, Identifiable {
 
-    let id: Int
+    let id: String
     let name: String
-    let color: Color
     let professor: String
     let eventType: TimetableType
     let groups: String
@@ -14,7 +13,7 @@ struct Event: Equatable, Identifiable {
     let description: String?
     let recurring: Bool
     let recurringType: Recurring
-    let recurringUntil: Date
+    let recurringUntil: Date?
     let studyCode: String
 
     var shortName: String {
@@ -53,27 +52,5 @@ struct Event: Equatable, Identifiable {
     var minutesDelta: Int {
         endMinute - startMinute
     }
-
-}
-
-enum TimetableType: String {
-
-    case `class`
-    case exams
-    case other
-    case auditoryClasses
-    case seminars
-    case labs
-    case constructs
-    case colloquiums
-
-}
-
-enum Recurring {
-
-    case undefined
-    case everyWeek
-    case everyTwoWeeks
-    case everyMonth
 
 }

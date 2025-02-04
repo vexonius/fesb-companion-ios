@@ -20,5 +20,4 @@ extension Font {
     static let fontLabelLarge = Font.custom("Inter-SemiBold", size: 16)
     static let fontLabelMedium = Font.custom("Inter-SemiBold", size: 14)
 
-
 }
