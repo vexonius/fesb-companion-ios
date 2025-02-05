@@ -23,7 +23,7 @@ jobs:
           repo: 'vexonius/fesb-companion-shared'
           version: 'tags/0.1.1'
           file: 'shared.xcframework.zip'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
       - name: Unzip and move xcframework
         run: |
           unzip -o file.zip
