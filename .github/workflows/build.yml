@@ -26,7 +26,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: Unzip and move xcframework
         run: |
-          unzip -o file.zip
+          unzip -o shared.xcframework.zip
           mv shared.xcframework FESBCompanion/shared.xcframework
       - name: Install tuist
         run: |
