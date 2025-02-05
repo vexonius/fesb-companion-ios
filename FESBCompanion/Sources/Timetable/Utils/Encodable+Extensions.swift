@@ -2,6 +2,14 @@ import Foundation
 
 extension Encodable {
 
+    var toQueryItemsString: [String: String] {
+        let dict = self.toQueryItemsList?.reduce(into: [String: String]()) { result, item in
+            result[item.0] = item.1
+        }
+
+        return dict ?? [:]
+    }
+
     private var toDictionary: [String: Any]? {
         guard
             let data = try? JSONEncoder().encode(self),
@@ -38,14 +46,6 @@ extension Encodable {
                 return (key, "\(value)")
             }
         }
-    }
-
-    var toQueryItemsString: [String: String] {
-        let dict = self.toQueryItemsList?.reduce(into: [String: String]()) { result, item in
-            result[item.0] = item.1
-        }
-
-        return dict ?? [:]
     }
 
 }
