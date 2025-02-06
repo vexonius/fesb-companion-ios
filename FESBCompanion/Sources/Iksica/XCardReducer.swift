@@ -1,19 +1,19 @@
 import ComposableArchitecture
 
 @Reducer
-struct IksicaReducer {
+struct XCardReducer {
 
     @ObservableState
     struct State: Equatable {
 
-        var viewState: Loadable<IksicaViewModel> = .loading
+        var viewState: Loadable<XCardViewModel> = .loading
         @Presents var receiptDetails: ReceiptDetailsReducer.State?
 
     }
 
     enum Action: Equatable, ViewAction {
 
-        case updateState(IksicaViewModel)
+        case updateState(XCardViewModel)
         case receiptDetails(PresentationAction<ReceiptDetailsReducer.Action>)
         case view(View)
 
@@ -34,7 +34,6 @@ struct IksicaReducer {
 
                 return .none
             case .view(.fetch):
-
                 return .run { send in
                     try await Task.sleep(for: .seconds(2))
                     await send(.updateState(State.dummyData))

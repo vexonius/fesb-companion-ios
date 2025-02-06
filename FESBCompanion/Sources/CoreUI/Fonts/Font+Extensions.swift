@@ -10,7 +10,8 @@ extension Font {
 
     static let fontBodyLarge = Font.custom("Inter-Regular", size: 16)
     static let fontBodyMedium = Font.custom("Inter-Regular", size: 14)
-    static let fontBodySmall = Font.custom("Inter-Regular", size: 14)
+    static let fontBodySmall = Font.custom("Inter-Regular", size: 12)
+    static let fontBodyRedacted = Font.system(size: 14, weight: .black)
 
     static let fontButtonLarge = Font.custom("Inter-Medium", size: 18)
     static let fontButtonMedium = Font.custom("Inter-Medium", size: 16)

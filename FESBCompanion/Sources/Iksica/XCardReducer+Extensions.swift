@@ -1,8 +1,8 @@
 import ComposableArchitecture
 
-extension IksicaReducer.State {
+extension XCardReducer.State {
 
-    static let dummyData = IksicaViewModel(
+    static let dummyData = XCardViewModel(
         cardModel: CardModel(
             name: "",
             surname: "",
