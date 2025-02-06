@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct IksicaSkeleton: View {
+struct XCardSkeleton: View {
 
     var body: some View {
         NavigationView {
@@ -45,5 +45,5 @@ struct IksicaSkeleton: View {
 }
 
 #Preview {
-    IksicaSkeleton()
+    XCardSkeleton()
 }

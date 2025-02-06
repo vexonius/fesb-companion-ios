@@ -10,7 +10,8 @@ struct RootReducer {
 
         var home = HomeReducer.State()
         var attendance = AttendanceReducer.State()
-        var iksica = IksicaReducer.State()
+        var xCard = XCardReducer.State()
+        @Presents var login: LoginReducer.State? = LoginReducer.State()
 
     }
 
@@ -20,7 +21,8 @@ struct RootReducer {
         case router(StackAction<AppRouter.State, AppRouter.Action>)
         case home(HomeReducer.Action)
         case attendance(AttendanceReducer.Action)
-        case iksica(IksicaReducer.Action)
+        case xCard(XCardReducer.Action)
+        case login(PresentationAction<LoginReducer.Action>)
 
         enum View: Equatable {}
 
@@ -33,14 +35,17 @@ struct RootReducer {
         Scope(state: \.home, action: \.home) {
             HomeReducer()
         }
-        Scope(state: \.iksica, action: \.iksica) {
-            IksicaReducer()
+        Scope(state: \.xCard, action: \.xCard) {
+            XCardReducer()
         }
         Reduce { _, action in
             switch action {
             default:
                 return .none
             }
+        }
+        .ifLet(\.$login, action: \.login) {
+            LoginReducer()
         }
     }
 

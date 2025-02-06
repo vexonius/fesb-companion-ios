@@ -140,3 +140,17 @@ public extension View {
     }
 
 }
+
+// MARK: Border
+public extension View {
+
+    func border(cornerRadius: CGFloat = 4, color: Color = .surfaceTextPrimary, lineWidth: CGFloat = 2) -> some View {
+        overlay {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .stroke(color, lineWidth: lineWidth)
+                .padding(lineWidth / 2)
+        }
+        .cornerRadius(cornerRadius)
+    }
+
+}
