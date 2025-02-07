@@ -15,8 +15,8 @@ class TimetableRepository: TimeTableRepositoryProtocol, DependencyKey {
 
         let params = TimetableParameters(
             dataType: dataType,
-            minDate: startDate.toString(),
-            maxDate: endDate.toString(),
+            minDate: DateFormatter.string(date: startDate),
+            maxDate: DateFormatter.string(date: endDate),
             dataId: ProcessInfo.processInfo.environment["userId"] ?? "")
 
         let data = try await client.getTimetableEvents(params: params.toQueryItemsString)
