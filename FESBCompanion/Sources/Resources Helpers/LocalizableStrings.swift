@@ -43,5 +43,9 @@ extension String {
     static let group = String(localized: "group")
     static let name = String(localized: "name")
     static let time = String(localized: "time")
+    static let recurringBiWeekly = String(localized: "recurringBiWeekly")
+    static let recurringWeekly = String(localized: "recurringWeekly")
+    static let recurringMonthly = String(localized: "recurringMonthly")
+    static let recurringUndefined = String(localized: "recurringUndefined")
 
 }
