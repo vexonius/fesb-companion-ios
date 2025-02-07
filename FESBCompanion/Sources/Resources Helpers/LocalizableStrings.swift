@@ -36,4 +36,12 @@ extension String {
     static let username = String(localized: "username")
     static let password = String(localized: "password")
 
+    // MARK: Timetable
+    static let date = String(localized: "date")
+    static let professor = String(localized: "professor")
+    static let recurring = String(localized: "recurring")
+    static let group = String(localized: "group")
+    static let name = String(localized: "name")
+    static let time = String(localized: "time")
+
 }

@@ -52,6 +52,40 @@
         }
       }
     },
+    "date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datum"
+          }
+        }
+      }
+    },
+    "group" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupa"
+          }
+        }
+      }
+    },
     "home" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -120,6 +154,23 @@
         }
       }
     },
+    "name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazim"
+          }
+        }
+      }
+    },
     "password" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -133,6 +184,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lozinka"
+          }
+        }
+      }
+    },
+    "professor" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Professor"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profesor"
           }
         }
       }
@@ -222,6 +290,23 @@
         }
       }
     },
+    "recurring" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recurring"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ponavlja se"
+          }
+        }
+      }
+    },
     "settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -269,6 +354,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ljetni semestar"
+          }
+        }
+      }
+    },
+    "time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrijeme"
           }
         }
       }
