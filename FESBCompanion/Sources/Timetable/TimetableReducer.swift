@@ -43,10 +43,12 @@ struct TimetableReducer {
         case router(StackAction<AppRouter.State, AppRouter.Action>)
 
         case updateState(models: [TimetableEventModel], date: Date)
+        case eventDetails(model: TimetableEventModel)
 
         enum View: Equatable {
 
             case fetchTimetable
+            case eventDetails(model: TimetableEventModel)
 
         }
 
@@ -68,6 +70,8 @@ struct TimetableReducer {
                         debugPrint(error)
                     }
                 }
+            case .view(.eventDetails(let model)):
+                return .send(.eventDetails(model: model))
             case .updateState(let models, let date):
                 state.model = .init(date: date, events: models)
 

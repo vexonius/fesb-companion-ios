@@ -13,7 +13,8 @@ struct RootReducer {
         var timetable = TimetableReducer.State()
         var xCard = XCardReducer.State()
 
-        @Presents var login: LoginReducer.State? = LoginReducer.State()
+        @Presents var login: LoginReducer.State?
+        @Presents var eventDetails: TimetableEventDetailsReducer.State?
 
     }
 
@@ -26,6 +27,7 @@ struct RootReducer {
         case xCard(XCardReducer.Action)
         case timetable(TimetableReducer.Action)
         case login(PresentationAction<LoginReducer.Action>)
+        case eventDetails(PresentationAction<TimetableEventDetailsReducer.Action>)
 
         enum View: Equatable {}
 
@@ -44,14 +46,21 @@ struct RootReducer {
         Scope(state: \.timetable, action: \.timetable) {
             TimetableReducer()
         }
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
+            case .timetable(.eventDetails(let model)):
+                state.eventDetails = .init(model: model)
+
+                return .none
             default:
                 return .none
             }
         }
         .ifLet(\.$login, action: \.login) {
             LoginReducer()
+        }
+        .ifLet(\.$eventDetails, action: \.eventDetails) {
+            TimetableEventDetailsReducer()
         }
     }
 
