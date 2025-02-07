@@ -23,7 +23,7 @@ struct TimetableReducer {
                     let date = monday.addingTimeInterval(TimeInterval(86_400 * ordinalDay))
 
                     return (
-                        DateFormatter.string(withFormat: .monthName, date: date),
+                        DateFormatter.string(withFormat: .dayName, date: date),
                         DateFormatter.string(withFormat: .day, date: date)
                     )
                 }

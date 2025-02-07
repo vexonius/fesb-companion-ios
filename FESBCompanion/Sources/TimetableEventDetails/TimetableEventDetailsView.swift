@@ -24,20 +24,20 @@ struct TimetableEventDetailsView: View {
                     .foregroundStyle(store.model.eventType.color)
                     .frame(width: 12)
 
-                Text(store.model.eventType.rawValue)
+                Text(store.model.eventType.title)
                     .font(.fontHeading4)
                     .foregroundStyle(Color.surfaceTextPrimary)
                     .multilineTextAlignment(.leading)
                     .maxWidth(alignment: .leading)
             }
-            .padding(.bottom, .medium)
+            .padding(.bottom, .base * 3)
 
             LazyVGrid(columns: layout, spacing: Padding.medium.value) {
                 ForEach(store.cellItems, id: \.type.id) { item in
                     cell(title: item.type.title, value: item.value)
                 }
             }
-            .padding(.horizontal, .base)
+            .padding(.horizontal, .medium)
         }
         .padding(.top, .large)
         .padding(.horizontal, .large)
@@ -73,7 +73,7 @@ struct TimetableEventDetailsView_Previews: PreviewProvider {
                 id: "1234",
                 name: "Uvod u programiranje",
                 professor: "Ivo Ivic",
-                eventType: .class,
+                eventType: .`classes`,
                 groups: "Grupa 2",
                 classroom: "A100",
                 start: Date(),

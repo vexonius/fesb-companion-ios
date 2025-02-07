@@ -15,7 +15,7 @@ extension TimetableType {
         case .laboratorijskaVjezba:
             self = .labs
         case .predavanje:
-            self = .class
+            self = .`classes`
         case .seminar:
             self = .seminars
         case .other:

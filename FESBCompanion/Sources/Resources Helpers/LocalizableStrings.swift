@@ -5,8 +5,12 @@ extension String {
     // MARK: Common
     static let classes = String(localized: "classes")
     static let auditoryClasses = String(localized: "auditoryClasses")
-    static let laboratoryClasses = String(localized: "laboratoryClasses")
-    static let constructionClasses = String(localized: "constructionClasses")
+    static let labs = String(localized: "labs")
+    static let constructs = String(localized: "constructs")
+    static let other = String(localized: "other")
+    static let seminars = String(localized: "seminars")
+    static let exams = String(localized: "exams")
+    static let colloquiums = String(localized: "colloquiums")
 
     // MARK: Home
     static let home = String(localized: "home")

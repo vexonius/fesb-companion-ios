@@ -6,10 +6,11 @@ extension DateFormatter {
 
         case `default` = "yyyy-MM-dd"
         case dropDown = "MMM dd., yyyy"
-        case monthName = "EE"
+        case dayName = "EE"
         case day = "d"
         case time = "HH:mm"
         case dotSeparatedDate = "dd.MM.yyyy"
+        case dayAndDotSeparatedDate = "EEEE, dd.MM.yyyy"
 
     }
 

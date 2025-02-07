@@ -4,7 +4,7 @@ extension TimetableType {
 
     var color: Color {
         switch self {
-        case .class:
+        case .`classes`:
             .eventBlue
         case .exams:
             .eventPurple
@@ -21,7 +21,27 @@ extension TimetableType {
         case .constructs:
             .eventGrey
         }
+    }
 
+    var title: String {
+        switch self {
+        case .`classes`:
+            .classes
+        case .exams:
+            .exams
+        case .auditoryClasses:
+            .auditoryClasses
+        case .colloquiums:
+            .colloquiums
+        case .labs:
+            .labs
+        case .other:
+            .other
+        case .seminars:
+            .seminars
+        case .constructs:
+            .constructs
+        }
     }
 
 }

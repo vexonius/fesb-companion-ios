@@ -13,7 +13,7 @@ struct TimetableEventDetailsReducer {
             return [
                 (EventDetailType.professor, model.professor),
                 (EventDetailType.group, model.groups),
-                (EventDetailType.date, DateFormatter.string(withFormat: .dotSeparatedDate, date: model.start)),
+                (EventDetailType.date, DateFormatter.string(withFormat: .dayAndDotSeparatedDate, date: model.start)),
                 (EventDetailType.time, DateFormatter.string(withFormat: .time, date: model.start)),
                 (
                     EventDetailType.recurring,

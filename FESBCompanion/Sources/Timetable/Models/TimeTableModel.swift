@@ -68,7 +68,7 @@ extension TimetableModel {
                     id: String(item),
                     name: "Dummy text dummy text dummy text",
                     professor: "Drago Dragic",
-                    eventType: .class,
+                    eventType: .`classes`,
                     groups: "",
                     classroom: "C502",
                     start: date,

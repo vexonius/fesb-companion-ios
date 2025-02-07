@@ -58,7 +58,7 @@ struct EventView: View {
                 id: "32",
                 name: "Umjetna inteligencija",
                 professor: "Drago Dragic",
-                eventType: .class,
+                eventType: .`classes`,
                 groups: "",
                 classroom: "C502",
                 start: Date(timeIntervalSinceNow: 60 * 27),

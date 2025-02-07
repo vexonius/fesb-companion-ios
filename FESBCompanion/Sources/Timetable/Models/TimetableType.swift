@@ -1,6 +1,6 @@
 enum TimetableType: String {
 
-    case `class`
+    case `classes`
     case exams
     case other
     case auditoryClasses
