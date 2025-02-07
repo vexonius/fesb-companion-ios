@@ -21,7 +21,7 @@ struct TimetableEventDetailsView: View {
 
             HStack(spacing: .base) {
                 Circle()
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(store.model.eventType.color)
                     .frame(width: 12)
 
                 Text(store.model.eventType.rawValue)

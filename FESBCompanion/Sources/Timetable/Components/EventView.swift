@@ -37,7 +37,7 @@ struct EventView: View {
                 .frame(width: xSpacing - 6, height: CGFloat(event.minutesDelta) * zoomFactor)
                 .overlay(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 2)
-                        .fill(Color.orange)
+                        .fill(event.eventType.color)
                         .frame(width: 4, height: CGFloat(event.minutesDelta) * zoomFactor - 12)
                         .padding(.leading, 4)
                 }

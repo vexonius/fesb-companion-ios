@@ -12,4 +12,12 @@ public extension Color {
     static let divider = Color("DividerColor")
     static let inputBackground = Color("InputBackgroundColor")
 
+    // MARK: Timetable
+    static let eventRed = Color("EventRed")
+    static let eventBlue = Color("EventBlue")
+    static let eventGreen = Color("EventGreen")
+    static let eventYellow = Color("EventYellow")
+    static let eventPurple = Color("EventPurple")
+    static let eventGrey = Color("EventGrey")
+
 }
