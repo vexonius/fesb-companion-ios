@@ -7,8 +7,8 @@ struct TimetableEventDetailsView: View {
     @Bindable var store: StoreOf<TimetableEventDetailsReducer>
 
     private let layout = [
-        GridItem(.adaptive(minimum: 100, maximum: .infinity)),
-        GridItem(.adaptive(minimum: 100, maximum: .infinity))
+        GridItem(.adaptive(minimum: 100, maximum: .infinity), spacing: Padding.base.value),
+        GridItem(.adaptive(minimum: 100, maximum: .infinity), spacing: Padding.base.value)
     ]
 
     var body: some View {
@@ -32,11 +32,12 @@ struct TimetableEventDetailsView: View {
             }
             .padding(.bottom, .medium)
 
-            LazyVGrid(columns: layout) {
-                ForEach(store.cellItems, id: \.0) { item in
+            LazyVGrid(columns: layout, spacing: Padding.medium.value) {
+                ForEach(store.cellItems, id: \.type.id) { item in
                     cell(title: item.type.title, value: item.value)
                 }
             }
+            .padding(.horizontal, .base)
         }
         .padding(.top, .large)
         .padding(.horizontal, .large)
