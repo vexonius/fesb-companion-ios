@@ -4,22 +4,20 @@ extension TimetableType {
 
     init(from type: TimetableTypeResponse) {
         switch type {
-        case .auditornaVjezba:
+        case .auditoryClasses:
             self = .auditoryClasses
-        case .ispit:
+        case .exams:
             self = .exams
-        case .kolokvij:
+        case .colloquiums:
             self = .colloquiums
-        case .konstrukcijskaVjezba:
+        case .constructs:
             self = .constructs
-        case .laboratorijskaVjezba:
+        case .labs:
             self = .labs
-        case .predavanje:
-            self = .class
-        case .seminar:
+        case .classes:
+            self = .`classes`
+        case .seminars:
             self = .seminars
-        case .other:
-            self = .other
         default:
             self = .other
         }
