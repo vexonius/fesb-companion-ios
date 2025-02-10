@@ -15,7 +15,7 @@ extension TimetableType {
         case .labs:
             self = .labs
         case .classes:
-            self = .`classes`
+            self = .classes
         case .seminars:
             self = .seminars
         default:
