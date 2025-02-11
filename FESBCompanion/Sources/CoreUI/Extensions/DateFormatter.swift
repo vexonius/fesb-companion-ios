@@ -11,6 +11,9 @@ extension DateFormatter {
         case time = "HH:mm"
         case dotSeparatedDate = "dd.MM.yyyy"
         case dayAndDotSeparatedDate = "EEEE, dd.MM.yyyy"
+        case slashSeparatedFormat = "MM/dd/YYYY"
+        case monthYear = "MMMM YYYY"
+        case weekDay = "EEEEE"
 
     }
 
