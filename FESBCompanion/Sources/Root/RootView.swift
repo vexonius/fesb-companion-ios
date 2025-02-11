@@ -48,6 +48,10 @@ struct RootView: View {
             TimetableEventDetailsView(store: store)
                 .presentationDetents([.medium, .large])
         }
+        .sheet(item: $store.scope(state: \.calendar, action: \.calendar)) { store in
+            TimetableCalendarView(store: store)
+                .presentationDetents([.medium])
+        }
     }
 
 }

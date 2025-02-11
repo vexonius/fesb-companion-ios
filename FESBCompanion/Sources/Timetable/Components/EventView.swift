@@ -45,8 +45,7 @@ struct EventView: View {
         .position(
             x: event.getPosition(xSpacing: xSpacing).x - xSpacing / 2,
             y: zoomFactor * CGFloat(event.startMinute)
-               + CGFloat(event.minutesDelta) * zoomFactor / 2 - startOffset * zoomFactor
-        )
+               + CGFloat(event.minutesDelta) * zoomFactor / 2 - startOffset * zoomFactor)
     }
 
 }

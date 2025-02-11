@@ -25,6 +25,9 @@ struct TimetableView: View {
             VStack(alignment: .leading, spacing: .medium) {
                 monthDropdown()
                     .padding(.horizontal, 24)
+                    .onTapGesture {
+                        send(.calendar)
+                    }
 
                 daysInWeek
             }
