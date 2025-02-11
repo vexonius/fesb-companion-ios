@@ -56,6 +56,10 @@ struct TimetableCalendarReducer {
                     await send(.dateSelected(date))
                     await dismiss()
                 }
+            case .view(.dismiss):
+                return .run { _ in
+                    await dismiss()
+                }
             default:
                 return .none
             }
