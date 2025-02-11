@@ -37,4 +37,4 @@ jobs:
           swiftlint lint --reporter github-actions-logging --strict
       - name: Build
         run: |
-          tuist build FESBCompanion
+          tuist build FESBCompanion --verbose
