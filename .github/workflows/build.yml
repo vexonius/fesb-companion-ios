@@ -17,6 +17,16 @@ jobs:
       - name: Enable macros
         run: |
           defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+      - name: Fetch xcframework dependency
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: 'vexonius/fesb-companion-shared'
+          version: 'latest'
+          file: 'shared.xcframework.zip'
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Unzip and move xcframework
+        run: |
+          unzip -o ${{ github.workspace }}/shared.xcframework.zip
       - name: Install tuist
         run: |
           brew install tuist
@@ -27,4 +37,4 @@ jobs:
           swiftlint lint --reporter github-actions-logging --strict
       - name: Build
         run: |
-          tuist build FESBCompanion
+          tuist build FESBCompanion --verbose

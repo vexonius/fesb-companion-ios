@@ -10,7 +10,9 @@ struct RootReducer {
 
         var home = HomeReducer.State()
         var attendance = AttendanceReducer.State()
+        var timetable = TimetableReducer.State()
         var xCard = XCardReducer.State()
+
         @Presents var login: LoginReducer.State? = LoginReducer.State()
 
     }
@@ -22,6 +24,7 @@ struct RootReducer {
         case home(HomeReducer.Action)
         case attendance(AttendanceReducer.Action)
         case xCard(XCardReducer.Action)
+        case timetable(TimetableReducer.Action)
         case login(PresentationAction<LoginReducer.Action>)
 
         enum View: Equatable {}
@@ -37,6 +40,9 @@ struct RootReducer {
         }
         Scope(state: \.xCard, action: \.xCard) {
             XCardReducer()
+        }
+        Scope(state: \.timetable, action: \.timetable) {
+            TimetableReducer()
         }
         Reduce { _, action in
             switch action {

@@ -35,7 +35,8 @@ let project = Project(
             ],
             dependencies: [
                 .package(product: "ComposableArchitecture"),
-                .package(product: "Algorithms")
+                .package(product: "Algorithms"),
+                .xcframework(path: "./shared.xcframework")
             ]
         ),
         .target(

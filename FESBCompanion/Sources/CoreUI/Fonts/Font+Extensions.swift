@@ -16,6 +16,7 @@ extension Font {
     static let fontButtonLarge = Font.custom("Inter-Medium", size: 18)
     static let fontButtonMedium = Font.custom("Inter-Medium", size: 16)
     static let fontButtonSmall = Font.custom("Inter-Medium", size: 14)
+    static let fontButtonExtraSmall = Font.custom("Inter-Regular", size: 10)
 
     static let fontLabelLarge = Font.custom("Inter-SemiBold", size: 16)
     static let fontLabelMedium = Font.custom("Inter-SemiBold", size: 14)
