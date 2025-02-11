@@ -5,6 +5,8 @@ import ComposableArchitecture
 @Reducer
 struct TimetableCalendarReducer {
 
+    @Dependency(\.dismiss) private var dismiss
+
     @ObservableState
     struct State: Equatable {
 
@@ -45,8 +47,15 @@ struct TimetableCalendarReducer {
 
     var body: some Reducer<State, Action> {
         BindingReducer()
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
+            case .view(.apply):
+                let date = state.selectedDate
+
+                return .run { send in
+                    await send(.dateSelected(date))
+                    await dismiss()
+                }
             default:
                 return .none
             }

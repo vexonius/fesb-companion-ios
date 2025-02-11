@@ -58,6 +58,10 @@ struct RootReducer {
                 state.calendar = .init(selectedDate: state.timetable.selectedDate)
 
                 return .none
+            case .calendar(.presented(.dateSelected(let date))):
+                state.timetable.selectedDate = date
+
+                return .send(.timetable(.fetchTimetable))
             default:
                 return .none
             }
