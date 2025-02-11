@@ -22,7 +22,7 @@ public struct CalendarView: View {
     }
 
     public var body: some View {
-        VStack {
+        VStack(spacing: .base) {
             LazyVGrid(columns: Array(repeating: GridItem(), count: daysInWeek)) {
                 Section(header: headerViewProvider(month)) {
                     ForEach(days.prefix(daysInWeek), id: \.self, content: daysOfWeekViewProvider)
@@ -46,7 +46,6 @@ public struct CalendarView: View {
                 }
             }
         }
-        .padding(.top, .small)
         .padding([.leading, .trailing, .bottom], .medium)
     }
 
@@ -115,7 +114,7 @@ private extension CalendarView {
             Text(DateFormatter.string(withFormat: .monthYear, date: month).uppercased())
                 .font(.fontHeading5)
                 .foregroundColor(.surfaceTextPrimary)
-                .frame(maxWidth: .infinity, alignment: .center)
+                .maxWidth(alignment: .center)
 
             Button {
                 guard let nextMonthDate = calendar.nextMonthDate(of: dateForVisibleMonth) else { return }
@@ -129,7 +128,7 @@ private extension CalendarView {
             .frame(alignment: .trailing)
             .opacity(shouldShowNextMonth ? 1 : 0)
         }
-        .padding([.top, .bottom], .base)
+        .padding([.top, .bottom], .medium)
         .padding([.leading, .trailing], .base)
     }
 

@@ -33,6 +33,7 @@ struct TimetableCalendarView: View {
             .padding(.horizontal, .large)
             .maxWidth(alignment: .trailing)
         }
+        .padding(.vertical, .base)
         .background(Color.surface)
     }
 
