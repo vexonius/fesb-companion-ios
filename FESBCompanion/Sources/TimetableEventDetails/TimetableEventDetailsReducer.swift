@@ -17,7 +17,11 @@ struct TimetableEventDetailsReducer {
                 (EventDetailType.time, DateFormatter.string(withFormat: .time, date: model.start)),
                 (
                     EventDetailType.recurring,
-                    String(format: model.recurringType.description, model.recurringUntilDateString))
+                    String(
+                        format: model.recurringType.description,
+                        model.recurringUntilDateString
+                    )
+                )
             ]
         }
 
