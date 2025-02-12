@@ -33,8 +33,9 @@ jobs:
           tuist generate --no-open
       - name: Lint
         run: |
-          brew install swiftlint
-          swiftlint lint --reporter github-actions-logging --strict
+          brew tap fiveagency/five-swiftlint
+          brew install five-swiftlint
+          five-swiftlint lint --reporter github-actions-logging --strict
       - name: Build
         run: |
           tuist build FESBCompanion --verbose
