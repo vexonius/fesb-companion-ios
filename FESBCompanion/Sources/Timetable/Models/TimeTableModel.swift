@@ -61,7 +61,6 @@ extension TimetableModel {
                 minute: [0, 15, 30, 45].randomElement()!
             )
             let date = Calendar.current.date(from: dateComponents)!
-            debugPrint(date.debugDescription)
 
             events.append(
                 TimetableEventModel(

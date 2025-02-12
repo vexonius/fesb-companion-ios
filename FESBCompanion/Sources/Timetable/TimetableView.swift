@@ -31,19 +31,7 @@ struct TimetableView: View {
 
             scrollableGridView
         }
-        .gesture(
-            MagnifyGesture()
-                .updating($zoomFactorGesture) { value, gestureState, _ in
-                    gestureState = value.magnification
-
-                    guard
-                        gestureState > store.model.minZoomFactor
-                        && gestureState < store.model.maxZoomFactor
-                    else { return }
-
-                    zoomFactor = gestureState
-                }
-        )
+        .gesture(pinchGesture)
         .onGeometryChange(for: CGSize.self, of: \.size) {
             containerWidth = $0.width
         }
@@ -130,6 +118,20 @@ struct TimetableView: View {
                 .maxWidth()
                 .frame(height: 40)
         }
+    }
+
+    private var pinchGesture: some Gesture {
+        MagnifyGesture()
+            .updating($zoomFactorGesture) { value, gestureState, _ in
+                gestureState = value.magnification
+
+                guard
+                    gestureState > store.model.minZoomFactor
+                    && gestureState < store.model.maxZoomFactor
+                else { return }
+
+                zoomFactor = gestureState
+            }
     }
 
 }
