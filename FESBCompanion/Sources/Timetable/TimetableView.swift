@@ -29,14 +29,22 @@ struct TimetableView: View {
                 daysInWeek
             }
 
-            scrollableGridView
+            switch store.viewState {
+            case .loading:
+                TimetableSkeleton(containerWidth: containerWidth, model: .createDummyModel())
+            case .loaded(let model):
+                scrollableGridView(model: model)
+            default:
+                EmptyView()
+            }
         }
-        .gesture(pinchGesture)
+        .gesture(pinchGesture(minZoomFactor: store.minZoomFactor, maxZoomFactor: store.maxZoomFactor))
         .onGeometryChange(for: CGSize.self, of: \.size) {
             containerWidth = $0.width
         }
         .onAppear {
             send(.fetchTimetable)
+            send(.startTimeline)
         }
     }
 
@@ -82,28 +90,28 @@ struct TimetableView: View {
         }
     }
 
-    private var scrollableGridView: some View {
+    private func scrollableGridView(model: TimetableModel) -> some View {
         ScrollView {
             ZStack {
-                ForEach(store.model.events) { event in
+                ForEach(model.events) { event in
                     EventView(
                         event: event,
                         xSpacing: xSpacing,
                         ySpacing: ySpacing,
                         zoomFactor: zoomFactor,
-                        startOffset: store.model.startHour.inMinutes.asCGFloat)
+                        startOffset: model.startHour.inMinutes.asCGFloat)
                     .onTapGesture { send(.eventDetails(model: event)) }
                 }
             }
-            .frame(width: containerWidth, height: store.model.rows * ySpacing)
+            .frame(width: containerWidth, height: model.rows * ySpacing)
             .background {
                 Path { path in
-                    for index in 1...Int(store.model.cols - 1) {
+                    for index in 1...Int(model.cols - 1) {
                         let vOffset: CGFloat = CGFloat(index) * xSpacing
                         path.move(to: CGPoint(x: vOffset, y: -3000))
                         path.addLine(to: CGPoint(x: vOffset, y: 3000))
                     }
-                    for index in 1...Int(store.model.rows - 1) {
+                    for index in 1...Int(model.rows - 1) {
                         let hOffset: CGFloat = CGFloat(index) * ySpacing
                         path.move(to: CGPoint(x: 0, y: hOffset))
                         path.addLine(to: CGPoint(x: containerWidth, y: hOffset))
@@ -113,7 +121,7 @@ struct TimetableView: View {
             }
             .background {
                 Path { path in
-                    for index in 2...Int(store.model.rows - 1) {
+                    for index in 2...Int(model.rows - 1) {
                         let hOffset: CGFloat = CGFloat(index) * ySpacing - ySpacing / 2
                         path.move(to: CGPoint(x: 0, y: hOffset))
                         path.addLine(to: CGPoint(x: containerWidth, y: hOffset))
@@ -129,14 +137,14 @@ struct TimetableView: View {
         }
     }
 
-    private var pinchGesture: some Gesture {
+    private func pinchGesture(minZoomFactor: CGFloat, maxZoomFactor: CGFloat) -> some Gesture {
         MagnifyGesture()
             .updating($zoomFactorGesture) { value, gestureState, _ in
                 gestureState = value.magnification
 
                 guard
-                    gestureState > store.model.minZoomFactor
-                    && gestureState < store.model.maxZoomFactor
+                    gestureState > minZoomFactor
+                    && gestureState < maxZoomFactor
                 else { return }
 
                 zoomFactor = gestureState

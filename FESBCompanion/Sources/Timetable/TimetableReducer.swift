@@ -6,14 +6,20 @@ import shared
 struct TimetableReducer {
 
     @Dependency(\.timetableRepository) private var repository: TimeTableRepositoryProtocol
+    @Dependency(\.continuousClock) var clock
 
     @ObservableState
     struct State: Equatable {
 
+        let minZoomFactor: CGFloat = 0.8
+        let maxZoomFactor: CGFloat = 2
+
         var router = StackState<AppRouter.State>()
 
         var selectedDate = Date.now
-        var model: TimetableModel = .init(date: .now, events: [])
+        var viewState: Loadable<TimetableModel> = .initial
+
+        var timelineOffset: CGFloat = 0
 
         var weekdayNames: [(String, String)] {
             let monday = selectedDate.next(.monday, direction: .backward, considerToday: true)
@@ -46,12 +52,15 @@ struct TimetableReducer {
         case eventDetails(model: TimetableEventModel)
         case presentCalendar
         case fetchTimetable
+        case timeline
+        case updateTimeline
 
         enum View: Equatable {
 
             case fetchTimetable
             case eventDetails(model: TimetableEventModel)
             case calendar
+            case startTimeline
 
         }
 
@@ -61,8 +70,11 @@ struct TimetableReducer {
         Reduce { state, action in
             switch action {
             case .view(.fetchTimetable):
+
                 return .send(.fetchTimetable)
             case .fetchTimetable:
+                state.viewState = .loading
+
                 let date = state.selectedDate
                 let formatter = DateFormatter()
                 formatter.string(from: date)
@@ -80,7 +92,9 @@ struct TimetableReducer {
             case .view(.calendar):
                 return .send(.presentCalendar)
             case .updateState(let models, let date):
-                state.model = .init(date: date, events: models)
+                state.viewState = .loaded(.init(date: date, events: models))
+
+                return .none
 
                 return .none
             default:
