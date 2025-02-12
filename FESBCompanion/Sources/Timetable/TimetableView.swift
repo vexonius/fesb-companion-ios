@@ -129,6 +129,15 @@ struct TimetableView: View {
                 }
                 .stroke(Color.container.opacity(0.6), style: .init(lineWidth: 2, dash: [2]))
             }
+            .overlay {
+                let timelineMinuteOffset = model.normalize(offset: store.timelineOffset)
+
+                return Path { path in
+                    path.move(to: CGPoint(x: 0, y: timelineMinuteOffset * zoomFactor))
+                    path.addLine(to: CGPoint(x: containerWidth, y: timelineMinuteOffset * zoomFactor))
+                }
+                .stroke(Color.accentRed, lineWidth: 1)
+            }
         }
         .overlay(alignment: .top) {
             LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)

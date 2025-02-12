@@ -43,6 +43,10 @@ struct TimetableModel: Equatable {
         self.events = events
     }
 
+    func normalize(offset: CGFloat) -> CGFloat {
+        offset - startHour.inMinutes.asCGFloat
+    }
+
 }
 
 extension TimetableModel {

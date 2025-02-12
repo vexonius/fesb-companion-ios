@@ -95,6 +95,23 @@ struct TimetableReducer {
                 state.viewState = .loaded(.init(date: date, events: models))
 
                 return .none
+            case .view(.startTimeline):
+                return .send(.timeline)
+            case .timeline:
+                return .run { send in
+                    // Fire right away and then follow the pattern
+                    await send(.updateTimeline)
+
+                    for await _ in self.clock.timer(interval: .seconds(30)) {
+                        await send(.updateTimeline)
+                    }
+                }
+            case .updateTimeline:
+                let date = Date.now
+                let dateComponents = Calendar.init(identifier: .gregorian).dateComponents([.hour, .minute], from: date)
+                let currentMinute = (dateComponents.hour?.inMinutes ?? 0) + (dateComponents.minute ?? 0)
+
+                state.timelineOffset = currentMinute.asCGFloat
 
                 return .none
             default:
