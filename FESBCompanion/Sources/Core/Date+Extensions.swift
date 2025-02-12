@@ -20,17 +20,24 @@ extension Date {
                                  direction: direction)!
     }
 
-    func toString(format: String = "yyyy-MM-dd") -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-
-        return dateFormatter.string(from: self)
+    var dayOfMonth: Int {
+        Calendar.current.component(.day, from: self)
     }
 
-}
+    var month: Int {
+        Calendar.current.component(.month, from: self)
+    }
 
-public enum Weekday: Int {
+    var year: Int {
+        Calendar.current.component(.year, from: self)
+    }
 
-    case sunday = 1, monday, tuesday, wednesday, thursday, friday, saturday
+    func startOfMonth(using calendar: Calendar) -> Date {
+        calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? self
+    }
+
+    func add(minutes: Int) -> Date {
+        advanced(by: Double(minutes * 60))
+    }
 
 }

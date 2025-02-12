@@ -23,7 +23,7 @@ struct TimetableView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: .medium) {
-                monthDropdown()
+                monthDropdown
                     .padding(.horizontal, 24)
 
                 daysInWeek
@@ -40,10 +40,18 @@ struct TimetableView: View {
         }
     }
 
-    private func monthDropdown() -> some View {
-        Text(store.dropDownText)
-            .font(.fontHeading3)
-            .foregroundStyle(Color.white)
+    private var monthDropdown: some View {
+        Button {
+            send(.calendar)
+        } label: {
+            Text(store.dropDownText.capitalized)
+                .font(.fontHeading5)
+                .foregroundStyle(Color.white)
+                .padding(.vertical, 6)
+                .padding(.horizontal, .medium)
+                .background(Capsule().fill(Color.container))
+                .maxWidth(alignment: .center)
+        }
     }
 
     private func dayInAWeek(day: String, date: String, isSelected: Bool = false) -> some View {
@@ -84,6 +92,7 @@ struct TimetableView: View {
                         ySpacing: ySpacing,
                         zoomFactor: zoomFactor,
                         startOffset: store.model.startHour.inMinutes.asCGFloat)
+                    .onTapGesture { send(.eventDetails(model: event)) }
                 }
             }
             .frame(width: containerWidth, height: store.model.rows * ySpacing)

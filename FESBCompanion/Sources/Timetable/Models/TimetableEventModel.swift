@@ -53,4 +53,10 @@ struct TimetableEventModel: Equatable, Identifiable {
         endMinute - startMinute
     }
 
+    var recurringUntilDateString: String {
+        guard let date = recurringUntil else { return "" }
+
+        return DateFormatter.string(withFormat: .dotSeparatedDate, date: date)
+    }
+
 }

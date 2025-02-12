@@ -9,5 +9,7 @@ extension Image {
     static let hexagon = Image("hexagon")
     static let visible = Image("visible")
     static let invisible = Image("invisible")
+    static let chevronLeft = Image("chevron-left")
+    static let chevronRight = Image("chevron-right")
 
 }
