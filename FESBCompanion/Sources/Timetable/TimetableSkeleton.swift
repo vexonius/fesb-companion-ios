@@ -19,34 +19,31 @@ struct TimetableSkeleton: View {
 
     var body: some View {
         ScrollView {
-            VStack {
-                LazyVGrid(
-                    columns: Array(repeating: GridItem(.adaptive(minimum: 50)), count: 5),
-                    alignment: .leading,
-                    spacing: Padding.base.value
-                ) {
-                    ForEach(0..<60, id: \.self) { index in
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.container)
-                            .frame(height: 50)
-                            .opacity(enablePulse ? 1 : 0.5)
-                            .animation(
-                                .linear(duration: 0.8).delay(.random(in: 0..<0.4)).repeatForever(autoreverses: false),
-                                value: enablePulse
-                            )
-                    }
+            LazyVGrid(
+                columns: Array(repeating: GridItem(.adaptive(minimum: 50)), count: 5),
+                alignment: .leading,
+                spacing: Padding.base.value
+            ) {
+                ForEach(0..<80, id: \.self) { index in
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.container)
+                        .frame(height: 50)
+                        .opacity(enablePulse ? 1 : 0.5)
+                        .animation(
+                            .linear(duration: 0.8).delay(.random(in: 0..<0.4)).repeatForever(autoreverses: true),
+                            value: enablePulse
+                        )
                 }
             }
-            .pushedTop()
-            .onAppear {
-                withAnimation {
-                    enablePulse = true
-                }
-            }
-            .overlay(alignment: .top) {
-                LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
-                    .maxWidth()
-                    .frame(height: 40)
+        }
+        .overlay(alignment: .top) {
+            LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
+                .maxWidth()
+                .frame(height: 40)
+        }
+        .onAppear {
+            withAnimation {
+                enablePulse = true
             }
         }
         .disabled(true)
