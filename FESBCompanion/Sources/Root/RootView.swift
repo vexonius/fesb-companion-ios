@@ -23,7 +23,7 @@ struct RootView: View {
 
             HomeView(store: store.scope(state: \.home, action: \.home), name: .home)
                 .tabItem {
-                    Label(String.home, image: "home")
+                    Label(String.home, image: ImageResource.home)
                 }
                 .tag(3)
 
@@ -41,10 +41,12 @@ struct RootView: View {
                 .tag(5)
         }
         .background(Color.surface)
-        .sheet(
-          item: $store.scope(state: \.login, action: \.login)
-        ) { store in
+        .sheet(item: $store.scope(state: \.login, action: \.login)) { store in
             LoginView(store: store)
+        }
+        .sheet(item: $store.scope(state: \.eventDetails, action: \.eventDetails)) { store in
+            TimetableEventDetailsView(store: store)
+                .presentationDetents([.medium, .large])
         }
     }
 

@@ -16,31 +16,23 @@ struct TimetableReducer {
         var model: TimetableModel = .init(date: .now, events: [])
 
         var weekdayNames: [(String, String)] {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EE"
-
-            let anotherDateFormatter = DateFormatter()
-            anotherDateFormatter.dateFormat = "d"
-
             let monday = selectedDate.next(.monday, direction: .backward, considerToday: true)
 
             let daysWithName = Array(0...4)
                 .map { ordinalDay in
                     let date = monday.addingTimeInterval(TimeInterval(86_400 * ordinalDay))
 
-                    return (dateFormatter.string(from: date), anotherDateFormatter.string(from: date))
+                    return (
+                        DateFormatter.string(withFormat: .dayName, date: date),
+                        DateFormatter.string(withFormat: .day, date: date)
+                    )
                 }
 
             return daysWithName
         }
 
         var dropDownText: String {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM dd., yyyy"
-
-            let formattedDate = dateFormatter.string(from: Date())
-
-            return formattedDate
+            return DateFormatter.string(withFormat: .dropDown, date: selectedDate)
         }
 
     }
@@ -51,10 +43,12 @@ struct TimetableReducer {
         case router(StackAction<AppRouter.State, AppRouter.Action>)
 
         case updateState(models: [TimetableEventModel], date: Date)
+        case eventDetails(model: TimetableEventModel)
 
         enum View: Equatable {
 
             case fetchTimetable
+            case eventDetails(model: TimetableEventModel)
 
         }
 
@@ -69,9 +63,15 @@ struct TimetableReducer {
                 formatter.string(from: date)
 
                 return .run { send in
-                    let models = try await repository.getTimetableEvents(for: date)
-                    await send(.updateState(models: models, date: date))
+                    do {
+                        let models = try await repository.getTimetableEvents(for: date)
+                        await send(.updateState(models: models, date: date))
+                    } catch {
+                        debugPrint(error)
+                    }
                 }
+            case .view(.eventDetails(let model)):
+                return .send(.eventDetails(model: model))
             case .updateState(let models, let date):
                 state.model = .init(date: date, events: models)
 

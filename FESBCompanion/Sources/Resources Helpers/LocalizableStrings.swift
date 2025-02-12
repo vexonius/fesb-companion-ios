@@ -5,8 +5,12 @@ extension String {
     // MARK: Common
     static let classes = String(localized: "classes")
     static let auditoryClasses = String(localized: "auditoryClasses")
-    static let laboratoryClasses = String(localized: "laboratoryClasses")
-    static let constructionClasses = String(localized: "constructionClasses")
+    static let labs = String(localized: "labs")
+    static let constructs = String(localized: "constructs")
+    static let other = String(localized: "other")
+    static let seminars = String(localized: "seminars")
+    static let exams = String(localized: "exams")
+    static let colloquiums = String(localized: "colloquiums")
 
     // MARK: Home
     static let home = String(localized: "home")
@@ -35,5 +39,17 @@ extension String {
     static let loginSubtitle = String(localized: "loginSubtitle")
     static let username = String(localized: "username")
     static let password = String(localized: "password")
+
+    // MARK: Timetable
+    static let date = String(localized: "date")
+    static let professor = String(localized: "professor")
+    static let recurring = String(localized: "recurring")
+    static let group = String(localized: "group")
+    static let name = String(localized: "name")
+    static let time = String(localized: "time")
+    static let recurringBiWeekly = String(localized: "recurringBiWeekly")
+    static let recurringWeekly = String(localized: "recurringWeekly")
+    static let recurringMonthly = String(localized: "recurringMonthly")
+    static let recurringUndefined = String(localized: "recurringUndefined")
 
 }

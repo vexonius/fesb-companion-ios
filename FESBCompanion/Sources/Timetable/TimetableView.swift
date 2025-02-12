@@ -96,6 +96,7 @@ struct TimetableView: View {
                         ySpacing: ySpacing,
                         zoomFactor: zoomFactor,
                         startOffset: store.model.startHour.inMinutes.asCGFloat)
+                    .onTapGesture { send(.eventDetails(model: event)) }
                 }
             }
             .frame(width: containerWidth, height: store.model.rows * ySpacing)
