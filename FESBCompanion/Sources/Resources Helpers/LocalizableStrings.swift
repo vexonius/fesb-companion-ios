@@ -11,6 +11,8 @@ extension String {
     static let seminars = String(localized: "seminars")
     static let exams = String(localized: "exams")
     static let colloquiums = String(localized: "colloquiums")
+    static let select = String(localized: "select")
+    static let dismiss = String(localized: "dismiss")
 
     // MARK: Home
     static let home = String(localized: "home")

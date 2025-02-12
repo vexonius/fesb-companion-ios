@@ -137,6 +137,23 @@
         }
       }
     },
+    "dismiss" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dismiss"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odustani"
+          }
+        }
+      }
+    },
     "exams" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -490,6 +507,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tjedno, do %@"
+          }
+        }
+      }
+    },
+    "select" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Odaberi"
           }
         }
       }

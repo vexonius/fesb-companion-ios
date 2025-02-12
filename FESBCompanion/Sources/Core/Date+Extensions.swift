@@ -20,10 +20,24 @@ extension Date {
                                  direction: direction)!
     }
 
-}
+    var dayOfMonth: Int {
+        Calendar.current.component(.day, from: self)
+    }
 
-public enum Weekday: Int {
+    var month: Int {
+        Calendar.current.component(.month, from: self)
+    }
 
-    case sunday = 1, monday, tuesday, wednesday, thursday, friday, saturday
+    var year: Int {
+        Calendar.current.component(.year, from: self)
+    }
+
+    func startOfMonth(using calendar: Calendar) -> Date {
+        calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? self
+    }
+
+    func add(minutes: Int) -> Date {
+        advanced(by: Double(minutes * 60))
+    }
 
 }

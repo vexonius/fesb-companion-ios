@@ -15,6 +15,7 @@ struct RootReducer {
 
         @Presents var login: LoginReducer.State?
         @Presents var eventDetails: TimetableEventDetailsReducer.State?
+        @Presents var calendar: TimetableCalendarReducer.State?
 
     }
 
@@ -28,6 +29,7 @@ struct RootReducer {
         case timetable(TimetableReducer.Action)
         case login(PresentationAction<LoginReducer.Action>)
         case eventDetails(PresentationAction<TimetableEventDetailsReducer.Action>)
+        case calendar(PresentationAction<TimetableCalendarReducer.Action>)
 
         enum View: Equatable {}
 
@@ -52,6 +54,14 @@ struct RootReducer {
                 state.eventDetails = .init(model: model)
 
                 return .none
+            case .timetable(.presentCalendar):
+                state.calendar = .init(selectedDate: state.timetable.selectedDate)
+
+                return .none
+            case .calendar(.presented(.dateSelected(let date))):
+                state.timetable.selectedDate = date
+
+                return .send(.timetable(.fetchTimetable))
             default:
                 return .none
             }
@@ -61,6 +71,9 @@ struct RootReducer {
         }
         .ifLet(\.$eventDetails, action: \.eventDetails) {
             TimetableEventDetailsReducer()
+        }
+        .ifLet(\.$calendar, action: \.calendar) {
+            TimetableCalendarReducer()
         }
     }
 
