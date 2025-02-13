@@ -14,10 +14,12 @@ extension Date {
             return self
         }
 
-        return calendar.nextDate(after: self,
-                                 matching: components,
-                                 matchingPolicy: .nextTime,
-                                 direction: direction)!
+        return calendar.nextDate(
+            after: self,
+            matching: components,
+            matchingPolicy: .nextTime,
+            direction: direction
+        )!
     }
 
     var dayOfMonth: Int {

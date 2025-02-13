@@ -4,6 +4,8 @@ import ComposableArchitecture
 @ViewAction(for: TimetableReducer.self)
 struct TimetableView: View {
 
+    private let timelineId = "timelineId"
+
     @Bindable var store: StoreOf<TimetableReducer>
     @State var containerWidth: CGFloat = 0
 
@@ -29,26 +31,22 @@ struct TimetableView: View {
                 daysInWeek
             }
 
-            scrollableGridView
+            switch store.viewState {
+            case .loading:
+                TimetableSkeleton(model: .createDummyModel())
+            case .loaded(let model):
+                scrollableGridView(model: model)
+            default:
+                EmptyView()
+            }
         }
-        .gesture(
-            MagnifyGesture()
-                .updating($zoomFactorGesture) { value, gestureState, _ in
-                    gestureState = value.magnification
-
-                    guard
-                        gestureState > store.model.minZoomFactor
-                        && gestureState < store.model.maxZoomFactor
-                    else { return }
-
-                    zoomFactor = gestureState
-                }
-        )
+        .gesture(pinchGesture(minZoomFactor: store.minZoomFactor, maxZoomFactor: store.maxZoomFactor))
         .onGeometryChange(for: CGSize.self, of: \.size) {
             containerWidth = $0.width
         }
         .onAppear {
             send(.fetchTimetable)
+            send(.startTimeline)
         }
     }
 
@@ -58,10 +56,10 @@ struct TimetableView: View {
         } label: {
             Text(store.dropDownText.capitalized)
                 .font(.fontHeading5)
-                .foregroundStyle(Color.white)
-                .padding(.vertical, 6)
+                .foregroundStyle(Color.black)
+                .padding(.vertical, 8)
                 .padding(.horizontal, .medium)
-                .background(Capsule().fill(Color.container))
+                .background(Capsule().fill(Color.white))
                 .maxWidth(alignment: .center)
         }
     }
@@ -94,51 +92,79 @@ struct TimetableView: View {
         }
     }
 
-    private var scrollableGridView: some View {
-        ScrollView {
-            ZStack {
-                ForEach(store.model.events) { event in
-                    EventView(
-                        event: event,
-                        xSpacing: xSpacing,
-                        ySpacing: ySpacing,
-                        zoomFactor: zoomFactor,
-                        startOffset: store.model.startHour.inMinutes.asCGFloat)
-                    .onTapGesture { send(.eventDetails(model: event)) }
+    private func scrollableGridView(model: TimetableModel) -> some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                ZStack {
+                    ForEach(model.events) { event in
+                        EventView(
+                            event: event,
+                            xSpacing: xSpacing,
+                            ySpacing: ySpacing,
+                            zoomFactor: zoomFactor,
+                            startOffset: model.startHour.inMinutes.asCGFloat)
+                        .onTapGesture { send(.eventDetails(model: event)) }
+                    }
+
+                    let timelineOffset = model.normalize(offset: store.timelineOffset)
+                    timeline(offset: timelineOffset)
+                }
+                .frame(width: containerWidth, height: model.rows * ySpacing)
+                .background {
+                    Path { path in
+                        for index in 1...Int(model.cols - 1) {
+                            let vOffset: CGFloat = CGFloat(index) * xSpacing
+                            path.move(to: CGPoint(x: vOffset, y: -3000))
+                            path.addLine(to: CGPoint(x: vOffset, y: 3000))
+                        }
+                        for index in 1...Int(model.rows - 1) {
+                            let hOffset: CGFloat = CGFloat(index) * ySpacing
+                            path.move(to: CGPoint(x: 0, y: hOffset))
+                            path.addLine(to: CGPoint(x: containerWidth, y: hOffset))
+                        }
+                    }
+                    .stroke(Color.container.opacity(0.8), lineWidth: 2)
+                }
+                .background {
+                    Path { path in
+                        for index in 2...Int(model.rows - 1) {
+                            let hOffset: CGFloat = CGFloat(index) * ySpacing - ySpacing / 2
+                            path.move(to: CGPoint(x: 0, y: hOffset))
+                            path.addLine(to: CGPoint(x: containerWidth, y: hOffset))
+                        }
+                    }
+                    .stroke(Color.container.opacity(0.6), style: .init(lineWidth: 2, dash: [2]))
                 }
             }
-            .frame(width: containerWidth, height: store.model.rows * ySpacing)
-            .background {
-                Path { path in
-                    for index in 1...Int(store.model.cols - 1) {
-                        let vOffset: CGFloat = CGFloat(index) * xSpacing
-                        path.move(to: CGPoint(x: vOffset, y: -3000))
-                        path.addLine(to: CGPoint(x: vOffset, y: 3000))
-                    }
-                    for index in 1...Int(store.model.rows - 1) {
-                        let hOffset: CGFloat = CGFloat(index) * ySpacing
-                        path.move(to: CGPoint(x: 0, y: hOffset))
-                        path.addLine(to: CGPoint(x: containerWidth, y: hOffset))
-                    }
+            .gradientMask(height: 40, alignment: .top)
+            .onAppear {
+                withAnimation {
+                    proxy.scrollTo(timelineId)
                 }
-                .stroke(Color.container.opacity(0.8), lineWidth: 2)
-            }
-            .background {
-                Path { path in
-                    for index in 2...Int(store.model.rows - 1) {
-                        let hOffset: CGFloat = CGFloat(index) * ySpacing - ySpacing / 2
-                        path.move(to: CGPoint(x: 0, y: hOffset))
-                        path.addLine(to: CGPoint(x: containerWidth, y: hOffset))
-                    }
-                }
-                .stroke(Color.container.opacity(0.6), style: .init(lineWidth: 2, dash: [2]))
             }
         }
-        .overlay(alignment: .top) {
-            LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
-                .maxWidth()
-                .frame(height: 40)
-        }
+    }
+
+    private func pinchGesture(minZoomFactor: CGFloat, maxZoomFactor: CGFloat) -> some Gesture {
+        MagnifyGesture()
+            .updating($zoomFactorGesture) { value, gestureState, _ in
+                gestureState = value.magnification
+
+                guard
+                    gestureState > minZoomFactor
+                    && gestureState < maxZoomFactor
+                else { return }
+
+                zoomFactor = gestureState
+            }
+    }
+
+    private func timeline(offset: CGFloat) -> some View {
+        Rectangle()
+            .fill(Color.accentRed)
+            .frame(width: containerWidth, height: 1)
+            .position(CGPoint(x: containerWidth / 2, y: offset * zoomFactor))
+            .id(timelineId)
     }
 
 }

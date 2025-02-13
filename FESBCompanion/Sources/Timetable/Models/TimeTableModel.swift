@@ -12,8 +12,6 @@ struct TimetableModel: Equatable {
     let defaultEndHour = 20
     let defaultRows: CGFloat = 17
     let defaultCols: CGFloat = 5
-    let minZoomFactor: CGFloat = 0.8
-    let maxZoomFactor: CGFloat = 2
 
     var rows: CGFloat {
         CGFloat(24 - defaultStartHour)
@@ -45,6 +43,10 @@ struct TimetableModel: Equatable {
         self.events = events
     }
 
+    func normalize(offset: CGFloat) -> CGFloat {
+        offset - startHour.inMinutes.asCGFloat
+    }
+
 }
 
 extension TimetableModel {
@@ -61,7 +63,6 @@ extension TimetableModel {
                 minute: [0, 15, 30, 45].randomElement()!
             )
             let date = Calendar.current.date(from: dateComponents)!
-            debugPrint(date.debugDescription)
 
             events.append(
                 TimetableEventModel(
