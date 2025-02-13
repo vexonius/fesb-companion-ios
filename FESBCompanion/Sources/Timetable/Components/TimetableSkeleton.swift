@@ -4,23 +4,22 @@ struct TimetableSkeleton: View {
 
     @State private var enablePulse: Bool = false
 
-    let containerWidth: CGFloat
     let model: TimetableModel
 
-    var verticalSpacing: CGFloat = 60
+    var ySpacing: CGFloat = 60
 
-    var xSpacing: CGFloat {
-        containerWidth / 5
-    }
-
-    var ySpacing: CGFloat {
-        verticalSpacing
-    }
+    var gridItems = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
 
     var body: some View {
         ScrollView {
             LazyVGrid(
-                columns: Array(repeating: GridItem(.adaptive(minimum: 50)), count: 5),
+                columns: gridItems,
                 alignment: .leading,
                 spacing: Padding.base.value
             ) {
@@ -35,11 +34,7 @@ struct TimetableSkeleton: View {
                 }
             }
         }
-        .overlay(alignment: .top) {
-            LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
-                .maxWidth()
-                .frame(height: 40)
-        }
+        .gradientMask(height: 40, alignment: .top)
         .onAppear {
             withAnimation {
                 enablePulse = true
@@ -54,11 +49,9 @@ struct TimetableSkeleton: View {
 
     @Previewable @State var containerWidth: CGFloat = 0
 
-    TimetableSkeleton(
-        containerWidth: containerWidth,
-        model: TimetableModel(date: .now, events: []))
-    .onGeometryChange(for: CGSize.self, of: \.size) {
-        containerWidth = $0.width
-    }
+    TimetableSkeleton(model: TimetableModel(date: .now, events: []))
+        .onGeometryChange(for: CGSize.self, of: \.size) {
+            containerWidth = $0.width
+        }
 
 }

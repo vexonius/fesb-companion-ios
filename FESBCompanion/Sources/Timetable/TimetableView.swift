@@ -33,7 +33,7 @@ struct TimetableView: View {
 
             switch store.viewState {
             case .loading:
-                TimetableSkeleton(containerWidth: containerWidth, model: .createDummyModel())
+                TimetableSkeleton(model: .createDummyModel())
             case .loaded(let model):
                 scrollableGridView(model: model)
             default:
@@ -56,10 +56,10 @@ struct TimetableView: View {
         } label: {
             Text(store.dropDownText.capitalized)
                 .font(.fontHeading5)
-                .foregroundStyle(Color.white)
-                .padding(.vertical, 6)
+                .foregroundStyle(Color.black)
+                .padding(.vertical, 8)
                 .padding(.horizontal, .medium)
-                .background(Capsule().fill(Color.container))
+                .background(Capsule().fill(Color.white))
                 .maxWidth(alignment: .center)
         }
     }
@@ -136,11 +136,7 @@ struct TimetableView: View {
                     .stroke(Color.container.opacity(0.6), style: .init(lineWidth: 2, dash: [2]))
                 }
             }
-            .overlay(alignment: .top) {
-                LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
-                    .maxWidth()
-                    .frame(height: 40)
-            }
+            .gradientMask(height: 40, alignment: .top)
             .onAppear {
                 withAnimation {
                     proxy.scrollTo(timelineId)
