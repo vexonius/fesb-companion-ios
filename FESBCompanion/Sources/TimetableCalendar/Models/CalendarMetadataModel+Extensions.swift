@@ -3,15 +3,21 @@ import shared
 extension CalendarMetadataModel {
 
     init(from model: CalendarMetadataResponse) {
-        id = model.id
-        name = model.name
-        startDate = model.startDate.toDate() ?? .now
-        endDate = model.endDate.toDate() ?? .now
-        startDateText = model.startDateText
-        endDateText = model.endDateText
-        category = model.category
-        colorCode = model.colorCode
-        isWorking = model.isWorking
+        let startDateText = model.startDate.filter { $0.isNumber }
+        let endDateText = model.endDate.filter { $0.isNumber }
+
+        let startDate = Double(startDateText)! / 1000
+        let endDate = Double(endDateText)! / 1000
+
+        self.init(
+            id: model.id,
+            name: model.name,
+            startDate: Date(timeIntervalSince1970: startDate),
+            endDate: Date(timeIntervalSince1970: endDate),
+            startDateText: model.startDateText,
+            endDateText: model.endDateText,
+            colorCode: MetadataColorCode(rawValue: model.colorCode) ?? .grey,
+            isWorking: model.isWorking)
     }
 
 }

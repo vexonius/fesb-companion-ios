@@ -10,7 +10,11 @@ struct TimetableCalendarView: View {
         VStack {
             CalendarView(
                 selectedDate: $store.selectedDate,
-                dateRange: store.dateRange)
+                dateForVisibleMonth: $store.dateForVisibleMonth,
+                days: store.calendarDays,
+                monthName: store.monthName,
+                shouldShowNextMonth: store.shouldShowNextMonth,
+                shouldShowPreviousMonth: store.shouldShowPreviousMonth)
             .padding(.top, .medium)
 
             Spacer()
@@ -35,6 +39,9 @@ struct TimetableCalendarView: View {
         }
         .padding(.vertical, .base)
         .background(Color.surface)
+        .onAppear {
+            send(.fetchMetadata)
+        }
     }
 
 }

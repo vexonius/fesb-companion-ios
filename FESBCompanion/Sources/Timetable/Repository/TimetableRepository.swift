@@ -28,8 +28,8 @@ class TimetableRepository: TimeTableRepositoryProtocol, DependencyKey {
 
     func getCalendarMetadata(for dateRange: DateInterval) async throws -> [CalendarMetadataModel] {
         let params = CalendarMetadataParameters(
-            dateFrom: DateFormatter.string(withFormat: .default, date: dateRange.start),
-            dateTo: DateFormatter.string(withFormat: .default, date: dateRange.end))
+            dateFrom: DateFormatter.string(withFormat: .minusSeparatedFormat, date: dateRange.start),
+            dateTo: DateFormatter.string(withFormat: .minusSeparatedFormat, date: dateRange.end))
 
         let response = try await client.getCalendarMetadata(params: params.toQueryItemsString)
 

@@ -5,6 +5,7 @@ extension DateFormatter {
     enum Format: String {
 
         case `default` = "yyyy-MM-dd"
+        case minusSeparatedFormat = "dd-MM-yyyy"
         case dropDown = "LLLL dd., yyyy"
         case dayName = "EE"
         case day = "d"

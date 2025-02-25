@@ -17,6 +17,7 @@ public extension Color {
     static let eventBlue = Color("EventBlue")
     static let eventGreen = Color("EventGreen")
     static let eventYellow = Color("EventYellow")
+    static let eventOrange = Color("EventOrange")
     static let eventPurple = Color("EventPurple")
     static let eventGrey = Color("EventGrey")
 
