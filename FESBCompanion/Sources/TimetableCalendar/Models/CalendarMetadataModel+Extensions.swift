@@ -6,8 +6,8 @@ extension CalendarMetadataModel {
         let startDateText = model.startDate.filter { $0.isNumber }
         let endDateText = model.endDate.filter { $0.isNumber }
 
-        let startDate = Double(startDateText)! / 1000
-        let endDate = Double(endDateText)! / 1000
+        let startDate = (Double(startDateText) ?? 1000) / 1000
+        let endDate = (Double(endDateText) ?? 1000 ) / 1000
 
         self.init(
             id: model.id,
