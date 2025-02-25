@@ -79,6 +79,12 @@ struct TimetableCalendarReducer {
                 }
         }
 
+        var selectedDateEvents: [CalendarMetadataModel] {
+            calendarDays
+                .filter { calendar.isDate($0.date, equalTo: selectedDate, toGranularity: .day) }
+                .flatMap { $0.events }
+        }
+
         private let calendar = Calendar.current
         private var defaultDate: Date
 

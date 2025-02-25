@@ -51,7 +51,7 @@ struct RootView: View {
         }
         .sheet(item: $store.scope(state: \.calendar, action: \.calendar)) { store in
             TimetableCalendarView(store: store)
-                .presentationDetents([.medium])
+                .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
     }

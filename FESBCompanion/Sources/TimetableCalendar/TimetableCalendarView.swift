@@ -17,25 +17,36 @@ struct TimetableCalendarView: View {
                 shouldShowPreviousMonth: store.shouldShowPreviousMonth)
             .padding(.top, .medium)
 
-            Spacer()
-
-            HStack(spacing: .large) {
-                Button(String.dismiss) {
-                    send(.dismiss)
+            ScrollView(showsIndicators: false) {
+                LazyVStack {
+                    ForEach(store.selectedDateEvents) { event in
+                        CalendarEvent(model: event)
+                    }
                 }
-                .buttonStyle(.borderless)
-                .foregroundStyle(Color.secondary)
-                .font(.fontButtonSmall)
-
-                Button(String.select) {
-                    send(.apply)
-                }
-                .buttonStyle(.borderless)
-                .foregroundStyle(Color.accentBlue)
-                .font(.fontButtonSmall)
+                .padding(.horizontal, .large)
             }
-            .padding(.horizontal, .large)
-            .maxWidth(alignment: .trailing)
+            .safeAreaInset(edge: .bottom) {
+                HStack(spacing: .large) {
+                    Button(String.dismiss) {
+                        send(.dismiss)
+                    }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(Color.secondary)
+                    .font(.fontButtonSmall)
+
+                    Button(String.select) {
+                        send(.apply)
+                    }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(Color.accentBlue)
+                    .font(.fontButtonSmall)
+                }
+                .padding(.horizontal, .large)
+                .padding(.vertical, .medium)
+                .maxWidth(alignment: .trailing)
+                .background(Color.surface)
+            }
+            .maxSize()
         }
         .padding(.vertical, .base)
         .background(Color.surface)
