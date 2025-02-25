@@ -132,8 +132,6 @@ struct TimetableCalendarReducer {
                     do {
                         let metadataEvents = try await repository.getCalendarMetadata(for: interval)
                         await send(.updateMetadata(metadataEvents))
-
-                        dump(metadataEvents)
                     } catch {
                         debugPrint(error)
                     }
