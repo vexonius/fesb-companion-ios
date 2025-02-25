@@ -139,15 +139,11 @@ private extension CalendarView {
     }
 
     private func otherSelectableMonthItemViewProvider(_ date: Date) -> some View {
-        Button {
-
-        } label: {
-            Text(DateFormatter.string(withFormat: .day, date: date))
-                .font(.fontBodyMedium)
-                .foregroundColor(.surfaceTextPrimary)
-                .opacity(0.5)
-                .padding(Padding.small)
-        }
+        Text(DateFormatter.string(withFormat: .day, date: date))
+            .font(.fontBodyMedium)
+            .foregroundColor(.surfaceTextPrimary)
+            .opacity(0.5)
+            .padding(Padding.small)
     }
 
     private func resolveBackgroundColor(for date: Date) -> Color {

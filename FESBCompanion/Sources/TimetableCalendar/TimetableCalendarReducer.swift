@@ -158,7 +158,7 @@ extension TimetableCalendarReducer.State {
 
     static var dummyEvents: [CalendarMetadataModel] =
         [
-            .init(
+            CalendarMetadataModel(
                 id: "2",
                 name: "Mine",
                 startDate: .now,
