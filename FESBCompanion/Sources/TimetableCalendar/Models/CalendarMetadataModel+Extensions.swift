@@ -6,12 +6,11 @@ extension CalendarMetadataModel {
         let startDateText = model.startDate.filter { $0.isNumber }
         let endDateText = model.endDate.filter { $0.isNumber }
 
-        let startDateTimeInterval = (Double(startDateText) ?? 1000) / 1000
-        let endDateTimeInterval = (Double(endDateText) ?? 1000 ) / 1000
+        let startDateTimeInterval = startDateText.toTimeInterval
+        let endDateTimeInterval = endDateText.toTimeInterval
 
         let startDate = Date(timeIntervalSince1970: startDateTimeInterval)
         let endDate = Date(timeIntervalSince1970: endDateTimeInterval)
-
         let isOneDayEvent = Calendar.current.isDate(startDate, inSameDayAs: endDate)
 
         self.init(

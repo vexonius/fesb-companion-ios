@@ -11,10 +11,10 @@ struct CalendarDayModel: Identifiable, Equatable {
 
     init(
         _ date: Date,
-        events: [CalendarMetadataModel],
-        isInSelectedInterval: Bool,
-        isToday: Bool,
-        isInCurrentMonth: Bool
+        events: [CalendarMetadataModel] = [],
+        isInSelectedInterval: Bool = true,
+        isToday: Bool = false,
+        isInCurrentMonth: Bool = true
     ) {
         self.id = DateFormatter.string(withFormat: .slashSeparatedFormat, date: date)
         self.date = date
@@ -28,7 +28,12 @@ struct CalendarDayModel: Identifiable, Equatable {
 
 extension CalendarDayModel {
 
-    func with(events: [CalendarMetadataModel]) -> Self {
+    func with(
+        events: [CalendarMetadataModel],
+        isInSelectedInterval: Bool,
+        isToday: Bool,
+        isInCurrentMonth: Bool
+    ) -> Self {
         CalendarDayModel(
             date,
             events: events,

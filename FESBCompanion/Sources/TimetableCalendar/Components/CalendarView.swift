@@ -117,16 +117,20 @@ private extension CalendarView {
                 Text(DateFormatter.string(withFormat: .day, date: day.date))
                     .font(.fontBodyMedium)
                     .foregroundColor(.surfaceTextPrimary)
-
+            }
+            .padding(.small)
+            .overlay(alignment: .bottom) {
                 HStack(spacing: 2) {
                     ForEach(day.events) { item in
                         Circle()
                             .fill(item.color)
                             .frame(width: 4, height: 4)
+                            .transition(.opacity)
                     }
                 }
+                .padding(.bottom, -2)
+                .animation(.easeIn(duration: 0.2), value: day.events)
             }
-            .padding(.small)
         }
     }
 

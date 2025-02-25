@@ -16,14 +16,19 @@ struct TimetableCalendarReducer {
 
         var metadataEvents: [CalendarMetadataModel] = []
 
-        var dateRange: DateInterval {
+        var dateRange: DateInterval = {
             let now = Date.now
 
             let start = Calendar.current.date(byAdding: DateComponents(year: -1), to: now) ?? .now
             let end = Calendar.current.date(byAdding: DateComponents(year: 1), to: now) ?? .now
 
             return DateInterval(start: start, end: end)
-        }
+        }()
+
+        var month: Date = .now
+        var currentMonthInterval: DateInterval?
+        var days: [Date] = []
+        var calendarDays: [CalendarDayModel] = []
 
         var shouldShowNextMonth: Bool {
             guard let nextMonthDate = calendar.nextMonthDate(of: dateForVisibleMonth) else { return false }
@@ -37,46 +42,8 @@ struct TimetableCalendarReducer {
             return dateRange.contains(calendar.startOfDay(for: previousMonthDate))
         }
 
-        var month: Date {
-            dateForVisibleMonth.startOfMonth(using: calendar)
-        }
-
         var monthName: String {
             DateFormatter.string(withFormat: .monthYear, date: month).uppercased()
-        }
-
-        var currentMonthInterval: DateInterval? {
-            guard
-                let monthInterval = calendar.dateInterval(of: .month, for: dateForVisibleMonth),
-                let monthFirstWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.start),
-                let monthLastWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.end - 1)
-            else { return nil }
-
-            return DateInterval(start: monthFirstWeek.start, end: monthLastWeek.end)
-        }
-
-        var days: [Date] {
-            guard let currentMonthInterval else { return [] }
-
-            return calendar.generateDays(for: currentMonthInterval)
-        }
-
-        var calendarDays: [CalendarDayModel] {
-            days
-                .map { date in
-                    let events = metadataEvents
-                        .filter { $0.colorCode != .white }
-                        .filter { $0.contains(date) || calendar.isDate(date, inSameDayAs: $0.startDate) }
-                    let isToday = calendar.isDateInToday(date)
-                    let isInCurrentMonth = calendar.isDate(date, equalTo: month, toGranularity: .month)
-
-                    return CalendarDayModel(
-                        date,
-                        events: events,
-                        isInSelectedInterval: true,
-                        isToday: isToday,
-                        isInCurrentMonth: isInCurrentMonth)
-                }
         }
 
         var selectedDateEvents: [CalendarMetadataModel] {
@@ -85,8 +52,8 @@ struct TimetableCalendarReducer {
                 .flatMap { $0.events }
         }
 
-        private let calendar = Calendar.current
-        private var defaultDate: Date
+        fileprivate let calendar = Calendar.current
+        fileprivate var defaultDate: Date
 
         init(selectedDate: Date) {
             self.selectedDate = selectedDate
@@ -103,6 +70,10 @@ struct TimetableCalendarReducer {
         case dateSelected(Date)
         case fetchCalendarMetadata
         case updateMetadata([CalendarMetadataModel])
+
+        // Calendar
+        case generateVisibleDays
+        case updateCalendarDays([CalendarDayModel])
 
         enum View: Equatable {
 
@@ -130,7 +101,10 @@ struct TimetableCalendarReducer {
                     await dismiss()
                 }
             case .view(.fetchMetadata):
-                return .send(.fetchCalendarMetadata)
+                state.selectedDate = .now
+                state.dateForVisibleMonth = .now
+
+                return .merge(.send(.fetchCalendarMetadata), .send(.generateVisibleDays))
             case .fetchCalendarMetadata:
                 let interval = state.dateRange
 
@@ -144,6 +118,56 @@ struct TimetableCalendarReducer {
                 }
             case .updateMetadata(let events):
                 state.metadataEvents = events
+
+                return .none
+            case .binding(\.dateForVisibleMonth):
+                return .send(.generateVisibleDays)
+            case .generateVisibleDays:
+                let dateForVisibleMonth = state.dateForVisibleMonth
+                let calendar = state.calendar
+                let metadataEvents = state.metadataEvents
+                let dateRange = state.dateRange
+
+                let month = dateForVisibleMonth.startOfMonth(using: calendar)
+
+                let monthInterval = calendar.dateInterval(of: .month, for: dateForVisibleMonth)!
+                let monthFirstWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.start)!
+                let monthLastWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.end - 1)!
+
+                let currentMonthInterval = DateInterval(start: monthFirstWeek.start, end: monthLastWeek.end)
+
+                let calendarDays = calendar
+                    .generateDays(for: currentMonthInterval)
+                    .map {
+                        CalendarDayModel(
+                            $0,
+                            isInSelectedInterval: dateRange.contains($0),
+                            isInCurrentMonth: calendar.isDate($0, equalTo: month, toGranularity: .month))
+                    }
+
+                state.calendarDays = calendarDays
+                state.month = month
+
+                return .run { send in
+                    let calendarDays = calendarDays.map { day in
+                        let events = metadataEvents
+                            .filter { $0.colorCode != .white }
+                            .filter { $0.contains(day.date) || calendar.isDate(day.date, inSameDayAs: $0.startDate) }
+                        let isToday = calendar.isDateInToday(day.date)
+                        let isInCurrentMonth = calendar.isDate(day.date, equalTo: month, toGranularity: .month)
+
+                        return day.with(
+                            events: events,
+                            isInSelectedInterval: isInCurrentMonth,
+                            isToday: isToday,
+                            isInCurrentMonth: isInCurrentMonth)
+                    }
+
+                    await send(.updateCalendarDays(calendarDays))
+                }
+                .cancellable(id: "calendarGenerationTask", cancelInFlight: true)
+            case .updateCalendarDays(let models):
+                state.calendarDays = models
 
                 return .none
             default:
@@ -166,7 +190,8 @@ extension TimetableCalendarReducer.State {
                 startDateText: "Pon",
                 endDateText: "Uto",
                 colorCode: .orange,
-                isWorking: false)
+                isWorking: false,
+                isOneDayEvent: false)
         ]
 
 }
