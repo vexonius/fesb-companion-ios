@@ -5,8 +5,8 @@ struct CalendarMetadataParameters: Encodable {
 
     enum CodingKeys: String, CodingKey {
 
-        case dateFrom = "DateFrom"
-        case dateTo = "DateTo"
+        case dateFrom = "FromDate"
+        case dateTo = "ToDate"
 
     }
 
