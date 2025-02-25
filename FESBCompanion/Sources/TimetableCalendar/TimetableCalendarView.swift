@@ -25,27 +25,7 @@ struct TimetableCalendarView: View {
                 }
                 .padding(.horizontal, .large)
             }
-            .safeAreaInset(edge: .bottom) {
-                HStack(spacing: .large) {
-                    Button(String.dismiss) {
-                        send(.dismiss)
-                    }
-                    .buttonStyle(.borderless)
-                    .foregroundStyle(Color.secondary)
-                    .font(.fontButtonSmall)
-
-                    Button(String.select) {
-                        send(.apply)
-                    }
-                    .buttonStyle(.borderless)
-                    .foregroundStyle(Color.accentBlue)
-                    .font(.fontButtonSmall)
-                }
-                .padding(.horizontal, .large)
-                .padding(.vertical, .medium)
-                .maxWidth(alignment: .trailing)
-                .background(Color.surface)
-            }
+            .safeAreaInset(edge: .bottom) { bottomBar }
             .maxSize()
         }
         .padding(.vertical, .base)
@@ -53,6 +33,28 @@ struct TimetableCalendarView: View {
         .onAppear {
             send(.fetchMetadata)
         }
+    }
+
+    private var bottomBar: some View {
+        HStack(spacing: .large) {
+            Button(String.dismiss) {
+                send(.dismiss)
+            }
+            .buttonStyle(.borderless)
+            .foregroundStyle(Color.secondary)
+            .font(.fontButtonSmall)
+
+            Button(String.select) {
+                send(.apply)
+            }
+            .buttonStyle(.borderless)
+            .foregroundStyle(Color.accentBlue)
+            .font(.fontButtonSmall)
+        }
+        .padding(.horizontal, .large)
+        .padding(.vertical, .medium)
+        .maxWidth(alignment: .trailing)
+        .background(Color.surface)
     }
 
 }

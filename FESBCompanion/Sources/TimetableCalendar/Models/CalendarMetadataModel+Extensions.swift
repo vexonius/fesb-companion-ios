@@ -6,18 +6,24 @@ extension CalendarMetadataModel {
         let startDateText = model.startDate.filter { $0.isNumber }
         let endDateText = model.endDate.filter { $0.isNumber }
 
-        let startDate = (Double(startDateText) ?? 1000) / 1000
-        let endDate = (Double(endDateText) ?? 1000 ) / 1000
+        let startDateTimeInterval = (Double(startDateText) ?? 1000) / 1000
+        let endDateTimeInterval = (Double(endDateText) ?? 1000 ) / 1000
+
+        let startDate = Date(timeIntervalSince1970: startDateTimeInterval)
+        let endDate = Date(timeIntervalSince1970: endDateTimeInterval)
+
+        let isOneDayEvent = Calendar.current.isDate(startDate, inSameDayAs: endDate)
 
         self.init(
             id: model.id,
             name: model.name,
-            startDate: Date(timeIntervalSince1970: startDate),
-            endDate: Date(timeIntervalSince1970: endDate),
+            startDate: startDate,
+            endDate: endDate,
             startDateText: model.startDateText,
             endDateText: model.endDateText,
             colorCode: MetadataColorCode(rawValue: model.colorCode) ?? .grey,
-            isWorking: model.isWorking)
+            isWorking: model.isWorking,
+            isOneDayEvent: isOneDayEvent)
     }
 
 }

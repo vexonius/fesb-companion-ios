@@ -11,16 +11,20 @@ struct CalendarMetadataModel: Identifiable, Equatable {
     let endDateText: String
     let colorCode: MetadataColorCode
     let isWorking: Bool
+    let isOneDayEvent: Bool
 
     var dateInterval: DateInterval {
-        DateInterval(
-            start: startDate.endOfDay(using: .current),
-            end: endDate.endOfDay(using: .current)
-        )
+        DateInterval(start: startDate.endOfDay(using: .current), end: endDate.endOfDay(using: .current))
     }
 
     func contains(_ date: Date) -> Bool {
         dateInterval.contains(date)
+    }
+
+    var description: String {
+        guard !isOneDayEvent else { return startDateText.capitalized }
+
+        return String(format: .calendarEventDescriptionFormat, startDateText.capitalized, endDateText.capitalized)
     }
 
     var color: Color {

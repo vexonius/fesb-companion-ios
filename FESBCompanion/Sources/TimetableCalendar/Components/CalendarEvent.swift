@@ -18,8 +18,8 @@ struct CalendarEvent: View {
                     .multilineTextAlignment(.leading)
                     .maxWidth(alignment: .leading)
 
-                Text(String(format: "%@ - %@", model.startDateText, model.endDateText))
-                    .font(.fontLabelMedium)
+                Text(model.description)
+                    .font(.fontBodyMedium)
                     .foregroundStyle(Color.surfaceTextSecondary)
                     .multilineTextAlignment(.leading)
                     .maxWidth(alignment: .leading)
@@ -43,7 +43,8 @@ struct CalendarEvent: View {
             startDateText: "Ponedjeljak 13.6.2025 - Srijeda, 15.6.2025.",
             endDateText: "Uto",
             colorCode: .orange,
-            isWorking: false)
+            isWorking: false,
+            isOneDayEvent: false)
     )
     .maxSize()
     .padding(32)
