@@ -19,7 +19,7 @@ struct TimetableCalendarView: View {
 
             ScrollView(showsIndicators: false) {
                 LazyVStack {
-                    ForEach(store.selectedDateEvents) { event in
+                    ForEach(store.selectedDayEvents) { event in
                         CalendarEvent(model: event)
                     }
                 }

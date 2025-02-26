@@ -57,7 +57,7 @@ struct TimetableCalendarReducer {
             DateFormatter.string(withFormat: .monthYear, date: month).uppercased()
         }
 
-        var selectedDateEvents: [CalendarMetadataModel] {
+        var selectedDayEvents: [CalendarMetadataModel] {
             calendarDays
                 .filter { calendar.isDate($0.date, equalTo: selectedDate, toGranularity: .day) }
                 .flatMap { $0.events }
@@ -140,7 +140,7 @@ struct TimetableCalendarReducer {
             case .updateMetadata(let events):
                 state.events = events
 
-                return .none
+                return .send(.generateVisibleDays)
             case .binding(\.dateForVisibleMonth):
                 return .send(.generateVisibleDays)
             case .generateVisibleDays:
@@ -179,7 +179,7 @@ struct TimetableCalendarReducer {
 
                     await send(.updateCalendarDays(calendarDays))
                 }
-                .cancellable(id: "calendarGenerationTask", cancelInFlight: true)
+                .cancellable(id: CancellationId.calendarGenerationTaskId, cancelInFlight: true)
             case .updateCalendarDays(let models):
                 state.calendarDays = models
 
@@ -188,6 +188,16 @@ struct TimetableCalendarReducer {
                 return .none
             }
         }
+    }
+
+}
+
+extension TimetableCalendarReducer {
+
+    enum CancellationId {
+
+        case calendarGenerationTaskId
+
     }
 
 }
