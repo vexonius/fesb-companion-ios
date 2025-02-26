@@ -53,5 +53,6 @@ extension String {
     static let recurringWeekly = String(localized: "recurringWeekly")
     static let recurringMonthly = String(localized: "recurringMonthly")
     static let recurringUndefined = String(localized: "recurringUndefined")
+    static let calendarEventDescriptionFormat = String(localized: "calendarEventDescriptionFormat")
 
 }

@@ -3,87 +3,58 @@ import SwiftUI
 public struct CalendarView: View {
 
     @Binding private var selectedDate: Date
-    @State private var dateForVisibleMonth: Date
+    @Binding private var dateForVisibleMonth: Date
+
+    var monthName: String
+    var days: [CalendarDayModel]
+    var shouldShowNextMonth: Bool
+    var shouldShowPreviousMonth: Bool
 
     private let daysInWeek = 7
 
-    private let dateRange: DateInterval
     private var calendar: Calendar
 
-    public init(
+    init(
         selectedDate: Binding<Date>,
-        dateRange: DateInterval,
+        dateForVisibleMonth: Binding<Date>,
+        days: [CalendarDayModel],
+        monthName: String,
+        shouldShowNextMonth: Bool,
+        shouldShowPreviousMonth: Bool,
         calendar: Calendar = .current
     ) {
         self._selectedDate = selectedDate
-        self.dateForVisibleMonth = selectedDate.wrappedValue
-        self.dateRange = dateRange
+        self._dateForVisibleMonth = dateForVisibleMonth
         self.calendar = calendar
+        self.days = days
+        self.monthName = monthName
+        self.shouldShowNextMonth = shouldShowNextMonth
+        self.shouldShowPreviousMonth = shouldShowPreviousMonth
     }
 
     public var body: some View {
         VStack(spacing: .base) {
             LazyVGrid(columns: Array(repeating: GridItem(), count: daysInWeek)) {
-                Section(header: headerViewProvider(month)) {
-                    ForEach(days.prefix(daysInWeek), id: \.self, content: daysOfWeekViewProvider)
-                    ForEach(days, id: \.self) { date in
-                        let dateIsInRange = dateRange.contains(date)
-                        let dateIsSelectedMonth = calendar.isDate(date, equalTo: month, toGranularity: .month)
-
-                        if dateIsInRange {
-                            if dateIsSelectedMonth {
+                Section(header: headerViewProvider(monthName)) {
+                    ForEach(days.prefix(daysInWeek), content: daysOfWeekViewProvider)
+                    ForEach(days) { date in
+                        if date.isInSelectedInterval {
+                            if date.isInCurrentMonth {
                                 selectedMonthItemViewProvider(date)
                                     .font(.fontBodySmall)
                                     .maxSize()
-                                    .background(circleHighlight(for: date))
+                                    .background(circleHighlight(for: date.date))
                             } else {
-                                otherSelectableMonthItemViewProvider(date)
+                                otherSelectableMonthItemViewProvider(date.date)
                             }
                         } else {
-                            otherMonthItemViewProvider(date)
+                            otherMonthItemViewProvider(date.date)
                         }
                     }
                 }
             }
         }
         .padding([.leading, .trailing, .bottom], .medium)
-    }
-
-}
-
-// MARK: - Computed Properties
-private extension CalendarView {
-
-    private var shouldShowNextMonth: Bool {
-        guard let nextMonthDate = calendar.nextMonthDate(of: dateForVisibleMonth) else { return false }
-
-        return dateRange.contains(calendar.startOfDay(for: nextMonthDate))
-    }
-
-    private var shouldShowPreviousMonth: Bool {
-        guard let previousMonthDate = calendar.previousMonthDate(of: dateForVisibleMonth) else { return false }
-
-        return dateRange.contains(calendar.startOfDay(for: previousMonthDate))
-    }
-
-    private var month: Date {
-        dateForVisibleMonth.startOfMonth(using: calendar)
-    }
-
-    private var days: [Date] {
-        guard
-            let monthInterval = calendar.dateInterval(of: .month, for: dateForVisibleMonth),
-            let monthFirstWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.start),
-            let monthLastWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.end - 1)
-        else { return [] }
-
-        let dateInterval = DateInterval(start: monthFirstWeek.start, end: monthLastWeek.end)
-
-        return calendar.generateDays(for: dateInterval)
-    }
-
-    private var dateInFormat: String {
-        return DateFormatter.string(withFormat: .slashSeparatedFormat, date: selectedDate)
     }
 
 }
@@ -97,7 +68,7 @@ private extension CalendarView {
             .frame(width: 32, height: 32)
     }
 
-    private func headerViewProvider(_ month: Date) -> some View {
+    private func headerViewProvider(_ month: String) -> some View {
         HStack {
             Button {
                 guard let previousMonthDate = calendar.previousMonthDate(of: dateForVisibleMonth) else { return }
@@ -111,7 +82,7 @@ private extension CalendarView {
             .frame(alignment: .leading)
             .opacity(shouldShowPreviousMonth ? 1 : 0)
 
-            Text(DateFormatter.string(withFormat: .monthYear, date: month).uppercased())
+            Text(month)
                 .font(.fontHeading5)
                 .foregroundColor(.surfaceTextPrimary)
                 .maxWidth(alignment: .center)
@@ -132,20 +103,34 @@ private extension CalendarView {
         .padding([.leading, .trailing], .base)
     }
 
-    private func daysOfWeekViewProvider(_ date: Date) -> some View {
-        Text(DateFormatter.string(withFormat: .weekDay, date: date))
+    private func daysOfWeekViewProvider(_ date: CalendarDayModel) -> some View {
+        Text(DateFormatter.string(withFormat: .weekDay, date: date.date))
             .foregroundColor(.white)
             .font(.fontLabelMedium)
     }
 
-    private func selectedMonthItemViewProvider(_ date: Date) -> some View {
+    private func selectedMonthItemViewProvider(_ day: CalendarDayModel) -> some View {
         Button {
-            selectedDate = date
+            selectedDate = day.date
         } label: {
-            Text(DateFormatter.string(withFormat: .day, date: date))
-                .font(.fontBodyMedium)
-                .foregroundColor(.surfaceTextPrimary)
-                .padding(.small)
+            VStack(spacing: 2) {
+                Text(DateFormatter.string(withFormat: .day, date: day.date))
+                    .font(.fontBodyMedium)
+                    .foregroundColor(.surfaceTextPrimary)
+            }
+            .padding(.small)
+            .overlay(alignment: .bottom) {
+                HStack(spacing: 2) {
+                    ForEach(day.events) { item in
+                        Circle()
+                            .fill(item.color)
+                            .frame(width: 4, height: 4)
+                            .transition(.opacity)
+                    }
+                }
+                .padding(.bottom, -2)
+                .animation(.easeIn(duration: 0.2), value: day.events)
+            }
         }
     }
 
@@ -158,35 +143,11 @@ private extension CalendarView {
     }
 
     private func otherSelectableMonthItemViewProvider(_ date: Date) -> some View {
-        Button(action: {
-            if dateForVisibleMonth.year == date.year {
-                if
-                    date.month < dateForVisibleMonth.month,
-                    let previousMonthDate = calendar.previousMonthDate(of: dateForVisibleMonth)
-                {
-                    dateForVisibleMonth = previousMonthDate
-                } else if
-                    date.month > dateForVisibleMonth.month,
-                    let nextMonthDate = calendar.nextMonthDate(of: dateForVisibleMonth)
-                {
-                    dateForVisibleMonth = nextMonthDate
-                }
-            } else if dateForVisibleMonth.year < date.year {
-                if let previousMonthDate = calendar.previousMonthDate(of: dateForVisibleMonth) {
-                    dateForVisibleMonth = previousMonthDate
-                }
-            } else if dateForVisibleMonth.year < date.year {
-                if let nextMonthDate = calendar.nextMonthDate(of: dateForVisibleMonth) {
-                    dateForVisibleMonth = nextMonthDate
-                }
-            }
-        }, label: {
-            Text(DateFormatter.string(withFormat: .day, date: date))
-                .font(.fontBodyMedium)
-                .foregroundColor(.surfaceTextPrimary)
-                .opacity(0.5)
-                .padding(Padding.small)
-        })
+        Text(DateFormatter.string(withFormat: .day, date: date))
+            .font(.fontBodyMedium)
+            .foregroundColor(.surfaceTextPrimary)
+            .opacity(0.5)
+            .padding(Padding.small)
     }
 
     private func resolveBackgroundColor(for date: Date) -> Color {
@@ -210,7 +171,11 @@ private extension CalendarView {
 #Preview {
     CalendarView(
         selectedDate: .constant(.now),
-        dateRange: DateInterval(start: .distantPast, end: .distantFuture),
+        dateForVisibleMonth: .constant(.now),
+        days: [],
+        monthName: "January",
+        shouldShowNextMonth: true,
+        shouldShowPreviousMonth: true,
         calendar: .current)
     Spacer()
 }
