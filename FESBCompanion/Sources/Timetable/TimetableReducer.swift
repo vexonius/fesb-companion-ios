@@ -5,7 +5,7 @@ import shared
 @Reducer
 struct TimetableReducer {
 
-    @Dependency(\.timetableRepository) private var repository: TimeTableRepositoryProtocol
+    @Dependency(\.timetableRepository) private var repository: any TimetableRepository
     @Dependency(\.continuousClock) var clock
 
     @ObservableState
@@ -76,12 +76,22 @@ struct TimetableReducer {
                 state.viewState = .loading
 
                 let date = state.selectedDate
-                let formatter = DateFormatter()
-                formatter.string(from: date)
+
+                let startDate = date.next(.monday, direction: .backward)
+                let endDate = startDate.next(.saturday, direction: .forward)
+                let minDate = DateFormatter.string(date: startDate)
+                let maxDate = DateFormatter.string(date: endDate)
+
+                let username = ProcessInfo.processInfo.environment["userId"] ?? ""
 
                 return .run { send in
                     do {
-                        let models = try await repository.getTimetableEvents(for: date)
+                        let models = try await repository.etTimetableEvents(
+                            username: username,
+                            minDate: minDate,
+                            maxDate: maxDate)
+                        .map(TimetableEventModel.init)
+
                         await send(.updateState(models: models, date: date))
                     } catch {
                         debugPrint(error)
