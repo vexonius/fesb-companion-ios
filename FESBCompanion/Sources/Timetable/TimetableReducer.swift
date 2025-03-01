@@ -23,14 +23,13 @@ struct TimetableReducer {
 
         var weekdayNames: [(String, String)] {
             let monday = selectedDate.next(.monday, direction: .backward, considerToday: true)
+            let saturday = monday.next(.saturday, direction: .forward)
 
-            let daysWithName = Array(0...4)
-                .map { ordinalDay in
-                    let date = monday.addingTimeInterval(TimeInterval(86_400 * ordinalDay))
-
+            let daysWithName = Calendar.current.generateDays(for: .init(start: monday, end: saturday))
+                .map { day in
                     return (
-                        DateFormatter.string(withFormat: .dayName, date: date),
-                        DateFormatter.string(withFormat: .day, date: date)
+                        DateFormatter.string(withFormat: .dayName, date: day),
+                        DateFormatter.string(withFormat: .day, date: day)
                     )
                 }
 
