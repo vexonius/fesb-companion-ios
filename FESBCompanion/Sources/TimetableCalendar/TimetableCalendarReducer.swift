@@ -1,12 +1,13 @@
 import Foundation
 import SwiftUI
 import ComposableArchitecture
+import shared
 
 @Reducer
 struct TimetableCalendarReducer {
 
     @Dependency(\.dismiss) private var dismiss
-    @Dependency(\.timetableRepository) private var repository: TimeTableRepositoryProtocol
+    @Dependency(\.timetableRepository) private var repository: any TimetableRepository
 
     @ObservableState
     struct State: Equatable {
@@ -121,7 +122,8 @@ struct TimetableCalendarReducer {
 
                 return .run { send in
                     do {
-                        let metadataEvents = try await repository.getCalendarMetadata(for: interval)
+                        let metadataEvents = try await repository
+                            .getTimetableEvents(username: "sjurko00", minDate: interval.start, maxDate: interval.end)
                             .filter { $0.colorCode != .white }
                             .map { item in
                                 return Calendar.current.generateDays(for: item.dateInterval)
