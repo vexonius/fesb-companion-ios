@@ -85,7 +85,7 @@ struct TimetableReducer {
 
                 return .run { send in
                     do {
-                        let models = try await repository.etTimetableEvents(
+                        let models = try await repository.getTimetableEvents(
                             username: username,
                             minDate: minDate,
                             maxDate: maxDate)
