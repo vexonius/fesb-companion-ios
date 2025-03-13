@@ -10,30 +10,50 @@ struct TimetableCalendarView: View {
         VStack {
             CalendarView(
                 selectedDate: $store.selectedDate,
-                dateRange: store.dateRange)
+                dateForVisibleMonth: $store.dateForVisibleMonth,
+                days: store.calendarDays,
+                monthName: store.monthName,
+                shouldShowNextMonth: store.shouldShowNextMonth,
+                shouldShowPreviousMonth: store.shouldShowPreviousMonth)
             .padding(.top, .medium)
 
-            Spacer()
-
-            HStack(spacing: .large) {
-                Button(String.dismiss) {
-                    send(.dismiss)
+            ScrollView(showsIndicators: false) {
+                LazyVStack {
+                    ForEach(store.selectedDayEvents) { event in
+                        CalendarEvent(model: event)
+                    }
                 }
-                .buttonStyle(.borderless)
-                .foregroundStyle(Color.secondary)
-                .font(.fontButtonSmall)
-
-                Button(String.select) {
-                    send(.apply)
-                }
-                .buttonStyle(.borderless)
-                .foregroundStyle(Color.accentBlue)
-                .font(.fontButtonSmall)
+                .padding(.horizontal, .large)
             }
-            .padding(.horizontal, .large)
-            .maxWidth(alignment: .trailing)
+            .safeAreaInset(edge: .bottom) { bottomBar }
+            .maxSize()
         }
         .padding(.vertical, .base)
+        .background(Color.surface)
+        .onAppear {
+            send(.fetchMetadata)
+        }
+    }
+
+    private var bottomBar: some View {
+        HStack(spacing: .large) {
+            Button(String.dismiss) {
+                send(.dismiss)
+            }
+            .buttonStyle(.borderless)
+            .foregroundStyle(Color.secondary)
+            .font(.fontButtonSmall)
+
+            Button(String.select) {
+                send(.apply)
+            }
+            .buttonStyle(.borderless)
+            .foregroundStyle(Color.accentBlue)
+            .font(.fontButtonSmall)
+        }
+        .padding(.horizontal, .large)
+        .padding(.vertical, .medium)
+        .maxWidth(alignment: .trailing)
         .background(Color.surface)
     }
 

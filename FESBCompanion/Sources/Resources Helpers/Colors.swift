@@ -9,6 +9,7 @@ public extension Color {
     static let accentGreen = Color("GreenAccentColor")
     static let accentRed = Color("RedAccentColor")
     static let surfaceTextPrimary = Color("SurfaceTextPrimary")
+    static let surfaceTextSecondary = Color("SurfaceTextSecondary")
     static let divider = Color("DividerColor")
     static let inputBackground = Color("InputBackgroundColor")
 
@@ -17,6 +18,7 @@ public extension Color {
     static let eventBlue = Color("EventBlue")
     static let eventGreen = Color("EventGreen")
     static let eventYellow = Color("EventYellow")
+    static let eventOrange = Color("EventOrange")
     static let eventPurple = Color("EventPurple")
     static let eventGrey = Color("EventGrey")
 

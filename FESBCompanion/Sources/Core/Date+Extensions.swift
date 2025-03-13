@@ -34,6 +34,14 @@ extension Date {
         Calendar.current.component(.year, from: self)
     }
 
+    func startOfDay(using calendar: Calendar) -> Date {
+        calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self) ?? self
+    }
+
+    func endOfDay(using calendar: Calendar) -> Date {
+        calendar.date(bySettingHour: 23, minute: 59, second: 59, of: self) ?? self
+    }
+
     func startOfMonth(using calendar: Calendar) -> Date {
         calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? self
     }
