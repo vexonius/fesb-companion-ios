@@ -122,8 +122,7 @@ struct TimetableCalendarReducer {
 
                 return .run { send in
                     do {
-                        let metadataEvents = try await repository
-                            .getTimetableEvents(username: "sjurko00", minDate: interval.start, maxDate: interval.end)
+                        let metadataEvents = try await repository.getCalendarMetadata(for: interval)
                             .filter { $0.colorCode != .white }
                             .map { item in
                                 return Calendar.current.generateDays(for: item.dateInterval)
