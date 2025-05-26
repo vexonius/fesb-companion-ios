@@ -1,7 +1,7 @@
 import ComposableArchitecture
 
 @Reducer
-struct RootReducer {
+struct TabReducer {
 
     @ObservableState
     struct State: Equatable {
@@ -13,7 +13,6 @@ struct RootReducer {
         var timetable = TimetableReducer.State()
         var xCard = XCardReducer.State()
 
-        @Presents var login: LoginReducer.State?
         @Presents var eventDetails: TimetableEventDetailsReducer.State?
         @Presents var calendar: TimetableCalendarReducer.State?
 
@@ -27,7 +26,6 @@ struct RootReducer {
         case attendance(AttendanceReducer.Action)
         case xCard(XCardReducer.Action)
         case timetable(TimetableReducer.Action)
-        case login(PresentationAction<LoginReducer.Action>)
         case eventDetails(PresentationAction<TimetableEventDetailsReducer.Action>)
         case calendar(PresentationAction<TimetableCalendarReducer.Action>)
 
@@ -65,9 +63,6 @@ struct RootReducer {
             default:
                 return .none
             }
-        }
-        .ifLet(\.$login, action: \.login) {
-            LoginReducer()
         }
         .ifLet(\.$eventDetails, action: \.eventDetails) {
             TimetableEventDetailsReducer()

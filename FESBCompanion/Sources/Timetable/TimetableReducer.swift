@@ -8,6 +8,8 @@ struct TimetableReducer {
     @Dependency(\.timetableRepository) private var repository: TimeTableRepositoryProtocol
     @Dependency(\.continuousClock) var clock
 
+    private var vault: KvaultKVault = DependenciesProvider().provideKVault()
+
     @ObservableState
     struct State: Equatable {
 
@@ -76,8 +78,13 @@ struct TimetableReducer {
                 state.viewState = .loading
 
                 let date = state.selectedDate
-                let formatter = DateFormatter()
-                formatter.string(from: date)
+
+                let startDate = date.next(.monday, direction: .backward)
+                let endDate = startDate.next(.saturday, direction: .forward)
+                let minDate = DateFormatter.string(date: startDate)
+                let maxDate = DateFormatter.string(date: endDate)
+
+                let username: String = vault.string(forKey: SecureField.username.value) ?? ""
 
                 return .run { send in
                     do {

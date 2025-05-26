@@ -1,17 +1,9 @@
 import Foundation
 
-struct AttendanceModel: Equatable, Identifiable {
-
-    let id = UUID()
-    let `class`: String
-    let semester: Semester
-    let items: [AttendanceItem]
-
-}
-
 struct AttendanceItem: Equatable, Identifiable {
 
-    let id = UUID()
+    let id: String
+    let `class`: String
     let type: String
     let attended: Int
     let absent: Int

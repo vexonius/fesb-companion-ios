@@ -1,23 +1,26 @@
 import ComposableArchitecture
+import shared
 
 @Reducer
 struct AttendanceReducer {
 
+    @Dependency(\.attendanceRepository) private var repository: AttendanceRepository
+
     @ObservableState
     struct State: Equatable {
 
-        var viewState: Loadable<[AttendanceModel]> = .initial
+        var viewState: Loadable<[AttendanceSemesterModel]> = .initial
         var selectedSemester: Semester?
 
-        fileprivate var attendanceItems: [AttendanceModel] = []
+        fileprivate var attendanceItems: [AttendanceSemesterModel] = []
 
     }
 
     enum Action: Equatable, ViewAction {
 
-        case fetched
         case filterItems(bySemester: Semester)
         case view(View)
+        case update(models: [AttendanceItem])
 
         enum View: Equatable {
 
@@ -35,9 +38,16 @@ struct AttendanceReducer {
             case .view(.fetch):
                 state.viewState = .loading
 
-                return .run { send in
-                    try? await Task.sleep(for: .seconds(5))
-                    await send(.fetched)
+                return .run { @MainActor send in
+                    do {
+                        let models = try await repository
+                            .getAttendance()
+                            .map { AttendanceItem(from: $0) }
+
+                        send(.update(models: models))
+                    } catch {
+                        debugPrint(error)
+                    }
                 }
             case .view(.select(let semester)):
                 state.selectedSemester = semester == state.selectedSemester ? nil : semester
@@ -48,9 +58,21 @@ struct AttendanceReducer {
                 }
 
                 return .send(.filterItems(bySemester: semester))
-            case .fetched:
-                state.attendanceItems = State.dummyItems
-                state.viewState = .loaded(State.dummyItems)
+            case .update(let models):
+                let modelsBySemester: [AttendanceSemesterModel] = Dictionary(grouping: models, by: \.class)
+                    .compactMap { (className: String, items: [AttendanceItem]) -> AttendanceSemesterModel? in
+                        guard
+                            let firstItem = items.first,
+                            let semester = Semester(rawValue: firstItem.semester)
+                        else {
+                            return nil
+                        }
+
+                        return AttendanceSemesterModel(class: className, semester: semester, items: items)
+                    }
+
+                state.attendanceItems = modelsBySemester
+                state.viewState = .loaded(modelsBySemester)
 
                 return .none
             case .filterItems(let semester):

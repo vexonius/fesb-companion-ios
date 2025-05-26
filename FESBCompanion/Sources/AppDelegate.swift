@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import shared
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

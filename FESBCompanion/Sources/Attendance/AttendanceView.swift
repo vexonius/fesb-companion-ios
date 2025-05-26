@@ -29,7 +29,7 @@ struct AttendanceView: View {
         .onAppear { send(.fetch) }
     }
 
-    private func render(items: [AttendanceModel]) -> some View {
+    private func render(items: [AttendanceSemesterModel]) -> some View {
         ScrollView {
             HStack(spacing: .base) {
                 ForEach(Semester.allCases) { semester in
@@ -53,7 +53,7 @@ struct AttendanceView: View {
         }
     }
 
-    private func attendanceCard(model: AttendanceModel) -> some View {
+    private func attendanceCard(model: AttendanceSemesterModel) -> some View {
         VStack(alignment: .leading, spacing: .small) {
             Text(model.class)
                 .font(Font.fontHeading3)
@@ -91,7 +91,7 @@ struct AttendanceView: View {
                 }
             }
 
-            Text(String(format: .attendanceProgressFormat, model.attended, model.required, model.required))
+            Text(String(format: .attendanceProgressFormat, model.attended, model.total, model.required))
                 .font(.fontBodyMedium)
                 .foregroundStyle(Color.text)
             }
