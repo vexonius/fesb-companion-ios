@@ -1,12 +1,13 @@
 import Foundation
 import SwiftUI
 import ComposableArchitecture
+import shared
 
 @Reducer
 struct TimetableCalendarReducer {
 
     @Dependency(\.dismiss) private var dismiss
-    @Dependency(\.timetableRepository) private var repository: TimeTableRepositoryProtocol
+    @Dependency(\.timetableRepository) private var repository: any TimetableRepository
 
     @ObservableState
     struct State: Equatable {
@@ -118,19 +119,25 @@ struct TimetableCalendarReducer {
                 return .merge(.send(.fetchCalendarMetadata), .send(.generateVisibleDays))
             case .fetchCalendarMetadata:
                 let interval = state.dateRange
+                let minDate = DateFormatter.string(date: interval.start)
+                let maxDate = DateFormatter.string(date: interval.end)
 
                 return .run { send in
                     do {
-                        let metadataEvents = try await repository.getCalendarMetadata(for: interval)
-                            .filter { $0.colorCode != .white }
-                            .map { item in
-                                return Calendar.current.generateDays(for: item.dateInterval)
-                                    .map { ($0.startOfDay(using: .current), item) }
-                            }
-                            .flatMap { $0 }
-                            .reduce(into: [Date: [CalendarMetadataModel]]()) { result, pair in
-                                result[pair.0, default: []].append(pair.1)
-                            }
+                        let metadataEvents = try await repository.getCalendarMetadata(
+                            dateFrom: minDate,
+                            dateTo: maxDate
+                        )
+                        .map { CalendarMetadataModel(from: $0) }
+                        .filter { $0.colorCode != .white }
+                        .map { item in
+                            return Calendar.current.generateDays(for: item.dateInterval)
+                                .map { ($0.startOfDay(using: .current), item) }
+                        }
+                        .flatMap { $0 }
+                        .reduce(into: [Date: [CalendarMetadataModel]]()) { result, pair in
+                            result[pair.0, default: []].append(pair.1)
+                        }
 
                         await send(.updateMetadata(metadataEvents))
                     } catch {
