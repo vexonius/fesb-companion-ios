@@ -34,9 +34,10 @@ struct RoundedButtonStyle: ButtonStyle {
             .foregroundColor(.white)
             .padding(.vertical, 12)
             .padding(.horizontal, 40)
-            .background(backgroundColor)
+//            .background(backgroundColor)
             .opacity((!isEnabled || configuration.isPressed) ? opacityPressed : opacityDefault)
-            .cornerRadius(cornerRadius)
+//            .cornerRadius(cornerRadius)
+            .glassEffect()
     }
 
 }

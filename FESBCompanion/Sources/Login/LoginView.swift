@@ -28,10 +28,16 @@ struct LoginView: View {
             }
             .padding(.bottom, .medium)
 
-            Button(String.login) {
+            Button {
                 send(.login)
+
+            } label: {
+                Text(String.login)
+                    .font(.fontButtonMedium)
+                    .padding(.horizontal, 16)
             }
-            .buttonStyle(RoundedButtonStyle())
+            .controlSize(.large)
+            .buttonStyle(.glassProminent)
             .maxWidth(alignment: .trailing)
 
             Spacer()
