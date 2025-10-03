@@ -7,7 +7,7 @@ struct TimetableCalendarView: View {
     @Bindable var store: StoreOf<TimetableCalendarReducer>
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             CalendarView(
                 selectedDate: $store.selectedDate,
                 dateForVisibleMonth: $store.dateForVisibleMonth,
@@ -29,7 +29,6 @@ struct TimetableCalendarView: View {
             .maxSize()
         }
         .padding(.vertical, .base)
-        .background(Color.surface)
         .onAppear {
             send(.fetchMetadata)
         }
@@ -54,7 +53,6 @@ struct TimetableCalendarView: View {
         .padding(.horizontal, .large)
         .padding(.vertical, .medium)
         .maxWidth(alignment: .trailing)
-        .background(Color.surface)
     }
 
 }

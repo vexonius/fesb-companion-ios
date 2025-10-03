@@ -28,6 +28,7 @@ struct CalendarEvent: View {
             .maxWidth()
         }
         .maxWidth()
+        .glassEffect(.regular.tint(model.color))
         .fixedSize(horizontal: false, vertical: true)
     }
 

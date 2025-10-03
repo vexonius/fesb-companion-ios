@@ -31,17 +31,26 @@ struct EventView: View {
                 .padding([.top, .trailing, .bottom], .small)
         }
         .frame(width: xSpacing - 6, height: CGFloat(event.minutesDelta) * zoomFactor, alignment: .topLeading)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color.container)
-                .frame(width: xSpacing - 6, height: CGFloat(event.minutesDelta) * zoomFactor)
-                .overlay(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(event.eventType.color)
-                        .frame(width: 4, height: CGFloat(event.minutesDelta) * zoomFactor - 12)
-                        .padding(.leading, 4)
-                }
-        )
+        .overlay(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 2)
+                .fill(.clear)
+                .frame(width: 2, height: CGFloat(event.minutesDelta) * zoomFactor - 12)
+                .padding(.leading, 4)
+                .glassEffect(.regular.tint(event.eventType.color))
+        }
+        .glassEffect(.regular, in: .rect(cornerRadius: 10))
+//        .background(
+//            RoundedRectangle(cornerRadius: 10)
+//                .fill(Color.container)
+//                .frame(width: xSpacing - 6, height: CGFloat(event.minutesDelta) * zoomFactor)
+//                .overlay(alignment: .leading) {
+//                    RoundedRectangle(cornerRadius: 2)
+//                        .fill(event.eventType.color)
+//                        .frame(width: 4, height: CGFloat(event.minutesDelta) * zoomFactor - 12)
+//                        .padding(.leading, 4)
+//                }
+//                .glassEffect()
+//        )
         .position(
             x: event.getPosition(xSpacing: xSpacing).x - xSpacing / 2,
             y: zoomFactor * CGFloat(event.startMinute)

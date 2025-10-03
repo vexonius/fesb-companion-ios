@@ -60,3 +60,11 @@ struct TimetableEventModel: Equatable, Identifiable {
     }
 
 }
+
+extension TimetableEventModel {
+
+    func overlaps(with other: TimetableEventModel) -> Bool {
+        return start < other.end && other.start < end
+    }
+
+}

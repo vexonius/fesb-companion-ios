@@ -33,8 +33,9 @@ struct AttendanceView: View {
         ScrollView {
             HStack(spacing: .base) {
                 ForEach(Semester.allCases) { semester in
-                    Chip(text: semester.title, isSelected: semester == store.selectedSemester)
-                        .onTapGesture { send(.select(semester: semester)) }
+                    Chip(text: semester.title, isSelected: semester == store.selectedSemester) {
+                        send(.select(semester: semester))
+                    }
                 }
             }
             .padding(.vertical, .base)
@@ -66,6 +67,7 @@ struct AttendanceView: View {
         }
         .padding(.medium)
         .maxWidth(alignment: .leading)
+        .glassEffect(.regular, in: .rect(cornerRadius: 30))
         .background(Color.container)
         .clipShape(RoundedRectangle(cornerRadius: 30))
     }

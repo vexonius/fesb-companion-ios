@@ -42,7 +42,6 @@ struct TimetableEventDetailsView: View {
         .padding(.top, .large)
         .padding(.horizontal, .large)
         .maxSize(alignment: .top)
-        .background(Color.surface.ignoresSafeArea())
     }
 
     private func cell(title: String, value: String) -> some View {

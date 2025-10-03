@@ -10,11 +10,11 @@ struct RootView: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            XCardView(store: store.scope(state: \.xCard, action: \.xCard))
-                .tabItem {
-                    Label(String.xcard, image: .card)
-                }
-                .tag(1)
+//            XCardView(store: store.scope(state: \.xCard, action: \.xCard))
+//                .tabItem {
+//                    Label(String.xcard, image: .card)
+//                }
+//                .tag(1)
             AttendanceView(store: store.scope(state: \.attendance, action: \.attendance))
                 .tabItem {
                     Label(String.attendance, image: .pieChart)
@@ -34,11 +34,11 @@ struct RootView: View {
             }
             .tag(4)
 
-            HomeView(store: store.scope(state: \.home, action: \.home), name: String.studomat)
-                .tabItem {
-                    Label(String.studomat, image: .hexagon)
-                }
-                .tag(5)
+//            HomeView(store: store.scope(state: \.home, action: \.home), name: String.studomat)
+//                .tabItem {
+//                    Label(String.studomat, image: .hexagon)
+//                }
+//                .tag(5)
         }
         .background(Color.surface)
         .sheet(item: $store.scope(state: \.login, action: \.login)) { store in
