@@ -3,9 +3,9 @@ import ProjectDescription
 let project = Project(
     name: "FESBCompanion",
     packages: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.15.2"),
-        .package(url: "https://github.com/pointfreeco/swift-navigation", from: "2.2.2"),
-        .package(url: "https://github.com/apple/swift-algorithms", from: "1.2.0")
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.22.3"),
+        .package(url: "https://github.com/pointfreeco/swift-navigation", from: "2.5.1"),
+        .package(url: "https://github.com/apple/swift-algorithms", from: "1.2.1")
     ],
     targets: [
         .target(
@@ -37,7 +37,11 @@ let project = Project(
                 .package(product: "ComposableArchitecture"),
                 .package(product: "Algorithms"),
                 .xcframework(path: "./shared.xcframework")
-            ]
+            ],
+            settings: .settings(
+                base: SettingsDictionary()
+                    .automaticCodeSigning(devTeam: "G94YBLPX8A")
+                )
         ),
         .target(
             name: "FESBCompanionTests",
