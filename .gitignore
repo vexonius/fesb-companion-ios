@@ -54,13 +54,11 @@ DerivedData/
 ### Xcode Patch ###
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 
 ### Projects ###
 *.xcodeproj
-*.xcworkspace
 
 ### Tuist derived files ###
 graph.dot
@@ -70,3 +68,8 @@ Derived/
 Tuist/.build
 *.xcframework
 *.secrets
+/FESBCompanion.xcworkspace/.tuist-generated
+/FESBCompanion.xcworkspace/contents.xcworkspacedata
+/FESBCompanion.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+/FESBCompanion.xcworkspace/xcshareddata/xcschemes/FESBCompanion-Workspace.xcscheme
+/FESBCompanion.xcworkspace/xcshareddata/xcschemes/Generate Project.xcscheme

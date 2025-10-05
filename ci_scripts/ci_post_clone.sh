@@ -1,5 +1,6 @@
 #!/bin/sh
 
+defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
 
 # Install dependencies
 brew tap tuist/tuist
